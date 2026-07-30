@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Alhamd Packaging — Boxes in Motion | Industries We Serve</title>
+<meta name="description" content="Custom packaging solutions engineered for e-commerce, retail, food, electronics, and industrial sectors.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@200;300;400;500;600;700&family=IBM+Plex+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --navy: #1C2B3B;
+  --navy-deep: #0E1820;
+  --kraft: #A07838;
+  --kraft-warm: #C49850;
+  --cream: #F5F0E8;
+  --white: #FAFAF8;
+  --mid: #4A6070;
+  --gray: #8899AA;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Inter', sans-serif;
+  background: var(--navy-deep);
+  color: var(--white);
+  overflow-x: hidden;
+  cursor: default;
+}
+
+/* ---- CURSOR DOT ---- */
+.cursor-dot {
+  width: 8px; height: 8px;
+  background: var(--kraft);
+  border-radius: 50%;
+  position: fixed;
+  pointer-events: none;
+  z-index: 9999;
+  transform: translate(-50%,-50%);
+  transition: transform 0.1s;
+}
+
+.cursor-ring {
+  width: 32px; height: 32px;
+  border: 1px solid rgba(160,120,56,0.5);
+  border-radius: 50%;
+  position: fixed;
+  pointer-events: none;
+  z-index: 9998;
+  transform: translate(-50%,-50%);
+  transition: transform 0.15s, width 0.3s, height 0.3s;
+}
+
+/* ---- NAV ---- */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 48px;
+  height: 72px;
+  background: rgba(14,24,32,0.95);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(160,120,56,0.15);
+}
+
+.nav-logo img { height: 36px; filter: brightness(0) invert(1); }
+
+.nav-links-motion {
+  display: flex;
+  align-items: center;
+  gap: 40px;
+  list-style: none;
+}
+
+.nav-links-motion a {
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(250,250,248,0.7);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.nav-links-motion a:hover { color: var(--white); }
+
+.nav-motion-cta {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.btn-motion-ghost {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--kraft-warm);
+  border: 1px solid var(--kraft-warm);
+  padding: 9px 20px;
+  text-decoration: none;
+  transition: all 0.3s;
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-motion-ghost::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--kraft-warm);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.3s;
+}
+
+.btn-motion-ghost:hover::before { transform: scaleX(1); }
+.btn-motion-ghost:hover { color: var(--navy-deep); }
+.btn-motion-ghost span { position: relative; z-index: 1; }
+
+.nav-menu-btn {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--white);
+  background: none;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 0;
+}
+
+.menu-lines {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.menu-lines span {
+  display: block;
+  width: 18px; height: 1.5px;
+  background: var(--white);
+  transition: all 0.3s;
+}
+
+/* ---- INDUSTRIES HERO ---- */
+.ind-hero {
+  padding: 160px 48px 80px;
+  border-bottom: 1px solid rgba(160,120,56,0.15);
+  position: relative;
+  overflow: hidden;
+}
+
+.ind-pre {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--kraft-warm);
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.ind-pre::before {
+  content: '';
+  width: 24px; height: 1px;
+  background: var(--kraft-warm);
+  opacity: 0.5;
+}
+
+.ind-title {
+  font-family: 'Anton', sans-serif;
+  font-size: clamp(52px, 8vw, 100px);
+  line-height: 0.95;
+  text-transform: uppercase;
+  letter-spacing: -0.01em;
+  color: var(--white);
+  margin-bottom: 24px;
+}
+
+.ind-title span {
+  color: var(--kraft-warm);
+}
+
+.ind-desc {
+  font-size: 16px;
+  line-height: 1.7;
+  color: var(--gray);
+  max-width: 600px;
+}
+
+/* ---- INDUSTRIES GRID ---- */
+.ind-grid-section {
+  padding: 80px 48px;
+}
+
+.ind-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+}
+
+.ind-card-motion {
+  background: var(--navy);
+  border: 1px solid rgba(160,120,56,0.15);
+  padding: 40px 24px;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.ind-card-motion::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: var(--kraft);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.3s;
+}
+
+.ind-card-motion:hover {
+  transform: translateY(-8px);
+  border-color: var(--kraft-warm);
+}
+
+.ind-card-motion:hover::before {
+  transform: scaleX(1);
+}
+
+.ind-card-emoji {
+  font-size: 40px;
+  margin-bottom: 20px;
+}
+
+.ind-card-name {
+  font-family: 'Anton', sans-serif;
+  font-size: 24px;
+  text-transform: uppercase;
+  color: var(--white);
+  margin-bottom: 12px;
+}
+
+.ind-card-desc {
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--gray);
+  margin-bottom: 20px;
+}
+
+.ind-card-link {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--kraft-warm);
+  margin-top: auto;
+  text-decoration: none;
+}
+
+/* ---- FULLSCREEN MENU ---- */
+.fullscreen-menu {
+  position: fixed;
+  inset: 0;
+  background: var(--navy-deep);
+  z-index: 1500;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform: scaleY(0);
+  transform-origin: top;
+  transition: transform 0.5s cubic-bezier(0.76, 0, 0.24, 1);
+}
+
+.fullscreen-menu.open {
+  transform: scaleY(1);
+}
+
+.fullscreen-menu-inner {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  text-align: center;
+}
+
+.fullscreen-menu-item {
+  font-family: 'Anton', sans-serif;
+  font-size: clamp(36px, 6vw, 72px);
+  font-weight: 400;
+  text-transform: uppercase;
+  color: rgba(250,250,248,0.4);
+  text-decoration: none;
+  line-height: 1.1;
+  transition: color 0.2s, transform 0.2s;
+  display: block;
+}
+
+.fullscreen-menu-item:hover { color: var(--kraft-warm); transform: translateX(8px); }
+
+.fullscreen-close {
+  position: absolute;
+  top: 32px; right: 48px;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(250,250,248,0.5);
+  background: none;
+  border: none;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.fullscreen-close:hover { color: var(--kraft-warm); }
+
+/* ---- FOOTER ---- */
+footer.motion-footer {
+  background: var(--navy-deep);
+  border-top: 1px solid rgba(160,120,56,0.15);
+  padding: 60px 48px 32px;
+}
+
+.footer-motion-inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 24px;
+  margin-bottom: 40px;
+}
+
+.footer-motion-logo img { height: 36px; filter: brightness(0) invert(1); }
+
+.footer-motion-links {
+  display: flex;
+  gap: 32px;
+  list-style: none;
+}
+
+.footer-motion-links a {
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(250,250,248,0.4);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.footer-motion-links a:hover { color: var(--kraft-warm); }
+
+.footer-motion-bottom {
+  border-top: 1px solid rgba(255,255,255,0.06);
+  padding-top: 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.footer-motion-copy {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  color: rgba(250,250,248,0.25);
+}
+
+@media (max-width: 1200px) {
+  .ind-cards-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 768px) {
+  nav .nav-links-motion { display: none; }
+  .ind-hero, .ind-grid-section { padding: 80px 24px; }
+  .ind-cards-grid { grid-template-columns: 1fr; }
+  .fullscreen-close { right: 24px; }
+}
+</style>
+
+<link rel="icon" type="image/png" href="assets/logos/icon-only.png">
+</head>
+<body>
+
+<!-- Cursor -->
+<div class="cursor-dot" id="cursorDot"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<!-- Fullscreen menu -->
+<div class="fullscreen-menu" id="fullscreenMenu">
+  <div class="fullscreen-menu-inner">
+    <a href="index.html" class="fullscreen-menu-item">Home</a>
+    <a href="products.html" class="fullscreen-menu-item">Products</a>
+    <a href="custom-packaging.html" class="fullscreen-menu-item">Custom Packaging</a>
+    <a href="industries.html" class="fullscreen-menu-item">Industries</a>
+    <a href="sustainability.html" class="fullscreen-menu-item">Sustainability</a>
+    <a href="about.html" class="fullscreen-menu-item">About</a>
+    <a href="contact.html" class="fullscreen-menu-item">Contact</a>
+  </div>
+  <button class="fullscreen-close" onclick="closeMenu()">Close ✕</button>
+</div>
+
+<!-- NAV -->
+<nav id="nav">
+  <div class="nav-logo"><a href="index.html"><img src="assets/logos/horizontal-logo.png" alt="Alhamd Packaging"></a></div>
+  <ul class="nav-links-motion">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="products.html">Products</a></li>
+    <li><a href="custom-packaging.html">Custom</a></li>
+    <li><a href="industries.html" style="color:var(--kraft-warm);">Industries</a></li>
+    <li><a href="about.html">About</a></li>
+  </ul>
+  <div class="nav-motion-cta">
+    <a href="contact.html" class="btn-motion-ghost"><span>Contact Us</span></a>
+    <button class="nav-menu-btn" onclick="openMenu()">
+      <span>Menu</span>
+      <div class="menu-lines">
+        <span></span><span></span><span style="width:12px;"></span>
+      </div>
+    </button>
+  </div>
+</nav>
+
+<!-- INDUSTRIES HERO -->
+<section class="ind-hero">
+  <span class="ind-pre">Sectors We Serve</span>
+  <h1 class="ind-title">PACKAGING TAILORED FOR<br>YOUR <span>INDUSTRY</span></h1>
+  <p class="ind-desc">Different sectors demand distinct structural specifications. We provide tailored corrugated profiles to meet compression, strength, and print needs.</p>
+</section>
+
+<!-- CARDS GRID -->
+<section class="ind-grid-section">
+  <div class="ind-cards-grid">
+    <!-- Card 1 -->
+    <div class="ind-card-motion">
+      <div class="ind-card-emoji"><i data-lucide="package" style="color: var(--kraft-warm); width: 32px; height: 32px;"></i></div>
+      <h3 class="ind-card-name">E-commerce</h3>
+      <p class="ind-card-desc">Tuck-in mailers and slot containers designed for unboxing experience and safe transit.</p>
+      <a href="products.html" class="ind-card-link">Explore Mailers →</a>
+    </div>
+
+    <!-- Card 2 -->
+    <div class="ind-card-motion">
+      <div class="ind-card-emoji"><i data-lucide="shirt" style="color: var(--kraft-warm); width: 32px; height: 32px;"></i></div>
+      <h3 class="ind-card-name">Fashion & Apparel</h3>
+      <p class="ind-card-desc">Dust-free, premium kraft shippers with clean brand logos for high-end clothing lines.</p>
+      <a href="products.html" class="ind-card-link">View Apparel Boxes →</a>
+    </div>
+
+    <!-- Card 3 -->
+    <div class="ind-card-motion">
+      <div class="ind-card-emoji"><i data-lucide="sparkles" style="color: var(--kraft-warm); width: 32px; height: 32px;"></i></div>
+      <h3 class="ind-card-name">Beauty & Cosmetics</h3>
+      <p class="ind-card-desc">Secure mailer structures designed to pack delicate makeup kits and glass jars.</p>
+      <a href="products.html" class="ind-card-link">View Cosmetic Mailers →</a>
+    </div>
+
+    <!-- Card 4 -->
+    <div class="ind-card-motion">
+      <div class="ind-card-emoji"><i data-lucide="utensils" style="color: var(--kraft-warm); width: 32px; height: 32px;"></i></div>
+      <h3 class="ind-card-name">Food & Beverage</h3>
+      <p class="ind-card-desc">Food-grade corrugated cartons engineered for food deliveries and bulk shipping.</p>
+      <a href="products.html" class="ind-card-link">Browse Food Cartons →</a>
+    </div>
+
+    <!-- Card 5 -->
+    <div class="ind-card-motion">
+      <div class="ind-card-emoji"><i data-lucide="smartphone" style="color: var(--kraft-warm); width: 32px; height: 32px;"></i></div>
+      <h3 class="ind-card-name">Electronics</h3>
+      <p class="ind-card-desc">Highly resistant 5-PLY corrugated boxes to wrap and transport smart devices and gadgets.</p>
+      <a href="products.html" class="ind-card-link">Explore Heavy Shippers →</a>
+    </div>
+
+    <!-- Card 6 -->
+    <div class="ind-card-motion">
+      <div class="ind-card-emoji"><i data-lucide="gift" style="color: var(--kraft-warm); width: 32px; height: 32px;"></i></div>
+      <h3 class="ind-card-name">Gifting</h3>
+      <p class="ind-card-desc">Subscription boxes featuring premium colored kraft board liners and laminations.</p>
+      <a href="products.html" class="ind-card-link">Shop Subscriptions →</a>
+    </div>
+
+    <!-- Card 7 -->
+    <div class="ind-card-motion">
+      <div class="ind-card-emoji"><i data-lucide="factory" style="color: var(--kraft-warm); width: 32px; height: 32px;"></i></div>
+      <h3 class="ind-card-name">Industrial</h3>
+      <p class="ind-card-desc">High-strength 7-PLY triple-wall cartons engineered to move massive spare parts.</p>
+      <a href="products.html" class="ind-card-link">Explore 7-PLY Cartons →</a>
+    </div>
+
+    <!-- Card 8 -->
+    <div class="ind-card-motion">
+      <div class="ind-card-emoji"><i data-lucide="shopping-bag" style="color: var(--kraft-warm); width: 32px; height: 32px;"></i></div>
+      <h3 class="ind-card-name">Retail Display</h3>
+      <p class="ind-card-desc">Shelf-ready, custom die-cut box layouts that stand out at physical retail fronts.</p>
+      <a href="products.html" class="ind-card-link">Shop Retail Displays →</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="motion-footer">
+  <div class="footer-motion-inner">
+    <div class="footer-motion-logo">
+      <img src="assets/logos/horizontal-logo.png" alt="Alhamd Packaging">
+    </div>
+    <ul class="footer-motion-links">
+      <li><a href="products.html">Products</a></li>
+      <li><a href="custom-packaging.html">Custom</a></li>
+      <li><a href="industries.html">Industries</a></li>
+      <li><a href="sustainability.html">Sustainability</a></li>
+      <li><a href="about.html">About</a></li>
+    </ul>
+  </div>
+  <div class="footer-motion-bottom">
+    <div class="footer-motion-copy">© 2026 Alhamd Packaging — Design Concept 03: Boxes in Motion</div>
+    <div style="display:flex;gap:20px;">
+      <a href="#" style="font-family:'IBM Plex Mono',monospace;font-size:9px;color:rgba(250,250,248,0.25);text-decoration:none;">← All Concepts</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+// Cursor
+const dot = document.getElementById('cursorDot');
+const ring = document.getElementById('cursorRing');
+let mouseX = 0, mouseY = 0;
+let ringX = 0, ringY = 0;
+
+document.addEventListener('mousemove', e => {
+  mouseX = e.clientX; mouseY = e.clientY;
+  dot.style.left = mouseX + 'px';
+  dot.style.top = mouseY + 'px';
+});
+
+function animateRing() {
+  ringX += (mouseX - ringX) * 0.12;
+  ringY += (mouseY - ringY) * 0.12;
+  ring.style.left = ringX + 'px';
+  ring.style.top = ringY + 'px';
+  requestAnimationFrame(animateRing);
+}
+animateRing();
+
+// Menu
+function openMenu() { document.getElementById('fullscreenMenu').classList.add('open'); document.body.style.overflow = 'hidden'; }
+function closeMenu() { document.getElementById('fullscreenMenu').classList.remove('open'); document.body.style.overflow = ''; }
+</script>
+<script src="https://unpkg.com/lucide@latest"></script>
+<script>lucide.createIcons();</script>
+</body>
+</html>

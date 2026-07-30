@@ -1,0 +1,875 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Alhamd Packaging — Boxes in Motion | Custom Configurator</title>
+<meta name="description" content="Configure your custom packaging. Select box types, dimensions, thickness, and design specifications.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@200;300;400;500;600;700&family=IBM+Plex+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --navy: #1C2B3B;
+  --navy-deep: #0E1820;
+  --kraft: #A07838;
+  --kraft-warm: #C49850;
+  --cream: #F5F0E8;
+  --white: #FAFAF8;
+  --mid: #4A6070;
+  --gray: #8899AA;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Inter', sans-serif;
+  background: var(--navy-deep);
+  color: var(--white);
+  overflow-x: hidden;
+  cursor: default;
+}
+
+/* ---- CURSOR DOT ---- */
+.cursor-dot {
+  width: 8px; height: 8px;
+  background: var(--kraft);
+  border-radius: 50%;
+  position: fixed;
+  pointer-events: none;
+  z-index: 9999;
+  transform: translate(-50%,-50%);
+  transition: transform 0.1s;
+}
+
+.cursor-ring {
+  width: 32px; height: 32px;
+  border: 1px solid rgba(160,120,56,0.5);
+  border-radius: 50%;
+  position: fixed;
+  pointer-events: none;
+  z-index: 9998;
+  transform: translate(-50%,-50%);
+  transition: transform 0.15s, width 0.3s, height 0.3s;
+}
+
+/* ---- NAV ---- */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 48px;
+  height: 72px;
+  background: rgba(14,24,32,0.95);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(160,120,56,0.15);
+}
+
+.nav-logo img { height: 36px; filter: brightness(0) invert(1); }
+
+.nav-links-motion {
+  display: flex;
+  align-items: center;
+  gap: 40px;
+  list-style: none;
+}
+
+.nav-links-motion a {
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(250,250,248,0.7);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.nav-links-motion a:hover { color: var(--white); }
+
+.nav-motion-cta {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.btn-motion-ghost {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--kraft-warm);
+  border: 1px solid var(--kraft-warm);
+  padding: 9px 20px;
+  text-decoration: none;
+  transition: all 0.3s;
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-motion-ghost::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--kraft-warm);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.3s;
+}
+
+.btn-motion-ghost:hover::before { transform: scaleX(1); }
+.btn-motion-ghost:hover { color: var(--navy-deep); }
+.btn-motion-ghost span { position: relative; z-index: 1; }
+
+.nav-menu-btn {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--white);
+  background: none;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 0;
+}
+
+.menu-lines {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.menu-lines span {
+  display: block;
+  width: 18px; height: 1.5px;
+  background: var(--white);
+  transition: all 0.3s;
+}
+
+/* ---- CONFIGURATOR LAYOUT ---- */
+.config-layout {
+  display: grid;
+  grid-template-columns: 1fr 380px;
+  min-height: 100vh;
+  padding-top: 72px;
+}
+
+/* LEFT SIDE: STEP WORKFLOW */
+.config-steps-main {
+  padding: 60px 48px;
+  border-right: 1px solid rgba(160,120,56,0.15);
+}
+
+.step-eyebrow {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--kraft-warm);
+  margin-bottom: 8px;
+}
+
+.step-heading {
+  font-family: 'Anton', sans-serif;
+  font-size: clamp(36px, 5vw, 64px);
+  text-transform: uppercase;
+  line-height: 1.0;
+  margin-bottom: 32px;
+}
+
+.step-panel-motion {
+  display: none;
+}
+
+.step-panel-motion.active {
+  display: block;
+}
+
+/* Options select grid */
+.config-grid-options {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-bottom: 40px;
+}
+
+.option-motion-card {
+  background: var(--navy);
+  border: 1px solid rgba(160,120,56,0.2);
+  padding: 24px 16px;
+  cursor: pointer;
+  transition: all 0.25s;
+  text-align: center;
+}
+
+.option-motion-card:hover {
+  border-color: var(--kraft-warm);
+}
+
+.option-motion-card.selected {
+  border-color: var(--kraft-warm);
+  background: rgba(160,120,56,0.1);
+}
+
+.option-motion-icon {
+  font-size: 32px;
+  margin-bottom: 12px;
+}
+
+.option-motion-title {
+  font-family: 'Anton', sans-serif;
+  font-size: 18px;
+  text-transform: uppercase;
+  color: var(--white);
+}
+
+/* Custom form elements for dimensions */
+.input-dims-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  max-width: 600px;
+  margin-bottom: 40px;
+}
+
+.dim-input-field-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.dim-input-label {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--gray);
+}
+
+.dim-text-input {
+  background: var(--navy-deep);
+  border: 1px solid rgba(160,120,56,0.3);
+  color: var(--white);
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 16px;
+  padding: 14px;
+  outline: none;
+}
+
+.dim-text-input:focus {
+  border-color: var(--kraft-warm);
+}
+
+/* Contact info form */
+.form-info-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  max-width: 700px;
+  margin-bottom: 40px;
+}
+
+.form-info-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.form-info-group.full-width {
+  grid-column: span 2;
+}
+
+/* Buttons */
+.step-nav-buttons {
+  display: flex;
+  gap: 16px;
+}
+
+.btn-motion-step {
+  font-family: 'Anton', sans-serif;
+  font-size: 16px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 14px 32px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.25s;
+}
+
+.btn-motion-step-next {
+  background: var(--kraft);
+  color: var(--navy-deep);
+}
+
+.btn-motion-step-next:hover {
+  background: var(--kraft-warm);
+}
+
+.btn-motion-step-prev {
+  background: transparent;
+  color: var(--gray);
+  border: 1px solid rgba(136,153,170,0.2) !important;
+}
+
+.btn-motion-step-prev:hover {
+  border-color: var(--kraft-warm) !important;
+  color: var(--kraft-warm);
+}
+
+/* RIGHT SIDE: LIVE SPECIFICATION OVERVIEW */
+.config-spec-sidebar {
+  padding: 40px 32px;
+  background: #111e2a;
+  position: sticky;
+  top: 72px;
+  height: calc(100vh - 72px);
+  display: flex;
+  flex-direction: column;
+}
+
+.spec-sidebar-title {
+  font-family: 'Anton', sans-serif;
+  font-size: 24px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  border-bottom: 1px solid rgba(160,120,56,0.2);
+  padding-bottom: 16px;
+  margin-bottom: 24px;
+}
+
+.spec-overview-item {
+  display: flex;
+  justify-content: space-between;
+  font-size: 13px;
+  border-bottom: 1px solid rgba(160,120,56,0.1);
+  padding: 12px 0;
+}
+
+.spec-overview-label {
+  font-family: 'IBM Plex Mono', monospace;
+  color: var(--gray);
+}
+
+.spec-overview-value {
+  color: var(--white);
+  font-weight: 500;
+}
+
+/* ---- CONFIRMATION VIEW ---- */
+.success-screen {
+  text-align: center;
+  padding: 80px 48px;
+  max-width: 600px;
+  margin: 0 auto;
+  display: none;
+}
+
+.success-screen.active {
+  display: block;
+}
+
+.success-icon {
+  font-size: 64px;
+  margin-bottom: 24px;
+}
+
+/* ---- FULLSCREEN MENU ---- */
+.fullscreen-menu {
+  position: fixed;
+  inset: 0;
+  background: var(--navy-deep);
+  z-index: 1500;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform: scaleY(0);
+  transform-origin: top;
+  transition: transform 0.5s cubic-bezier(0.76, 0, 0.24, 1);
+}
+
+.fullscreen-menu.open {
+  transform: scaleY(1);
+}
+
+.fullscreen-menu-inner {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  text-align: center;
+}
+
+.fullscreen-menu-item {
+  font-family: 'Anton', sans-serif;
+  font-size: clamp(36px, 6vw, 72px);
+  font-weight: 400;
+  text-transform: uppercase;
+  color: rgba(250,250,248,0.4);
+  text-decoration: none;
+  line-height: 1.1;
+  transition: color 0.2s, transform 0.2s;
+  display: block;
+}
+
+.fullscreen-menu-item:hover { color: var(--kraft-warm); transform: translateX(8px); }
+
+.fullscreen-close {
+  position: absolute;
+  top: 32px; right: 48px;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(250,250,248,0.5);
+  background: none;
+  border: none;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.fullscreen-close:hover { color: var(--kraft-warm); }
+
+@media (max-width: 1024px) {
+  .config-layout { grid-template-columns: 1fr; }
+  .config-spec-sidebar { position: static; height: auto; border-top: 1px solid rgba(160,120,56,0.15); }
+}
+
+@media (max-width: 768px) {
+  nav .nav-links-motion { display: none; }
+  .config-grid-options { grid-template-columns: 1fr; }
+  .input-dims-row { grid-template-columns: 1fr; }
+  .form-info-grid { grid-template-columns: 1fr; }
+  .form-info-group.full-width { grid-column: span 1; }
+  .fullscreen-close { right: 24px; }
+}
+
+/* ---- CUSTOM TOAST & VALIDATION ---- */
+#toast-container { position: fixed; top: 24px; right: 24px; z-index: 9999; display: flex; flex-direction: column; gap: 12px; pointer-events: none; }
+.custom-toast { background: var(--navy-deep); border: 1px solid #ff4444; color: var(--white); padding: 16px 24px; border-radius: 4px; font-family: 'Inter', sans-serif; font-size: 14px; font-weight: 500; display: flex; align-items: center; gap: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); transform: translateX(120%); transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1); pointer-events: auto; }
+.custom-toast.show { transform: translateX(0); }
+.custom-toast i { color: #ff4444; }
+.error-field { border-color: #ff4444 !important; background: rgba(255, 68, 68, 0.05) !important; animation: shake 0.4s ease-in-out; }
+@keyframes shake { 0%, 100% { transform: translateX(0); } 25% { transform: translateX(-4px); } 75% { transform: translateX(4px); } }
+</style>
+
+
+<link rel="icon" type="image/png" href="assets/logos/icon-only.png">
+</head>
+<body>
+
+<!-- Cursor -->
+<div class="cursor-dot" id="cursorDot"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<!-- Fullscreen menu -->
+<div class="fullscreen-menu" id="fullscreenMenu">
+  <div class="fullscreen-menu-inner">
+    <a href="index.html" class="fullscreen-menu-item">Home</a>
+    <a href="products.html" class="fullscreen-menu-item">Products</a>
+    <a href="custom-packaging.html" class="fullscreen-menu-item">Custom Packaging</a>
+    <a href="industries.html" class="fullscreen-menu-item">Industries</a>
+    <a href="sustainability.html" class="fullscreen-menu-item">Sustainability</a>
+    <a href="about.html" class="fullscreen-menu-item">About</a>
+    <a href="contact.html" class="fullscreen-menu-item">Contact</a>
+  </div>
+  <button class="fullscreen-close" onclick="closeMenu()">Close ✕</button>
+</div>
+
+<!-- NAV -->
+<nav id="nav">
+  <div class="nav-logo"><a href="index.html"><img src="assets/logos/horizontal-logo.png" alt="Alhamd Packaging"></a></div>
+  <ul class="nav-links-motion">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="products.html">Products</a></li>
+    <li><a href="custom-packaging.html" style="color:var(--kraft-warm);">Custom</a></li>
+    <li><a href="industries.html">Industries</a></li>
+    <li><a href="about.html">About</a></li>
+  </ul>
+  <div class="nav-motion-cta">
+    <a href="contact.html" class="btn-motion-ghost"><span>Contact Us</span></a>
+    <button class="nav-menu-btn" onclick="openMenu()">
+      <span>Menu</span>
+      <div class="menu-lines">
+        <span></span><span></span><span style="width:12px;"></span>
+      </div>
+    </button>
+  </div>
+</nav>
+
+<!-- CONFIG CONTENT -->
+<div class="config-layout" id="configuratorLayout">
+  
+  <!-- LEFT: STEP FLOW -->
+  <main class="config-steps-main">
+    
+    <!-- STEP 1: BOX TYPE -->
+    <div class="step-panel-motion active" id="step1">
+      <span class="step-eyebrow">Step 01 / 06</span>
+      <h2 class="step-heading">Choose Box Type</h2>
+      <div class="config-grid-options">
+        <div class="option-motion-card selected" onclick="selectBoxType('Shipping Box', this)">
+          <div class="option-motion-icon"><i data-lucide="package" style="color: var(--kraft-warm); width: 32px; height: 32px;"></i></div>
+          <div class="option-motion-title">Shipping Box</div>
+        </div>
+        <div class="option-motion-card" onclick="selectBoxType('Mailer Box', this)">
+          <div class="option-motion-icon"><i data-lucide="mail" style="color: var(--kraft-warm); width: 32px; height: 32px;"></i></div>
+          <div class="option-motion-title">Mailer Box</div>
+        </div>
+        <div class="option-motion-card" onclick="selectBoxType('Printed Box', this)">
+          <div class="option-motion-icon"><i data-lucide="palette" style="color: var(--kraft-warm); width: 32px; height: 32px;"></i></div>
+          <div class="option-motion-title">Printed Box</div>
+        </div>
+      </div>
+      <div class="step-nav-buttons">
+        <button class="btn-motion-step btn-motion-step-next" onclick="nextStep(2)">Next Step →</button>
+      </div>
+    </div>
+
+    <!-- STEP 2: DIMENSIONS -->
+    <div class="step-panel-motion" id="step2">
+      <span class="step-eyebrow">Step 02 / 06</span>
+      <h2 class="step-heading">Enter Dimensions</h2>
+      <div class="input-dims-row">
+        <div class="dim-input-field-wrapper">
+          <label class="dim-input-label">Length (mm)</label>
+          <input type="number" class="dim-text-input" placeholder="e.g. 200" id="inputL" oninput="updateDims()">
+        </div>
+        <div class="dim-input-field-wrapper">
+          <label class="dim-input-label">Width (mm)</label>
+          <input type="number" class="dim-text-input" placeholder="e.g. 150" id="inputW" oninput="updateDims()">
+        </div>
+        <div class="dim-input-field-wrapper">
+          <label class="dim-input-label">Height (mm)</label>
+          <input type="number" class="dim-text-input" placeholder="e.g. 100" id="inputH" oninput="updateDims()">
+        </div>
+      </div>
+      <div class="step-nav-buttons">
+        <button class="btn-motion-step btn-motion-step-prev" onclick="prevStep(1)">← Back</button>
+        <button class="btn-motion-step btn-motion-step-next" onclick="nextStep(3)">Next Step →</button>
+      </div>
+    </div>
+
+    <!-- STEP 3: MATERIAL -->
+    <div class="step-panel-motion" id="step3">
+      <span class="step-eyebrow">Step 03 / 06</span>
+      <h2 class="step-heading">Select Material</h2>
+      <div class="config-grid-options">
+        <div class="option-motion-card selected" onclick="selectMaterial('Natural Kraft', this)">
+          <div class="option-motion-icon"><i data-lucide="box" style="color: var(--kraft-warm); width: 32px; height: 32px;"></i></div>
+          <div class="option-motion-title">Natural Kraft</div>
+        </div>
+        <div class="option-motion-card" onclick="selectMaterial('White Premium', this)">
+          <div class="option-motion-icon"><i data-lucide="box-select" style="color: var(--kraft-warm); width: 32px; height: 32px;"></i></div>
+          <div class="option-motion-title">White Premium</div>
+        </div>
+      </div>
+      <div class="step-nav-buttons">
+        <button class="btn-motion-step btn-motion-step-prev" onclick="prevStep(2)">← Back</button>
+        <button class="btn-motion-step btn-motion-step-next" onclick="nextStep(4)">Next Step →</button>
+      </div>
+    </div>
+
+    <!-- STEP 4: PLY / STRENGTH -->
+    <div class="step-panel-motion" id="step4">
+      <span class="step-eyebrow">Step 04 / 06</span>
+      <h2 class="step-heading">Board Ply</h2>
+      <div class="config-grid-options">
+        <div class="option-motion-card selected" onclick="selectPly('3-PLY (Standard)', this)">
+          <div class="option-motion-icon"><i data-lucide="layers" style="color: var(--kraft-warm); width: 32px; height: 32px;"></i></div>
+          <div class="option-motion-title">3-PLY Standard</div>
+        </div>
+        <div class="option-motion-card" onclick="selectPly('5-PLY (Heavy Duty)', this)">
+          <div class="option-motion-icon"><i data-lucide="package" style="color: var(--kraft-warm); width: 32px; height: 32px;"></i></div>
+          <div class="option-motion-title">5-PLY Heavy Duty</div>
+        </div>
+        <div class="option-motion-card" onclick="selectPly('7-PLY (Industrial)', this)">
+          <div class="option-motion-icon"><i data-lucide="boxes" style="color: var(--kraft-warm); width: 32px; height: 32px;"></i></div>
+          <div class="option-motion-title">7-PLY Industrial</div>
+        </div>
+      </div>
+      <div class="step-nav-buttons">
+        <button class="btn-motion-step btn-motion-step-prev" onclick="prevStep(3)">← Back</button>
+        <button class="btn-motion-step btn-motion-step-next" onclick="nextStep(5)">Next Step →</button>
+      </div>
+    </div>
+
+    <!-- STEP 5: QUANTITY -->
+    <div class="step-panel-motion" id="step5">
+      <span class="step-eyebrow">Step 05 / 06</span>
+      <h2 class="step-heading">Enter Quantity</h2>
+      <div class="input-dims-row" style="grid-template-columns: 1fr;">
+        <div class="dim-input-field-wrapper" style="max-width: 250px;">
+          <label class="dim-input-label">Quantity (Min: 100)</label>
+          <input type="number" class="dim-text-input" value="500" min="100" id="inputQty" oninput="updateQty()">
+        </div>
+      </div>
+      <div class="step-nav-buttons">
+        <button class="btn-motion-step btn-motion-step-prev" onclick="prevStep(4)">← Back</button>
+        <button class="btn-motion-step btn-motion-step-next" onclick="nextStep(6)">Next Step →</button>
+      </div>
+    </div>
+
+    <!-- STEP 6: BUSINESS INFORMATION -->
+    <div class="step-panel-motion" id="step6">
+      <span class="step-eyebrow">Step 06 / 06</span>
+      <h2 class="step-heading">Your Information</h2>
+      <div class="form-info-grid">
+        <div class="form-info-group">
+          <label class="dim-input-label">Company Name</label>
+          <input type="text" class="dim-text-input" placeholder="Brand Name" id="infoCompany" oninput="updateInfo()">
+        </div>
+        <div class="form-info-group">
+          <label class="dim-input-label">Contact Person</label>
+          <input type="text" class="dim-text-input" placeholder="Full Name" id="infoName">
+        </div>
+        <div class="form-info-group">
+          <label class="dim-input-label">Email Address</label>
+          <input type="email" class="dim-text-input" placeholder="email@company.com" id="infoEmail">
+        </div>
+        <div class="form-info-group">
+          <label class="dim-input-label">Location / City</label>
+          <input type="text" class="dim-text-input" placeholder="Mumbai, IN" id="infoLocation">
+        </div>
+      </div>
+      <div class="step-nav-buttons">
+        <button class="btn-motion-step btn-motion-step-prev" onclick="prevStep(5)">← Back</button>
+        <button class="btn-motion-step btn-motion-step-next" onclick="submitConfiguration()">Submit Request →</button>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- RIGHT: LIVE SPEC OVERVIEW -->
+  <aside class="config-spec-sidebar">
+    <h3 class="spec-sidebar-title">Live Spec</h3>
+    <div class="spec-overview-item">
+      <span class="spec-overview-label">Box Format</span>
+      <span class="spec-overview-value" id="specFormat">Shipping Box</span>
+    </div>
+    <div class="spec-overview-item">
+      <span class="spec-overview-label">Dimensions</span>
+      <span class="spec-overview-value" id="specDims">—</span>
+    </div>
+    <div class="spec-overview-item">
+      <span class="spec-overview-label">Board Kraft</span>
+      <span class="spec-overview-value" id="specKraft">Natural Kraft</span>
+    </div>
+    <div class="spec-overview-item">
+      <span class="spec-overview-label">Thickness</span>
+      <span class="spec-overview-value" id="specPly">3-PLY (Standard)</span>
+    </div>
+    <div class="spec-overview-item">
+      <span class="spec-overview-label">Total Units</span>
+      <span class="spec-overview-value" id="specQty">500 units</span>
+    </div>
+    <div class="spec-overview-item">
+      <span class="spec-overview-label">Company</span>
+      <span class="spec-overview-value" id="specCompany">—</span>
+    </div>
+  </aside>
+
+</div>
+
+<!-- SUCCESS SCREEN -->
+<div class="success-screen" id="successScreen">
+  <div class="success-icon">✓</div>
+  <h1 class="step-heading" style="font-size: 48px; color: var(--kraft-warm);">Request Received</h1>
+  <p style="font-size: 15px; color: var(--gray); line-height: 1.7; margin-bottom: 32px;">Your custom box configuration request has been successfully submitted to our design studio. One of our structural design experts will reach out to you with physical sizing and unit quote details.</p>
+  <div style="display: flex; gap: 16px; justify-content: center;">
+    <a href="products.html" class="btn-motion-step btn-motion-step-next" style="text-decoration: none;">Explore Range</a>
+    <a href="index.html" class="btn-motion-step btn-motion-step-prev" style="text-decoration: none;">Back Home</a>
+  </div>
+</div>
+
+<script>
+
+function showToast(message) {
+  const container = document.getElementById('toast-container');
+  const toast = document.createElement('div');
+  toast.className = 'custom-toast';
+  toast.innerHTML = `<i data-lucide="alert-circle" style="width:20px;height:20px;"></i> <span>${message}</span>`;
+  container.appendChild(toast);
+  if(typeof lucide !== 'undefined') { lucide.createIcons(); }
+  setTimeout(() => toast.classList.add('show'), 10);
+  setTimeout(() => {
+    toast.classList.remove('show');
+    setTimeout(() => toast.remove(), 400);
+  }, 4000);
+}
+
+function clearErrors() {
+  document.querySelectorAll('.error-field').forEach(el => el.classList.remove('error-field'));
+}
+
+// Cursor
+const dot = document.getElementById('cursorDot');
+const ring = document.getElementById('cursorRing');
+let mouseX = 0, mouseY = 0;
+let ringX = 0, ringY = 0;
+
+document.addEventListener('mousemove', e => {
+  mouseX = e.clientX; mouseY = e.clientY;
+  dot.style.left = mouseX + 'px';
+  dot.style.top = mouseY + 'px';
+});
+
+function animateRing() {
+  ringX += (mouseX - ringX) * 0.12;
+  ringY += (mouseY - ringY) * 0.12;
+  ring.style.left = ringX + 'px';
+  ring.style.top = ringY + 'px';
+  requestAnimationFrame(animateRing);
+}
+animateRing();
+
+// Menu
+function openMenu() { document.getElementById('fullscreenMenu').classList.add('open'); document.body.style.overflow = 'hidden'; }
+function closeMenu() { document.getElementById('fullscreenMenu').classList.remove('open'); document.body.style.overflow = ''; }
+
+// Config steps logic
+function nextStep(stepNum) {
+  const currentStep = stepNum - 1;
+  
+  if (currentStep === 2) {
+    const l = document.getElementById('inputL').value;
+    const w = document.getElementById('inputW').value;
+    const h = document.getElementById('inputH').value;
+    if (!l || !w || !h || l <= 0 || w <= 0 || h <= 0) {
+      alert("Please enter valid dimensions for Length, Width, and Height before proceeding.");
+      return;
+    }
+  }
+  
+  if (currentStep === 5) {
+    const qty = document.getElementById('inputQty').value;
+    if (!qty || qty < 100) {
+      alert("Please enter a valid quantity (minimum 100) before proceeding.");
+      return;
+    }
+  }
+
+  document.querySelectorAll('.step-panel-motion').forEach(panel => {
+    panel.classList.remove('active');
+  });
+  document.getElementById('step' + stepNum).classList.add('active');
+}
+
+function prevStep(stepNum) {
+  document.querySelectorAll('.step-panel-motion').forEach(panel => {
+    panel.classList.remove('active');
+  });
+  document.getElementById('step' + stepNum).classList.add('active');
+}
+
+// Config selection updates
+function selectBoxType(val, el) {
+  document.getElementById('specFormat').textContent = val;
+  deselectAll(el.parentElement);
+  el.classList.add('selected');
+}
+
+function selectMaterial(val, el) {
+  document.getElementById('specKraft').textContent = val;
+  deselectAll(el.parentElement);
+  el.classList.add('selected');
+}
+
+function selectPly(val, el) {
+  document.getElementById('specPly').textContent = val;
+  deselectAll(el.parentElement);
+  el.classList.add('selected');
+}
+
+function deselectAll(parent) {
+  parent.querySelectorAll('.option-motion-card').forEach(card => {
+    card.classList.remove('selected');
+  });
+}
+
+function updateDims() {
+  const l = document.getElementById('inputL').value || '0';
+  const w = document.getElementById('inputW').value || '0';
+  const h = document.getElementById('inputH').value || '0';
+  document.getElementById('specDims').textContent = `${l} × ${w} × ${h} mm`;
+}
+
+function updateQty() {
+  const qty = document.getElementById('inputQty').value || '0';
+  document.getElementById('specQty').textContent = `${parseInt(qty).toLocaleString()} units`;
+}
+
+function updateInfo() {
+  const company = document.getElementById('infoCompany').value || '—';
+  document.getElementById('specCompany').textContent = company;
+}
+
+function submitConfiguration() {
+  const company = document.getElementById('infoCompany').value.trim();
+  const name = document.getElementById('infoName').value.trim();
+  const email = document.getElementById('infoEmail').value.trim();
+  const location = document.getElementById('infoLocation').value.trim();
+
+  if (!company || !name || !email || !location) {
+    alert("Please fill in all your business information (Company, Name, Email, and Location).");
+    return;
+  }
+
+  const format = document.getElementById('specFormat').textContent;
+  const dims = document.getElementById('specDims').textContent;
+  const kraft = document.getElementById('specKraft').textContent;
+  const ply = document.getElementById('specPly').textContent;
+  const qty = document.getElementById('specQty').textContent;
+
+  const subject = encodeURIComponent("Custom Box Configuration Request - " + company);
+  const body = encodeURIComponent(
+    `Hello Alhamd Packaging,\n\n` +
+    `We would like to request a quote for a custom box configuration:\n\n` +
+    `-- SPECIFICATIONS --\n` +
+    `Box Format: ${format}\n` +
+    `Dimensions: ${dims}\n` +
+    `Material: ${kraft}\n` +
+    `Thickness: ${ply}\n` +
+    `Quantity: ${qty}\n\n` +
+    `-- BUSINESS DETAILS --\n` +
+    `Company Name: ${company}\n` +
+    `Contact Person: ${name}\n` +
+    `Email: ${email}\n` +
+    `Location: ${location}\n\n` +
+    `Please get back to us with a quote or physical sample details.\n` +
+    `Thanks!`
+  );
+
+  window.open(`mailto:business@alhamdpackaging.com?subject=${subject}&body=${body}`, '_blank');
+
+  document.getElementById('configuratorLayout').style.display = 'none';
+  document.getElementById('successScreen').classList.add('active');
+}
+</script>
+<script src="https://unpkg.com/lucide@latest"></script>
+<script>
+
+function showToast(message) {
+  const container = document.getElementById('toast-container');
+  const toast = document.createElement('div');
+  toast.className = 'custom-toast';
+  toast.innerHTML = `<i data-lucide="alert-circle" style="width:20px;height:20px;"></i> <span>${message}</span>`;
+  container.appendChild(toast);
+  if(typeof lucide !== 'undefined') { lucide.createIcons(); }
+  setTimeout(() => toast.classList.add('show'), 10);
+  setTimeout(() => {
+    toast.classList.remove('show');
+    setTimeout(() => toast.remove(), 400);
+  }, 4000);
+}
+
+function clearErrors() {
+  document.querySelectorAll('.error-field').forEach(el => el.classList.remove('error-field'));
+}
+lucide.createIcons();</script>
+<div id="toast-container"></div>
+</body>
+</html>

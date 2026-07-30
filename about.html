@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Alhamd Packaging — About Us</title>
+<meta name="description" content="Learn about Alhamd Packaging, our manufacturing history, philosophy, and sustainable practices.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@200;300;400;500;600;700&family=IBM+Plex+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --navy: #1C2B3B;
+  --navy-deep: #0E1820;
+  --kraft: #A07838;
+  --kraft-warm: #C49850;
+  --cream: #F5F0E8;
+  --white: #FAFAF8;
+  --mid: #4A6070;
+  --gray: #8899AA;
+}
+
+*,*::before,*::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Inter', sans-serif;
+  background: var(--navy-deep);
+  color: var(--white);
+  overflow-x: hidden;
+}
+
+/* ---- CURSOR ---- */
+.cursor-dot {
+  width: 8px; height: 8px;
+  background: var(--kraft);
+  border-radius: 50%;
+  position: fixed; pointer-events: none;
+  z-index: 9999; transform: translate(-50%,-50%);
+  transition: transform 0.1s;
+}
+.cursor-ring {
+  width: 32px; height: 32px;
+  border: 1px solid rgba(160,120,56,0.5);
+  border-radius: 50%;
+  position: fixed; pointer-events: none;
+  z-index: 9998; transform: translate(-50%,-50%);
+  transition: transform 0.15s, width 0.3s, height 0.3s;
+}
+
+/* ---- NAV ---- */
+nav {
+  position: fixed; top: 0; left: 0; right: 0;
+  z-index: 1000;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 48px; height: 72px;
+  background: rgba(14,24,32,0.97);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(160,120,56,0.15);
+}
+.nav-logo img { height: 36px; filter: brightness(0) invert(1); }
+.nav-links-motion {
+  display: flex; align-items: center; gap: 40px; list-style: none;
+}
+.nav-links-motion a {
+  font-size: 12px; font-weight: 500;
+  letter-spacing: 0.08em; text-transform: uppercase;
+  color: rgba(250,250,248,0.7); text-decoration: none;
+  transition: color 0.2s;
+}
+.nav-links-motion a:hover, .nav-links-motion a.active { color: var(--white); }
+.nav-motion-cta { display: flex; align-items: center; gap: 12px; }
+.btn-motion-ghost {
+  font-size: 11px; font-weight: 600;
+  letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--kraft-warm); border: 1px solid var(--kraft-warm);
+  padding: 9px 20px; text-decoration: none;
+  transition: all 0.3s; position: relative; overflow: hidden;
+}
+.btn-motion-ghost::before {
+  content: ''; position: absolute; inset: 0;
+  background: var(--kraft-warm); transform: scaleX(0);
+  transform-origin: left; transition: transform 0.3s;
+}
+.btn-motion-ghost:hover::before { transform: scaleX(1); }
+.btn-motion-ghost:hover { color: var(--navy-deep); }
+.btn-motion-ghost span { position: relative; z-index: 1; }
+.nav-menu-btn {
+  font-size: 11px; font-weight: 600;
+  letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--white); background: none; border: none;
+  cursor: pointer; display: flex; align-items: center; gap: 10px; padding: 0;
+}
+.menu-lines { display: flex; flex-direction: column; gap: 4px; }
+.menu-lines span { display: block; width: 18px; height: 1.5px; background: var(--white); transition: all 0.3s; }
+
+/* ---- FULLSCREEN MENU ---- */
+.fullscreen-menu {
+  position: fixed; inset: 0;
+  background: var(--navy-deep);
+  z-index: 1500;
+  display: flex; align-items: center; justify-content: center;
+  transform: scaleY(0); transform-origin: top;
+  transition: transform 0.5s cubic-bezier(0.76, 0, 0.24, 1);
+}
+.fullscreen-menu.open { transform: scaleY(1); }
+.fullscreen-menu-inner { display: flex; flex-direction: column; gap: 16px; text-align: center; }
+.fullscreen-menu-item {
+  font-family: 'Anton', sans-serif;
+  font-size: clamp(36px, 6vw, 72px);
+  text-transform: uppercase;
+  color: rgba(250,250,248,0.4);
+  text-decoration: none; line-height: 1.1;
+  transition: color 0.2s, transform 0.2s; display: block;
+}
+.fullscreen-menu-item:hover { color: var(--kraft-warm); transform: translateX(8px); }
+.fullscreen-close {
+  position: absolute; top: 32px; right: 48px;
+  font-size: 12px; font-weight: 600; letter-spacing: 0.12em;
+  text-transform: uppercase; color: rgba(250,250,248,0.5);
+  background: none; border: none; cursor: pointer; transition: color 0.2s;
+}
+.fullscreen-close:hover { color: var(--kraft-warm); }
+
+/* ---- CONTENT SECTIONS ---- */
+.page-container {
+  padding: 140px 48px 80px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.page-title {
+  font-family: 'Anton', sans-serif;
+  font-size: clamp(48px, 7vw, 100px);
+  text-transform: uppercase;
+  line-height: 0.95;
+  margin-bottom: 24px;
+}
+.page-title span { color: var(--kraft-warm); }
+
+.page-subtitle {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 11px; letter-spacing: 0.2em;
+  text-transform: uppercase; color: var(--kraft-warm);
+  margin-bottom: 60px;
+  display: flex; align-items: center; gap: 12px;
+}
+.page-subtitle::before {
+  content: ''; width: 30px; height: 1px;
+  background: var(--kraft-warm); opacity: 0.5;
+}
+
+.content-block { margin-bottom: 80px; }
+
+.section-heading {
+  font-family: 'Anton', sans-serif;
+  font-size: clamp(32px, 5vw, 60px);
+  text-transform: uppercase;
+  color: var(--white);
+  margin-bottom: 30px;
+}
+
+.text-body {
+  font-size: 18px;
+  line-height: 1.8;
+  font-weight: 300;
+  color: rgba(250,250,248,0.8);
+  margin-bottom: 24px;
+}
+
+/* ---- NEW ABOUT LAYOUT CSS ---- */
+.founder-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: start;
+  margin-top: 40px;
+}
+.founder-left {
+  position: sticky;
+  top: 120px;
+}
+.founder-quote-large {
+  font-family: 'Anton', sans-serif;
+  font-size: clamp(32px, 4vw, 48px);
+  color: var(--kraft-warm);
+  line-height: 1.2;
+  text-transform: uppercase;
+  margin-bottom: 24px;
+  position: relative;
+}
+.founder-quote-large::before {
+  content: '“';
+  font-size: 80px;
+  color: rgba(160,120,56,0.2);
+  position: absolute;
+  top: -40px; left: -20px;
+  line-height: 1;
+}
+
+.highlight-box {
+  background: rgba(160, 120, 56, 0.05);
+  border: 1px solid rgba(160, 120, 56, 0.2);
+  padding: 30px;
+  margin-bottom: 40px;
+  border-radius: 4px;
+}
+.highlight-box p {
+  font-size: 18px;
+  font-style: italic;
+  color: var(--white);
+  line-height: 1.6;
+  margin: 0;
+}
+
+.standards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 24px;
+  margin-top: 40px;
+}
+.standard-card {
+  background: rgba(160,120,56,0.03);
+  border: 1px solid rgba(160,120,56,0.15);
+  padding: 32px;
+  transition: transform 0.3s, border-color 0.3s;
+}
+.standard-card:hover {
+  transform: translateY(-5px);
+  border-color: var(--kraft-warm);
+}
+.std-icon {
+  margin-bottom: 24px;
+}
+.std-title {
+  font-family: 'Anton', sans-serif;
+  font-size: 24px;
+  text-transform: uppercase;
+  color: var(--white);
+  margin-bottom: 16px;
+}
+.std-desc {
+  font-size: 14px;
+  color: rgba(250,250,248,0.7);
+  line-height: 1.6;
+  margin-bottom: 16px;
+}
+.std-benefit {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.05em;
+  color: var(--kraft-warm);
+  padding-top: 16px;
+  border-top: 1px dashed rgba(160,120,56,0.3);
+}
+
+.faq-acc-container {
+  max-width: 800px;
+  margin: 40px auto 0;
+}
+.faq-acc-item {
+  border-bottom: 1px solid rgba(160,120,56,0.2);
+}
+.faq-acc-item:first-child {
+  border-top: 1px solid rgba(160,120,56,0.2);
+}
+.faq-acc-q {
+  padding: 24px 0;
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--white);
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: color 0.3s;
+}
+.faq-acc-q:hover { color: var(--kraft-warm); }
+.faq-acc-q::after {
+  content: '+';
+  font-size: 24px;
+  color: var(--kraft-warm);
+  transition: transform 0.3s;
+  font-family: monospace;
+}
+.faq-acc-item.active .faq-acc-q::after {
+  transform: rotate(45deg);
+}
+.faq-acc-a {
+  padding-bottom: 24px;
+  font-size: 15px;
+  color: var(--gray);
+  line-height: 1.7;
+  display: none;
+}
+.faq-acc-item.active .faq-acc-a {
+  display: block;
+  animation: fadeIn 0.4s ease;
+}
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ---- CTA BANNER ---- */
+.cta-banner {
+  margin: 60px 0;
+  background: linear-gradient(135deg, var(--navy) 0%, #162230 100%);
+  border: 1px solid rgba(160,120,56,0.2);
+  padding: 64px 56px;
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 40px;
+  position: relative; overflow: hidden;
+}
+.cta-banner-text { flex: 1; }
+.cta-banner-headline {
+  font-family: 'Anton', sans-serif;
+  font-size: clamp(28px, 4vw, 52px);
+  text-transform: uppercase;
+  color: var(--white); line-height: 1.1;
+  margin-bottom: 12px;
+}
+.cta-banner-sub {
+  font-size: 15px; font-weight: 300;
+  color: rgba(250,250,248,0.5);
+  line-height: 1.5;
+}
+.cta-banner-actions { display: flex; gap: 12px; flex-shrink: 0; flex-wrap: wrap; }
+
+.btn-cta-primary {
+  padding: 16px 32px;
+  background: var(--kraft);
+  color: var(--navy-deep);
+  border: none;
+  font-family: 'Inter', sans-serif;
+  font-size: 12px; font-weight: 700;
+  letter-spacing: 0.08em; text-transform: uppercase;
+  cursor: pointer; text-decoration: none;
+  display: inline-block; transition: background 0.25s;
+}
+.btn-cta-primary:hover { background: var(--kraft-warm); }
+
+/* ---- FOOTER ---- */
+footer.motion-footer {
+  background: var(--navy-deep);
+  border-top: 1px solid rgba(160,120,56,0.12);
+  padding: 60px 48px 32px;
+}
+.footer-motion-inner {
+  display: flex; justify-content: space-between;
+  align-items: center; gap: 24px; margin-bottom: 40px;
+}
+.footer-motion-logo img { height: 36px; filter: brightness(0) invert(1); }
+.footer-motion-links { display: flex; gap: 32px; list-style: none; }
+.footer-motion-links a {
+  font-size: 12px; font-weight: 500;
+  letter-spacing: 0.08em; text-transform: uppercase;
+  color: rgba(250,250,248,0.4); text-decoration: none;
+  transition: color 0.2s;
+}
+.footer-motion-links a:hover { color: var(--kraft-warm); }
+.footer-motion-bottom {
+  border-top: 1px solid rgba(255,255,255,0.05);
+  padding-top: 24px;
+  display: flex; justify-content: space-between;
+  align-items: center; flex-wrap: wrap; gap: 16px;
+}
+.footer-motion-copy {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 10px; letter-spacing: 0.1em;
+  color: rgba(250,250,248,0.2);
+}
+
+
+/* ---- RESPONSIVE ---- */
+@media (max-width: 1024px) {
+  .founder-grid { grid-template-columns: 1fr; gap: 40px; }
+  .founder-quote { font-size: clamp(32px, 6vw, 48px); }
+  .standards-grid { grid-template-columns: 1fr 1fr; }
+  .about-hero { padding: 120px 48px 80px; }
+}
+@media (max-width: 768px) {
+  .nav-links-motion { display: none; }
+  .about-hero { padding: 100px 24px 60px; }
+  .about-hero h1 { font-size: clamp(40px, 10vw, 60px); }
+  .page-container { padding: 40px 24px; }
+  .standards-grid { grid-template-columns: 1fr; }
+  .footer-motion-inner { flex-direction: column; text-align: center; }
+  .footer-motion-links { flex-wrap: wrap; justify-content: center; }
+}
+
+</style>
+
+<link rel="icon" type="image/png" href="assets/logos/icon-only.png">
+</head>
+<body>
+
+<!-- Cursor -->
+<div class="cursor-dot" id="cursorDot"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<!-- Fullscreen Menu -->
+<div class="fullscreen-menu" id="fullscreenMenu">
+  <div class="fullscreen-menu-inner">
+    <a href="index.html" class="fullscreen-menu-item">Home</a>
+    <a href="products.html" class="fullscreen-menu-item">Products</a>
+    <a href="custom-packaging.html" class="fullscreen-menu-item">Custom Packaging</a>
+    <a href="industries.html" class="fullscreen-menu-item">Industries</a>
+    <a href="about.html" class="fullscreen-menu-item">About</a>
+    <a href="contact.html" class="fullscreen-menu-item">Contact</a>
+  </div>
+  <button class="fullscreen-close" onclick="closeMenu()">Close &#x2715;</button>
+</div>
+
+<!-- NAV -->
+<nav id="nav">
+  <div class="nav-logo"><a href="index.html"><img src="assets/logos/horizontal-logo.png" alt="Alhamd Packaging"></a></div>
+  <ul class="nav-links-motion">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="products.html">Products</a></li>
+    <li><a href="custom-packaging.html">Custom</a></li>
+    <li><a href="industries.html">Industries</a></li>
+    <li><a href="about.html" class="active">About</a></li>
+  </ul>
+  <div class="nav-motion-cta">
+    <a href="contact.html" class="btn-motion-ghost"><span>Contact Us</span></a>
+    <button class="nav-menu-btn" onclick="openMenu()">
+      <span>Menu</span>
+      <div class="menu-lines">
+        <span></span><span></span><span style="width:12px;"></span>
+      </div>
+    </button>
+  </div>
+</nav>
+
+<div class="page-container">
+  
+  <h1 class="page-title">We Make <span>Boxes</span><br>We’re Proud Of</h1>
+  <div class="page-subtitle">About Alhamd Packaging</div>
+
+  <div class="content-block">
+    <div class="founder-grid">
+      <div class="founder-left">
+        <h2 class="section-heading" style="margin-bottom: 16px;">The Founder’s Note</h2>
+        <div class="founder-quote-large">
+          Every product has a story. We give it a presentation that it deserves.
+        </div>
+      </div>
+      <div class="founder-right">
+        <p class="text-body">
+          What made us step into the packaging industry? To be honest, it was pure fascination.
+        </p>
+        <p class="text-body">
+          Packaging sits at the intersection of everything: heavy industrial machinery, intricate handwork, structural engineering, and creative design. Virtually every industry on earth—from local bakeries and garment exporters to electronics manufacturers—relies on packaging to survive and grow. That diversity means every single day brings a new product to learn about, a new puzzle to solve, and a new business owner to partner with.
+        </p>
+        <p class="text-body">
+          We started Alhamd because we noticed a huge gap in the market. Too many suppliers treat boxes as cheap commodities, ignoring clean manufacturing, structural strength, and visual appeal. We saw an opportunity to do things differently: to bring <strong>creativity, surgical cleanliness, and genuine reliability</strong> back to packaging.
+        </p>
+        <p class="text-body">
+          As a young, growing company in Kolkata, we don't just want to sell you corrugated boxes. We want to understand your product, protect your margin, and give your customers an unboxing experience they remember.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <div class="content-block" style="margin-top: 100px;">
+    <h2 class="section-heading" style="text-align: center;">The Alhamd Standards</h2>
+    <div class="highlight-box" style="text-align: center; max-width: 800px; margin: 0 auto 40px;">
+      <p>“Most traditional suppliers sell cardboard by the kilo. We prioritize your product safety, reduce your shipping bills, and make your customers smile.”</p>
+    </div>
+
+    <div class="standards-grid">
+      <div class="standard-card">
+        <div class="std-icon"><i data-lucide="sparkles" style="color: var(--kraft-warm); width: 32px; height: 32px;"></i></div>
+        <div class="std-title">Mandatory Cleanliness</div>
+        <div class="std-desc">Traditional suppliers often handle boxes in dusty, unhygienic spaces. We provide 100% dust-free packaging specially made for bakeries, food, and luxury FMCG.</div>
+        <div class="std-benefit">Result: Protects Brand Image & Food Safety</div>
+      </div>
+      
+      <div class="standard-card">
+        <div class="std-icon"><i data-lucide="leaf" style="color: var(--kraft-warm); width: 32px; height: 32px;"></i></div>
+        <div class="std-title">100% Paper-Based</div>
+        <div class="std-desc">Heavy use of plastic bubble wrap hurts the planet and looks cheap. We design custom paper inserts that hold your product tightly without plastic or foam.</div>
+        <div class="std-benefit">Result: Eco-Friendly Unboxing Experience</div>
+      </div>
+      
+      <div class="standard-card">
+        <div class="std-icon"><i data-lucide="maximize" style="color: var(--kraft-warm); width: 32px; height: 32px;"></i></div>
+        <div class="std-title">Exact-Fit Sizing</div>
+        <div class="std-desc">Oversized boxes force you to pay to ship empty air. We manufacture boxes shaped perfectly to your product’s dimensions so there is zero wasted space.</div>
+        <div class="std-benefit">Result: Lower Courier Bills Instantly</div>
+      </div>
+      
+      <div class="standard-card">
+        <div class="std-icon"><i data-lucide="truck" style="color: var(--kraft-warm); width: 32px; height: 32px;"></i></div>
+        <div class="std-title">Reliable Support</div>
+        <div class="std-desc">Late deliveries disrupt your packing line. As your local partner, we offer a guarantee on zero damage, instant response, and transparent pricing.</div>
+        <div class="std-benefit">Result: Smooth Operations & No Delays</div>
+      </div>
+    </div>
+    
+    <div class="cta-banner">
+      <div class="cta-banner-text">
+        <div class="cta-banner-headline">Test our boxes before bulk ordering</div>
+        <div class="cta-banner-sub">Send us your product size, and we will deliver a custom-made physical sample box to your office within 48 hours. No worries, it’s FREE.<br><br>Test the Strength, Quality, and Fit with Your Products.</div>
+      </div>
+      <div class="cta-banner-actions">
+        <a href="contact.html" class="btn-cta-primary">Request FREE Sample Box</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="content-block" style="margin-top: 100px;">
+    <h2 class="section-heading" style="text-align: center;">Answers Before You Buy</h2>
+    
+    <div class="faq-acc-container">
+      <div class="faq-acc-item">
+        <div class="faq-acc-q">How do I know I won’t lose money on shipping fees?</div>
+        <div class="faq-acc-a">Courier companies charge you for both the space your box takes up and its weight. Even a small gap adds extra bills. Our smart fit boxes are crafted for your products only. So, you don’t pay any extra charges.</div>
+      </div>
+      
+      <div class="faq-acc-item">
+        <div class="faq-acc-q">I sell Food and Sweets. Will the boxes smell?</div>
+        <div class="faq-acc-a">No. Most local suppliers store cardboard on dusty floors near machinery oil. We manufacture our food boxes in a dedicated clean space. So, you get 100% odor-free, dust-free, and safe food boxes.</div>
+      </div>
+      
+      <div class="faq-acc-item">
+        <div class="faq-acc-q">What if my boxes arrive late and my packing line stops?</div>
+        <div class="faq-acc-a">We are your local partner, so you don’t have to wait for long-distance trucks or unresponsive suppliers. We give you a clear delivery date and keep local stocks ready, so your business runs smoothly.</div>
+      </div>
+      
+      <div class="faq-acc-item">
+        <div class="faq-acc-q">Can I stop using plastic bubble wrap without breakage?</div>
+        <div class="faq-acc-a">We design smart paper inserts that hold your product firmly inside the box. Your goods won’t rattle around during transport. So, you won’t see breakage or unnecessary plastic waste.</div>
+      </div>
+      
+      <div class="faq-acc-item">
+        <div class="faq-acc-q">How do I test your quality before risking a large order?</div>
+        <div class="faq-acc-a">You don’t have to pay a single penny. Send us your product size and need today, and we will deliver a custom-made sample box to you within 48 hours for free.</div>
+      </div>
+    </div>
+    
+    <div class="cta-banner" style="background:var(--navy-deep); border-color:transparent; margin-top: 60px;">
+      <div class="cta-banner-text">
+        <div class="cta-banner-headline">Get Instant Answers on Pricing</div>
+      </div>
+      <div class="cta-banner-actions">
+        <a href="https://wa.me/919903427389" target="_blank" class="btn-cta-primary" style="background:#25D366; color:#fff;">Chat on WhatsApp Now</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer class="motion-footer">
+  <div class="footer-motion-inner">
+    <div class="footer-motion-logo">
+      <img src="assets/logos/horizontal-logo.png" alt="Alhamd Packaging">
+    </div>
+    <ul class="footer-motion-links">
+      <li><a href="products.html">Products</a></li>
+      <li><a href="custom-packaging.html">Custom</a></li>
+      <li><a href="industries.html">Industries</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+  </div>
+  <div class="footer-motion-bottom">
+    <div class="footer-motion-copy">&copy; 2026 Alhamd Packaging &mdash; Crafted in India. Delivered pan-India.</div>
+    <a href="contact.html" style="font-family:'IBM Plex Mono',monospace;font-size:9px;color:rgba(250,250,248,0.2);text-decoration:none;">business@alhamdpackaging.com</a>
+  </div>
+</footer>
+
+<script>
+// Cursor
+const dot = document.getElementById('cursorDot');
+const ring = document.getElementById('cursorRing');
+let mouseX = 0, mouseY = 0, ringX = 0, ringY = 0;
+document.addEventListener('mousemove', e => {
+  mouseX = e.clientX; mouseY = e.clientY;
+  dot.style.left = mouseX + 'px'; dot.style.top = mouseY + 'px';
+});
+function animateRing() {
+  ringX += (mouseX - ringX) * 0.12;
+  ringY += (mouseY - ringY) * 0.12;
+  ring.style.left = ringX + 'px'; ring.style.top = ringY + 'px';
+  requestAnimationFrame(animateRing);
+}
+animateRing();
+
+// Menu
+function openMenu() { document.getElementById('fullscreenMenu').classList.add('open'); document.body.style.overflow='hidden'; }
+function closeMenu() { document.getElementById('fullscreenMenu').classList.remove('open'); document.body.style.overflow=''; }
+
+// Accordion
+document.querySelectorAll('.faq-acc-q').forEach(q => {
+  q.addEventListener('click', () => {
+    const parent = q.parentElement;
+    const isActive = parent.classList.contains('active');
+    document.querySelectorAll('.faq-acc-item').forEach(item => item.classList.remove('active'));
+    if (!isActive) parent.classList.add('active');
+  });
+});
+</script>
+<script src="https://unpkg.com/lucide@latest"></script>
+<script>lucide.createIcons();</script>
+</body>
+</html>

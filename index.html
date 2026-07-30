@@ -1,0 +1,1620 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Alhamd Packaging — Boxes in Motion | From Flat Sheet to Brand Experience</title>
+<meta name="description" content="Alhamd Packaging — Bold, immersive packaging experience. From flat corrugated sheet to your brand's signature box.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@200;300;400;500;600;700&family=IBM+Plex+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --navy: #1C2B3B;
+  --navy-deep: #0E1820;
+  --kraft: #A07838;
+  --kraft-warm: #C49850;
+  --cream: #F5F0E8;
+  --white: #FAFAF8;
+  --mid: #4A6070;
+  --gray: #8899AA;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Inter', sans-serif;
+  background: var(--navy-deep);
+  color: var(--white);
+  overflow-x: hidden;
+  cursor: default;
+}
+
+/* ---- CURSOR DOT ---- */
+.cursor-dot {
+  width: 8px; height: 8px;
+  background: var(--kraft);
+  border-radius: 50%;
+  position: fixed;
+  pointer-events: none;
+  z-index: 9999;
+  transform: translate(-50%,-50%);
+  transition: transform 0.1s;
+}
+
+.cursor-ring {
+  width: 32px; height: 32px;
+  border: 1px solid rgba(160,120,56,0.5);
+  border-radius: 50%;
+  position: fixed;
+  pointer-events: none;
+  z-index: 9998;
+  transform: translate(-50%,-50%);
+  transition: transform 0.15s, width 0.3s, height 0.3s;
+}
+
+/* ---- NAV ---- */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 48px;
+  height: 72px;
+  background: transparent;
+  mix-blend-mode: normal;
+  transition: background 0.4s;
+}
+
+nav.scrolled {
+  background: rgba(14,24,32,0.95);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(160,120,56,0.15);
+}
+
+.nav-logo img { height: 36px; filter: brightness(0) invert(1); }
+
+.nav-links-motion {
+  display: flex;
+  align-items: center;
+  gap: 40px;
+  list-style: none;
+}
+
+.nav-links-motion a {
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(250,250,248,0.7);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.nav-links-motion a:hover { color: var(--white); }
+
+.nav-motion-cta {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.btn-motion-ghost {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--kraft-warm);
+  border: 1px solid var(--kraft-warm);
+  padding: 9px 20px;
+  text-decoration: none;
+  transition: all 0.3s;
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-motion-ghost::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--kraft-warm);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.3s;
+}
+
+.btn-motion-ghost:hover::before { transform: scaleX(1); }
+.btn-motion-ghost:hover { color: var(--navy-deep); }
+.btn-motion-ghost span { position: relative; z-index: 1; }
+
+/* Hamburger menu (fullscreen) button */
+.nav-menu-btn {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--white);
+  background: none;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 0;
+}
+
+.menu-lines {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.menu-lines span {
+  display: block;
+  width: 18px; height: 1.5px;
+  background: var(--white);
+  transition: all 0.3s;
+}
+
+/* ---- HERO ---- */
+.hero-motion {
+  position: relative;
+  height: 100vh;
+  min-height: 600px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  padding-top: 72px; /* clear fixed nav */
+}
+
+/* Dark gradient background */
+.hero-motion-bg {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, var(--navy-deep) 0%, #1a2d3e 50%, #0E1820 100%);
+}
+
+/* Large moving box in hero */
+.hero-box-world {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+}
+
+/* Massive background box shape */
+.hero-bg-box {
+  position: absolute;
+  width: 500px;
+  height: 500px;
+  opacity: 0.04;
+  background: var(--kraft);
+  clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+  animation: hexRotate 20s linear infinite;
+}
+
+@keyframes hexRotate {
+  from { transform: rotate(0deg) scale(1); }
+  50% { transform: rotate(180deg) scale(1.05); }
+  to { transform: rotate(360deg) scale(1); }
+}
+
+/* Box that assembles */
+.assembling-box {
+  position: relative;
+  width: 360px;
+  height: 280px;
+  z-index: 2;
+  animation: boxAssemble 1.5s ease-out forwards;
+}
+
+@keyframes boxAssemble {
+  0% { opacity: 0; transform: scale(0.7) translateY(40px); }
+  100% { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+/* Isometric box */
+.iso-box {
+  width: 200px;
+  height: 180px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  transform-style: preserve-3d;
+}
+
+.iso-face {
+  position: absolute;
+}
+
+/* Top face */
+.iso-top {
+  width: 140px;
+  height: 80px;
+  background: linear-gradient(135deg, #C49858 0%, #A07838 100%);
+  clip-path: polygon(50% 0%, 100% 25%, 50% 50%, 0% 25%);
+  top: 0; left: 30px;
+  animation: faceSlideDown 1.2s ease-out 0.2s backwards;
+}
+
+@keyframes faceSlideDown {
+  from { transform: translateY(-60px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+/* Front face */
+.iso-front {
+  width: 100px;
+  height: 100px;
+  background: linear-gradient(180deg, #1C2B3B 0%, #243447 100%);
+  clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%);
+  bottom: 0; left: 30px;
+  animation: faceSlideSide 1.2s ease-out 0.4s backwards;
+}
+
+@keyframes faceSlideSide {
+  from { transform: translateX(-40px); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+}
+
+/* Right face */
+.iso-right {
+  width: 80px;
+  height: 100px;
+  background: linear-gradient(180deg, #A07838 0%, #6A4A18 100%);
+  clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%);
+  bottom: 0; right: 30px;
+  animation: faceSlideSide2 1.2s ease-out 0.6s backwards;
+}
+
+@keyframes faceSlideSide2 {
+  from { transform: translateX(40px); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+}
+
+/* Tape on top */
+.iso-tape {
+  position: absolute;
+  top: 22px; left: 70px;
+  width: 60px; height: 12px;
+  background: rgba(212,184,150,0.7);
+  animation: faceSlideDown 1.2s ease-out 0.8s backwards;
+}
+
+/* Main hero content */
+.hero-motion-content {
+  position: relative;
+  z-index: 5;
+  text-align: center;
+}
+
+.hero-motion-pre {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--kraft-warm);
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+}
+
+.hero-motion-pre::before,
+.hero-motion-pre::after {
+  content: '';
+  width: 32px; height: 1px;
+  background: var(--kraft-warm);
+  opacity: 0.5;
+}
+
+.hero-motion-title {
+  font-family: 'Anton', sans-serif;
+  font-size: clamp(44px, 6.5vw, 88px);
+  font-weight: 400;
+  line-height: 1.0;
+  letter-spacing: -0.01em;
+  text-transform: uppercase;
+  color: var(--white);
+  margin-bottom: 20px;
+}
+
+.hero-motion-title .line-kraft {
+  color: var(--kraft-warm);
+  display: block;
+}
+
+.hero-motion-subtitle {
+  font-size: 15px;
+  font-weight: 300;
+  color: rgba(250,250,248,0.65);
+  max-width: 440px;
+  margin: 0 auto 32px;
+  line-height: 1.7;
+}
+
+.hero-motion-actions {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.btn-motion-primary {
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  background: var(--kraft);
+  color: var(--navy-deep);
+  padding: 16px 40px;
+  text-decoration: none;
+  transition: all 0.3s;
+  display: inline-block;
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-motion-primary::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--kraft-warm);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.3s;
+}
+
+.btn-motion-primary:hover::before { transform: scaleX(1); }
+.btn-motion-primary span { position: relative; z-index: 1; }
+
+.btn-motion-outline {
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--white);
+  border: 1px solid rgba(255,255,255,0.3);
+  padding: 16px 40px;
+  text-decoration: none;
+  transition: all 0.3s;
+  display: inline-block;
+}
+
+.btn-motion-outline:hover { border-color: var(--kraft-warm); color: var(--kraft-warm); }
+
+/* Scroll indicator */
+.scroll-indicator {
+  position: absolute;
+  bottom: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  z-index: 5;
+}
+
+.scroll-text {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(250,250,248,0.4);
+}
+
+.scroll-line {
+  width: 1px;
+  height: 60px;
+  background: linear-gradient(to bottom, rgba(160,120,56,0.6), transparent);
+  animation: scrollPulse 2s ease-in-out infinite;
+}
+
+@keyframes scrollPulse {
+  0%, 100% { opacity: 0.4; height: 40px; }
+  50% { opacity: 1; height: 60px; }
+}
+
+/* ---- SCROLL STORY SECTION ---- */
+.scroll-story {
+  padding: 0;
+  position: relative;
+}
+
+/* Journey steps */
+.journey-section {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  position: relative;
+  padding: 80px 48px;
+}
+
+.journey-section.dark { background: var(--navy-deep); }
+.journey-section.mid { background: var(--navy); }
+.journey-section.kraft-bg { background: var(--kraft); }
+
+.journey-inner {
+  max-width: 1400px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: center;
+}
+
+.journey-step-num {
+  font-family: 'Anton', sans-serif;
+  font-size: 160px;
+  font-weight: 400;
+  color: rgba(255,255,255,0.04);
+  line-height: 1;
+  position: absolute;
+  right: 48px;
+  bottom: 40px;
+}
+
+.journey-step-label {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--kraft-warm);
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.journey-step-label::before {
+  content: '';
+  width: 24px; height: 1px;
+  background: var(--kraft-warm);
+}
+
+.journey-step-title {
+  font-family: 'Anton', sans-serif;
+  font-size: clamp(48px, 6vw, 88px);
+  font-weight: 400;
+  text-transform: uppercase;
+  line-height: 1.0;
+  color: var(--white);
+  margin-bottom: 24px;
+}
+
+.journey-step-title.dark-text { color: var(--navy-deep); }
+
+.journey-step-desc {
+  font-size: 16px;
+  font-weight: 300;
+  color: rgba(250,250,248,0.65);
+  line-height: 1.7;
+  max-width: 400px;
+}
+
+.journey-step-desc.dark-text { color: rgba(14,24,32,0.7); }
+
+/* Visual panels for each step */
+.journey-visual {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 400px;
+  position: relative;
+}
+
+/* STEP 1: Flat sheet */
+.flat-sheet {
+  width: 300px;
+  height: 4px;
+  background: linear-gradient(90deg, var(--kraft), var(--kraft-warm));
+  position: relative;
+  box-shadow: 0 0 40px rgba(160,120,56,0.3);
+  animation: sheetPulse 3s ease-in-out infinite;
+}
+
+@keyframes sheetPulse {
+  0%, 100% { width: 300px; opacity: 0.7; }
+  50% { width: 340px; opacity: 1; }
+}
+
+.flat-sheet::before {
+  content: 'FLAT SHEET';
+  position: absolute;
+  top: -24px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 8px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--kraft-warm);
+  white-space: nowrap;
+}
+
+/* STEP 2: Cut lines */
+.cut-visual {
+  width: 280px;
+  height: 280px;
+  border: 2px solid rgba(160,120,56,0.3);
+  position: relative;
+  animation: cutAnim 2s ease-in-out infinite alternate;
+}
+
+@keyframes cutAnim {
+  from { border-color: rgba(160,120,56,0.2); }
+  to { border-color: rgba(160,120,56,0.6); }
+}
+
+/* Cut lines */
+.cut-visual::before {
+  content: '';
+  position: absolute;
+  top: 40px; bottom: 40px;
+  left: 40px; right: 40px;
+  border: 1px dashed rgba(160,120,56,0.4);
+}
+
+.cut-line {
+  position: absolute;
+  background: var(--kraft-warm);
+  opacity: 0.7;
+}
+
+.cut-h { height: 1px; width: 100%; top: 70px; left: 0; animation: cutSweep 2s ease-in-out infinite; }
+.cut-h2 { height: 1px; width: 100%; bottom: 70px; left: 0; animation: cutSweep 2s ease-in-out 0.5s infinite; }
+.cut-v { width: 1px; height: 100%; top: 0; left: 70px; animation: cutSweep2 2s ease-in-out 0.3s infinite; }
+.cut-v2 { width: 1px; height: 100%; top: 0; right: 70px; animation: cutSweep2 2s ease-in-out 0.8s infinite; }
+
+@keyframes cutSweep {
+  from { transform: scaleX(0); transform-origin: left; }
+  to { transform: scaleX(1); transform-origin: left; }
+}
+@keyframes cutSweep2 {
+  from { transform: scaleY(0); transform-origin: top; }
+  to { transform: scaleY(1); transform-origin: top; }
+}
+
+/* STEP 3: Fold animation */
+.fold-visual {
+  width: 200px;
+  height: 200px;
+  position: relative;
+}
+
+.fold-panel {
+  position: absolute;
+  background: rgba(160,120,56,0.3);
+  border: 1px solid rgba(160,120,56,0.5);
+}
+
+.fold-center { width: 100px; height: 100px; top: 50px; left: 50px; background: rgba(160,120,56,0.4); animation: foldCenter 3s ease-in-out infinite; }
+.fold-top { width: 100px; height: 50px; top: 0; left: 50px; animation: foldTop 3s ease-in-out infinite; }
+.fold-bottom { width: 100px; height: 50px; bottom: 0; left: 50px; animation: foldBottom 3s ease-in-out infinite; }
+.fold-left { width: 50px; height: 100px; left: 0; top: 50px; animation: foldLeft 3s ease-in-out infinite; }
+.fold-right { width: 50px; height: 100px; right: 0; top: 50px; animation: foldRight 3s ease-in-out infinite; }
+
+@keyframes foldTop { 0%,100% { transform: rotateX(0deg); } 50% { transform: rotateX(-30deg); } }
+@keyframes foldBottom { 0%,100% { transform: rotateX(0deg); } 50% { transform: rotateX(30deg); } }
+@keyframes foldLeft { 0%,100% { transform: rotateY(0deg); } 50% { transform: rotateY(30deg); } }
+@keyframes foldRight { 0%,100% { transform: rotateY(0deg); } 50% { transform: rotateY(-30deg); } }
+@keyframes foldCenter { 0%,100% { background: rgba(160,120,56,0.3); } 50% { background: rgba(160,120,56,0.6); } }
+
+/* STEP 4: Print visual */
+.print-visual {
+  width: 240px;
+  height: 180px;
+  background: linear-gradient(135deg, #1C2B3B, #243447);
+  position: relative;
+  border-radius: 3px;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+  overflow: hidden;
+}
+
+.print-scan-line {
+  position: absolute;
+  left: 0; right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, transparent, var(--kraft-warm), transparent);
+  animation: printScan 2.5s ease-in-out infinite;
+}
+
+@keyframes printScan {
+  from { top: 0; opacity: 1; }
+  to { top: 100%; opacity: 0; }
+}
+
+.print-result-layer {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(160,120,56,0.3), transparent);
+  animation: printReveal 2.5s ease-in-out infinite;
+}
+
+@keyframes printReveal {
+  from { clip-path: inset(0 100% 0 0); }
+  to { clip-path: inset(0 0% 0 0); }
+}
+
+.print-logo-reveal {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.print-logo-reveal img {
+  width: 60%;
+  filter: brightness(0) invert(1);
+  opacity: 0.4;
+}
+
+/* STEP 5: Pack & Ship */
+.ship-visual {
+  position: relative;
+  width: 280px;
+  height: 280px;
+}
+
+.ship-box {
+  position: absolute;
+  width: 140px;
+  height: 120px;
+  background: linear-gradient(135deg, var(--navy), #243447);
+  bottom: 50px;
+  left: 70px;
+  border-radius: 3px;
+  box-shadow: 0 16px 50px rgba(0,0,0,0.4);
+  animation: shipBounce 3s ease-in-out infinite;
+}
+
+@keyframes shipBounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-20px); }
+}
+
+.ship-box::before {
+  content: '';
+  position: absolute;
+  top: 18px; left: 0; right: 0;
+  height: 18px;
+  background: rgba(212,184,150,0.5);
+}
+
+.ship-motion-lines {
+  position: absolute;
+  left: -20px;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.ship-line {
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--kraft-warm));
+  border-radius: 1px;
+  animation: shipLine 1s ease-in-out infinite;
+}
+
+.ship-line:nth-child(1) { width: 40px; animation-delay: 0s; }
+.ship-line:nth-child(2) { width: 60px; animation-delay: 0.2s; }
+.ship-line:nth-child(3) { width: 30px; animation-delay: 0.4s; }
+.ship-line:nth-child(4) { width: 50px; animation-delay: 0.6s; }
+
+@keyframes shipLine {
+  0%, 100% { opacity: 0.4; }
+  50% { opacity: 1; }
+}
+
+/* ---- PRODUCTS - HORIZONTAL CAROUSEL ---- */
+.products-motion {
+  padding: 120px 0;
+  background: var(--navy-deep);
+  overflow: hidden;
+}
+
+.products-motion-header {
+  padding: 0 48px;
+  margin-bottom: 60px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+}
+
+.products-motion-header h2 {
+  font-family: 'Anton', sans-serif;
+  font-size: 64px;
+  font-weight: 400;
+  text-transform: uppercase;
+  line-height: 0.95;
+}
+
+.products-motion-header h2 span { color: var(--kraft-warm); }
+
+/* Horizontal scrolling product cards */
+.products-track-wrapper {
+  overflow-x: auto;
+  scrollbar-width: none;
+  padding: 0 48px 40px;
+  cursor: grab;
+}
+
+.products-track-wrapper:active { cursor: grabbing; }
+.products-track-wrapper::-webkit-scrollbar { display: none; }
+
+.products-track {
+  display: flex;
+  gap: 20px;
+  width: max-content;
+}
+
+/* Motion product cards - bold horizontal cards */
+.motion-card {
+  width: 320px;
+  flex-shrink: 0;
+  background: var(--navy);
+  border: 1px solid rgba(160,120,56,0.15);
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+  transition: border-color 0.3s, transform 0.3s;
+}
+
+.motion-card:hover {
+  border-color: var(--kraft-warm);
+  transform: translateY(-8px);
+}
+
+.motion-card-image {
+  height: 220px;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Morphing box on hover */
+.motion-box {
+  width: 120px;
+  height: 100px;
+  position: relative;
+  transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.motion-card:hover .motion-box {
+  transform: rotate(-5deg) scale(1.1);
+}
+
+.motion-box-body {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  border-radius: 2px;
+  box-shadow: 0 12px 40px rgba(0,0,0,0.3);
+}
+
+/* Hover: show open box */
+.motion-box-lid {
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 30px;
+  border-radius: 2px 2px 0 0;
+  transform-origin: top;
+  transition: transform 0.4s;
+}
+
+.motion-card:hover .motion-box-lid {
+  transform: rotateX(-60deg) translateY(-8px);
+}
+
+/* Card number - giant bg */
+.motion-card-num {
+  position: absolute;
+  bottom: -10px; right: 10px;
+  font-family: 'Anton', sans-serif;
+  font-size: 100px;
+  font-weight: 400;
+  color: rgba(255,255,255,0.04);
+  line-height: 1;
+  user-select: none;
+}
+
+.motion-card-content {
+  padding: 24px;
+}
+
+.motion-card-cat {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--kraft-warm);
+  margin-bottom: 8px;
+}
+
+.motion-card-title {
+  font-family: 'Anton', sans-serif;
+  font-size: 26px;
+  font-weight: 400;
+  text-transform: uppercase;
+  color: var(--white);
+  line-height: 1.1;
+  margin-bottom: 12px;
+}
+
+.motion-card-specs {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+}
+
+.motion-spec-chip {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 8px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--gray);
+  border: 1px solid rgba(136,153,170,0.2);
+  padding: 3px 8px;
+}
+
+.motion-card-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.motion-btn-primary {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  background: var(--kraft);
+  color: var(--navy-deep);
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  transition: all 0.3s;
+  position: relative;
+  overflow: hidden;
+}
+
+.motion-btn-primary:hover { background: var(--kraft-warm); }
+
+.motion-btn-ghost {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  background: none;
+  color: var(--gray);
+  border: 1px solid rgba(136,153,170,0.2);
+  padding: 10px 16px;
+  cursor: pointer;
+  transition: all 0.25s;
+}
+
+.motion-btn-ghost:hover { border-color: var(--kraft-warm); color: var(--kraft-warm); }
+
+/* ---- CTA SECTION ---- */
+.motion-cta {
+  background: var(--kraft);
+  padding: 120px 48px;
+  position: relative;
+  overflow: hidden;
+  text-align: center;
+}
+
+.motion-cta::before {
+  content: '';
+  position: absolute;
+  top: -100px; right: -100px;
+  width: 400px; height: 400px;
+  border: 100px solid rgba(14,24,32,0.08);
+  border-radius: 50%;
+}
+
+.motion-cta-title {
+  font-family: 'Anton', sans-serif;
+  font-size: clamp(56px, 8vw, 120px);
+  font-weight: 400;
+  text-transform: uppercase;
+  color: var(--navy-deep);
+  line-height: 0.95;
+  margin-bottom: 32px;
+  position: relative;
+  z-index: 1;
+}
+
+.motion-cta-actions {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  position: relative;
+  z-index: 1;
+}
+
+.btn-cta-navy {
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  background: var(--navy-deep);
+  color: var(--white);
+  padding: 16px 40px;
+  text-decoration: none;
+  transition: all 0.3s;
+}
+
+.btn-cta-navy:hover { background: var(--navy); }
+
+.btn-cta-outline-dark {
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--navy-deep);
+  border: 2px solid var(--navy-deep);
+  padding: 16px 40px;
+  text-decoration: none;
+  transition: all 0.3s;
+}
+
+.btn-cta-outline-dark:hover { background: var(--navy-deep); color: var(--kraft); }
+
+/* ---- FOOTER ---- */
+footer.motion-footer {
+  background: var(--navy-deep);
+  border-top: 1px solid rgba(160,120,56,0.15);
+  padding: 60px 48px 32px;
+}
+
+.footer-motion-inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: gap;
+  gap: 24px;
+  margin-bottom: 40px;
+}
+
+.footer-motion-logo img { height: 36px; filter: brightness(0) invert(1); }
+
+.footer-motion-links {
+  display: flex;
+  gap: 32px;
+  list-style: none;
+}
+
+.footer-motion-links a {
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(250,250,248,0.4);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.footer-motion-links a:hover { color: var(--kraft-warm); }
+
+.footer-motion-bottom {
+  border-top: 1px solid rgba(255,255,255,0.06);
+  padding-top: 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.footer-motion-copy {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  color: rgba(250,250,248,0.25);
+}
+
+/* Fullscreen menu */
+.fullscreen-menu {
+  position: fixed;
+  inset: 0;
+  background: var(--navy-deep);
+  z-index: 1500;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform: scaleY(0);
+  transform-origin: top;
+  transition: transform 0.5s cubic-bezier(0.76, 0, 0.24, 1);
+}
+
+.fullscreen-menu.open {
+  transform: scaleY(1);
+}
+
+.fullscreen-menu-inner {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  text-align: center;
+}
+
+.fullscreen-menu-item {
+  font-family: 'Anton', sans-serif;
+  font-size: clamp(36px, 6vw, 72px);
+  font-weight: 400;
+  text-transform: uppercase;
+  color: rgba(250,250,248,0.4);
+  text-decoration: none;
+  line-height: 1.1;
+  transition: color 0.2s, transform 0.2s;
+  display: block;
+}
+
+.fullscreen-menu-item:hover { color: var(--kraft-warm); transform: translateX(8px); }
+
+.fullscreen-close {
+  position: absolute;
+  top: 32px; right: 48px;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(250,250,248,0.5);
+  background: none;
+  border: none;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.fullscreen-close:hover { color: var(--kraft-warm); }
+
+/* Cart */
+.cart-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.7); z-index: 2000; opacity: 0; pointer-events: none; transition: opacity 0.35s; }
+.cart-overlay.active { opacity: 1; pointer-events: all; }
+.cart-motion { position: fixed; top: 0; right: 0; width: 440px; height: 100vh; background: var(--navy); border-left: 1px solid rgba(160,120,56,0.2); z-index: 2001; transform: translateX(100%); transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94); display: flex; flex-direction: column; }
+.cart-motion.active { transform: translateX(0); }
+.cart-motion-header { padding: 24px 28px; border-bottom: 1px solid rgba(160,120,56,0.15); display: flex; align-items: center; justify-content: space-between; }
+.cart-motion-title { font-family: 'Anton', sans-serif; font-size: 28px; font-weight: 400; text-transform: uppercase; letter-spacing: 0.05em; }
+.cart-motion-close { width: 32px; height: 32px; border: 1px solid rgba(160,120,56,0.3); background: none; color: var(--white); cursor: pointer; font-size: 16px; transition: all 0.2s; }
+.cart-motion-close:hover { border-color: var(--kraft); color: var(--kraft); }
+.cart-motion-body { flex: 1; padding: 24px 28px; }
+.cart-motion-footer { padding: 24px 28px; border-top: 1px solid rgba(160,120,56,0.15); }
+.cart-motion-checkout { display: block; width: 100%; padding: 16px; background: var(--kraft); color: var(--navy-deep); border: none; font-size: 12px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; cursor: pointer; margin-bottom: 10px; transition: background 0.25s; }
+.cart-motion-checkout:hover { background: var(--kraft-warm); }
+.cart-motion-continue { display: block; width: 100%; padding: 12px; background: none; color: var(--gray); border: 1px solid rgba(136,153,170,0.2); font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; cursor: pointer; transition: all 0.25s; }
+.cart-motion-continue:hover { border-color: var(--kraft); color: var(--kraft); }
+
+
+/* Tablet & Mobile Responsive */
+@media (max-width: 1024px) {
+  .hero-motion { padding: 120px 32px 60px; }
+  .section-motion { padding: 80px 32px; }
+  .features-motion { grid-template-columns: repeat(2, 1fr); }
+  .category-motion { grid-template-columns: repeat(2, 1fr); }
+  .testimonial-grid { grid-template-columns: 1fr; }
+  .cta-motion-inner { padding: 60px 32px; flex-direction: column; text-align: center; }
+  .footer-motion-inner { flex-direction: column; text-align: center; gap: 32px; }
+  .footer-motion-links { justify-content: center; flex-wrap: wrap; }
+}
+
+@media (max-width: 768px) {
+  .nav-links-motion { display: none; }
+  .hero-motion { padding: 100px 24px 40px; text-align: center; align-items: center; }
+  .hero-motion-title { font-size: clamp(40px, 10vw, 56px); }
+  .hero-motion-subtitle { font-size: 16px; }
+  .section-motion { padding: 60px 24px; }
+  .features-motion { grid-template-columns: 1fr; }
+  .category-motion { grid-template-columns: 1fr; }
+  .journey-inner { grid-template-columns: 1fr; gap: 60px; }
+  .products-motion-header { flex-direction: column; gap: 20px; align-items: flex-start; }
+  .motion-cta-title { font-size: clamp(32px, 8vw, 48px); }
+  .fullscreen-menu-item { font-size: clamp(28px, 8vw, 48px); }
+  .cart-motion { width: 100vw; }
+  .marquee span { font-size: 48px; }
+}
+
+</style>
+
+<link rel="icon" type="image/png" href="assets/logos/icon-only.png">
+</head>
+<body>
+
+<!-- Cursor -->
+<div class="cursor-dot" id="cursorDot"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<!-- Fullscreen menu -->
+<div class="fullscreen-menu" id="fullscreenMenu">
+  <div class="fullscreen-menu-inner">
+    <a href="products.html" class="fullscreen-menu-item" onclick="closeMenu()">Products</a>
+    <a href="custom-packaging.html" class="fullscreen-menu-item" onclick="closeMenu()">Custom Packaging</a>
+    <a href="industries.html" class="fullscreen-menu-item" onclick="closeMenu()">Industries</a>
+    <a href="sustainability.html" class="fullscreen-menu-item" onclick="closeMenu()">Sustainability</a>
+    <a href="about.html" class="fullscreen-menu-item" onclick="closeMenu()">About</a>
+    <a href="contact.html" class="fullscreen-menu-item" onclick="closeMenu()">Contact</a>
+  </div>
+  <button class="fullscreen-close" onclick="closeMenu()">Close ✕</button>
+</div>
+
+<!-- NAV -->
+<nav id="nav">
+  <div class="nav-logo"><a href="index.html"><img src="assets/logos/horizontal-logo.png" alt="Alhamd Packaging"></a></div>
+  <ul class="nav-links-motion">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="products.html">Products</a></li>
+    <li><a href="custom-packaging.html">Custom</a></li>
+    <li><a href="industries.html">Industries</a></li>
+    <li><a href="about.html">About</a></li>
+  </ul>
+  <div class="nav-motion-cta">
+    <a href="contact.html" class="btn-motion-ghost"><span>Contact Us</span></a>
+    <button class="nav-menu-btn" onclick="openMenu()">
+      <span>Menu</span>
+      <div class="menu-lines">
+        <span></span><span></span><span style="width:12px;"></span>
+      </div>
+    </button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero-motion">
+  <div class="hero-motion-bg"></div>
+  <div class="hero-box-world" style="opacity: 0.05; display: flex; align-items: center; justify-content: center;">
+    <img src="assets/logos/icon-only.png" alt="" style="width: 600px; height: auto; filter: grayscale(100%);">
+  </div>
+  
+  <div class="hero-motion-content">
+    <h1 class="hero-motion-title">
+      From Flat<br>
+      <span class="line-kraft">Sheet</span><br>
+      to Brand<br>Experience.
+    </h1>
+    <p class="hero-motion-subtitle">
+      Watch corrugated packaging transform — from raw material to your brand's signature box. Crafted in India. Delivered pan-India.
+    </p>
+    <div class="hero-motion-actions">
+      <a href="product-detail.html" class="btn-motion-primary"><span>Explore Products</span></a>
+      <a href="#journey" class="btn-motion-outline">See the Journey ↓</a>
+    </div>
+  </div>
+
+  <div class="scroll-indicator">
+    <div class="scroll-text">Scroll</div>
+    <div class="scroll-line"></div>
+  </div>
+</section>
+
+<!-- SCROLL STORY JOURNEY -->
+<div class="scroll-story" id="journey">
+
+  <!-- Step 1: Sheet -->
+  <div class="journey-section dark">
+    <div class="journey-inner">
+      <div>
+        <div class="journey-step-label">01 // Process</div>
+        <h2 class="journey-step-title">FLAT<br>SHEET</h2>
+        <p class="journey-step-desc">It starts here. A flat corrugated sheet — raw material with infinite potential. Kraft paper, air, and structure. Nothing more.</p>
+      </div>
+      <div class="journey-visual">
+        <div class="flat-sheet"></div>
+      </div>
+    </div>
+    <div class="journey-step-num">01</div>
+  </div>
+
+  <!-- Step 2: Cut -->
+  <div class="journey-section mid">
+    <div class="journey-inner">
+      <div class="journey-visual">
+        <div class="cut-visual">
+          <div class="cut-line cut-h"></div>
+          <div class="cut-line cut-h2"></div>
+          <div class="cut-line cut-v"></div>
+          <div class="cut-line cut-v2"></div>
+        </div>
+      </div>
+      <div>
+        <div class="journey-step-label">02 // Process</div>
+        <h2 class="journey-step-title">CUT<br>TO<br>SIZE</h2>
+        <p class="journey-step-desc">Precision die-cutting transforms the sheet into the exact structure needed for your product. Every line deliberate.</p>
+      </div>
+    </div>
+    <div class="journey-step-num">02</div>
+  </div>
+
+  <!-- Step 3: Fold -->
+  <div class="journey-section dark">
+    <div class="journey-inner">
+      <div>
+        <div class="journey-step-label">03 // Process</div>
+        <h2 class="journey-step-title">FOLD<br>INTO<br>FORM</h2>
+        <p class="journey-step-desc">Score lines become fold lines. The flat becomes dimensional. Structure emerges — engineered for compression strength and protection.</p>
+      </div>
+      <div class="journey-visual">
+        <div class="fold-visual">
+          <div class="fold-panel fold-top"></div>
+          <div class="fold-panel fold-left"></div>
+          <div class="fold-panel fold-center"></div>
+          <div class="fold-panel fold-right"></div>
+          <div class="fold-panel fold-bottom"></div>
+        </div>
+      </div>
+    </div>
+    <div class="journey-step-num">03</div>
+  </div>
+
+  <!-- Step 4: Print -->
+  <div class="journey-section mid">
+    <div class="journey-inner">
+      <div class="journey-visual">
+        <div class="print-visual">
+          <div class="print-scan-line"></div>
+          <div class="print-result-layer"></div>
+          <div class="print-logo-reveal">
+            <img src="assets/logos/horizontal-logo.png" alt="">
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="journey-step-label">04 // Process</div>
+        <h2 class="journey-step-title">PRINT<br>YOUR<br>BRAND</h2>
+        <p class="journey-step-desc">Flexo, digital, UV — your brand is applied with precision. A plain box becomes your brand's first impression.</p>
+      </div>
+    </div>
+    <div class="journey-step-num">04</div>
+  </div>
+
+  <!-- Step 5: Ship -->
+  <div class="journey-section kraft-bg">
+    <div class="journey-inner">
+      <div>
+        <div class="journey-step-label" style="color:var(--navy);">05 // Delivered</div>
+        <h2 class="journey-step-title dark-text">PACK.<br>SHIP.<br>ARRIVE.</h2>
+        <p class="journey-step-desc dark-text">From our Maharashtra facility to your doorstep — pan-India. Flat-packed, bundled, and dispatch-ready with GST-compliant invoicing.</p>
+        <div style="display:flex;gap:16px;margin-top:32px;flex-wrap:wrap;">
+          <a href="product-detail.html" class="btn-cta-navy" style="font-size:12px;padding:14px 32px;">Shop Packaging</a>
+          <a href="#" class="btn-cta-outline-dark" style="border-width:1.5px;font-size:12px;padding:14px 32px;">Request Quote</a>
+        </div>
+      </div>
+      <div class="journey-visual">
+        <div class="ship-visual">
+          <div class="ship-motion-lines">
+            <div class="ship-line"></div>
+            <div class="ship-line"></div>
+            <div class="ship-line"></div>
+            <div class="ship-line"></div>
+          </div>
+          <div class="ship-box"></div>
+        </div>
+      </div>
+    </div>
+    <div class="journey-step-num" style="color:rgba(28,43,59,0.06);">05</div>
+  </div>
+
+</div>
+
+<!-- PRODUCTS -->
+<section class="products-motion" id="products">
+  <div class="products-motion-header">
+    <h2>
+      Our <span>Products</span><br>Collection.
+    </h2>
+    <a href="products.html" style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.15em;text-transform:uppercase;color:var(--kraft-warm);text-decoration:none;display:flex;align-items:center;gap:8px;transition:gap 0.3s;" onmouseover="this.style.gap='16px'" onmouseout="this.style.gap='8px'">View All →</a>
+  </div>
+
+  <div class="products-track-wrapper" id="productsTrack">
+    <div class="products-track" id="productsInner">
+
+      <!-- Card 1 -->
+      <div class="motion-card" onclick="addToCart('Corrugated Shipping Box', 'Medium')">
+        <div class="motion-card-image" style="background:linear-gradient(135deg,rgba(28,43,59,0.5),rgba(14,24,32,0.9));">
+          <div class="motion-box">
+            <div class="motion-box-body" style="background:linear-gradient(135deg,#A07838,#8A6428);">
+              <div class="motion-box-lid" style="background:linear-gradient(135deg,#C49858,#A07838);"></div>
+            </div>
+          </div>
+        </div>
+        <div class="motion-card-num">01</div>
+        <div class="motion-card-content">
+          <div class="motion-card-cat">// Shipping</div>
+          <div class="motion-card-title">Corrugated Shipping Box</div>
+          <div class="motion-card-specs">
+            <span class="motion-spec-chip">3-PLY</span>
+            <span class="motion-spec-chip">5-PLY</span>
+            <span class="motion-spec-chip">Custom</span>
+          </div>
+          <div class="motion-card-actions">
+            <button class="motion-btn-primary" onclick="openQuote('Corrugated Shipping Box')">Get Quote</button>
+            <button class="motion-btn-ghost">View</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 2 -->
+      <div class="motion-card" style="width:380px;">
+        <div class="motion-card-image" style="background:linear-gradient(135deg,rgba(160,120,56,0.1),rgba(14,24,32,0.95));height:260px;">
+          <div class="motion-box">
+            <div class="motion-box-body" style="background:linear-gradient(135deg,#1C2B3B,#243447);">
+              <div class="motion-box-lid" style="background:linear-gradient(135deg,#243447,#1C2B3B);"></div>
+            </div>
+          </div>
+        </div>
+        <div class="motion-card-num">02</div>
+        <div class="motion-card-content">
+          <div class="motion-card-cat">// E-commerce</div>
+          <div class="motion-card-title">Premium Mailer Box</div>
+          <div class="motion-card-specs">
+            <span class="motion-spec-chip">Tuck-in</span>
+            <span class="motion-spec-chip">Printable</span>
+          </div>
+          <div class="motion-card-actions">
+            <button class="motion-btn-primary" onclick="openQuote('Premium Mailer Box')">Get Quote</button>
+            <a href="product-detail.html" class="motion-btn-ghost" style="text-decoration:none;color:var(--gray);">Detail</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 3 -->
+      <div class="motion-card">
+        <div class="motion-card-image" style="background:linear-gradient(135deg,rgba(160,120,56,0.2),rgba(28,43,59,0.7));">
+          <div class="motion-box" style="transform: rotate(8deg);">
+            <div class="motion-box-body" style="background:linear-gradient(135deg,#C49858,#A07838);">
+              <div class="motion-box-lid" style="background:linear-gradient(135deg,#D4B878,#C49858);"></div>
+            </div>
+          </div>
+        </div>
+        <div class="motion-card-num">03</div>
+        <div class="motion-card-content">
+          <div class="motion-card-cat">// Custom Print</div>
+          <div class="motion-card-title">Printed Brand Box</div>
+          <div class="motion-card-specs">
+            <span class="motion-spec-chip">Full Color</span>
+            <span class="motion-spec-chip">UV Gloss</span>
+          </div>
+          <div class="motion-card-actions">
+            <button class="motion-btn-primary">Customize</button>
+            <button class="motion-btn-ghost">Quote</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 4 -->
+      <div class="motion-card">
+        <div class="motion-card-image" style="background:linear-gradient(135deg,rgba(58,75,92,0.3),rgba(14,24,32,0.9));">
+          <div class="motion-box" style="transform:scale(1.2);">
+            <div class="motion-box-body" style="background:linear-gradient(135deg,#3A4B5C,#1C2B3B);">
+              <div class="motion-box-lid" style="background:linear-gradient(135deg,#4A5B6C,#3A4B5C);"></div>
+            </div>
+          </div>
+        </div>
+        <div class="motion-card-num">04</div>
+        <div class="motion-card-content">
+          <div class="motion-card-cat">// Industrial</div>
+          <div class="motion-card-title">Heavy Duty Carton</div>
+          <div class="motion-card-specs">
+            <span class="motion-spec-chip">7-PLY</span>
+            <span class="motion-spec-chip">Bulk</span>
+          </div>
+          <div class="motion-card-actions">
+            <button class="motion-btn-primary" onclick="openQuote('Heavy Duty Carton')">Get Quote</button>
+            <button class="motion-btn-ghost">Details</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 5 -->
+      <div class="motion-card">
+        <div class="motion-card-image" style="background:linear-gradient(135deg,rgba(160,120,56,0.15),rgba(14,24,32,0.8));">
+          <div class="motion-box">
+            <div class="motion-box-body" style="background:linear-gradient(135deg,#D4B896,#B89870);">
+              <div class="motion-box-lid" style="background:linear-gradient(135deg,#E4C8A6,#D4B896);"></div>
+            </div>
+          </div>
+        </div>
+        <div class="motion-card-num">05</div>
+        <div class="motion-card-content">
+          <div class="motion-card-cat">// Eco</div>
+          <div class="motion-card-title">Kraft Mailer Box</div>
+          <div class="motion-card-specs">
+            <span class="motion-spec-chip">Natural</span>
+            <span class="motion-spec-chip">Recyclable</span>
+          </div>
+          <div class="motion-card-actions">
+            <button class="motion-btn-primary" onclick="openQuote('Kraft Mailer Box')">Get Quote</button>
+            <button class="motion-btn-ghost">View</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 6 -->
+      <div class="motion-card">
+        <div class="motion-card-image" style="background:linear-gradient(135deg,rgba(28,43,59,0.6),rgba(14,24,32,0.9));">
+          <div class="motion-box">
+            <div class="motion-box-body" style="background:linear-gradient(135deg,#8A6428,#6A4A18);">
+              <div class="motion-box-lid" style="background:linear-gradient(135deg,#A07838,#8A6428);"></div>
+            </div>
+          </div>
+        </div>
+        <div class="motion-card-num">06</div>
+        <div class="motion-card-content">
+          <div class="motion-card-cat">// Retail</div>
+          <div class="motion-card-title">Retail Display Box</div>
+          <div class="motion-card-specs">
+            <span class="motion-spec-chip">Premium</span>
+            <span class="motion-spec-chip">Display</span>
+          </div>
+          <div class="motion-card-actions">
+            <button class="motion-btn-primary" onclick="openQuote('Retail Display Box')">Get Quote</button>
+            <button class="motion-btn-ghost">Quote</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="motion-cta">
+  <h2 class="motion-cta-title">
+    Start Your<br>Enquiry.
+  </h2>
+  <div class="motion-cta-actions">
+    <a href="contact.html" class="btn-cta-navy">Contact Our Team</a>
+    <a href="products.html" class="btn-cta-outline-dark">View All Products</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="motion-footer">
+  <div class="footer-motion-inner">
+    <div class="footer-motion-logo">
+      <img src="assets/logos/horizontal-logo.png" alt="Alhamd Packaging">
+    </div>
+    <ul class="footer-motion-links">
+      <li><a href="products.html">Products</a></li>
+      <li><a href="custom-packaging.html">Custom</a></li>
+      <li><a href="industries.html">Industries</a></li>
+      <li><a href="sustainability.html">Sustainability</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+  </div>
+  <div class="footer-motion-bottom">
+    <div class="footer-motion-copy">© 2026 Alhamd Packaging — Crafted in India. Delivered pan-India.</div>
+    <div style="display:flex;gap:20px;">
+      <a href="contact.html" style="font-family:'IBM Plex Mono',monospace;font-size:9px;color:rgba(250,250,248,0.25);text-decoration:none;">business@alhamdpackaging.com</a>
+    </div>
+  </div>
+</footer>
+
+<!-- Get Quote Modal -->
+<div class="quote-modal-overlay" id="quoteOverlay" onclick="closeQuote(event)" style="position:fixed;inset:0;background:rgba(0,0,0,0.75);z-index:3000;opacity:0;pointer-events:none;transition:opacity 0.3s;display:flex;align-items:center;justify-content:center;">
+  <div class="quote-modal" style="background:var(--navy);border:1px solid rgba(160,120,56,0.3);width:480px;max-width:95vw;padding:40px;position:relative;transform:translateY(24px);transition:transform 0.35s;">
+    <button onclick="closeQuoteBtn()" style="position:absolute;top:20px;right:20px;background:none;border:1px solid rgba(160,120,56,0.3);color:var(--gray);width:32px;height:32px;cursor:pointer;font-size:14px;">&#x2715;</button>
+    <span style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:0.2em;text-transform:uppercase;color:var(--kraft-warm);margin-bottom:8px;display:block;">Enquiry For</span>
+    <div id="quoteProductName" style="font-family:'Anton',sans-serif;font-size:28px;text-transform:uppercase;color:var(--white);margin-bottom:28px;line-height:1.1;">Product</div>
+    <label style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:0.15em;text-transform:uppercase;color:var(--gray);display:block;margin-bottom:8px;">Quantity Required (units)</label>
+    <input type="number" id="quoteQty" placeholder="e.g. 500" min="1" style="width:100%;background:var(--navy-deep);border:1px solid rgba(160,120,56,0.4);color:var(--white);font-family:'Inter',sans-serif;font-size:16px;padding:14px 16px;outline:none;margin-bottom:24px;">
+    <div style="display:flex;flex-direction:column;gap:12px;">
+      <button onclick="sendWhatsApp()" style="display:flex;align-items:center;justify-content:center;gap:10px;padding:16px 24px;background:#25D366;color:#fff;border:none;font-family:'Inter',sans-serif;font-size:13px;font-weight:700;letter-spacing:0.05em;text-transform:uppercase;cursor:pointer;">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+        Enquire on WhatsApp
+      </button>
+      <button onclick="sendEmail()" style="display:flex;align-items:center;justify-content:center;gap:10px;padding:16px 24px;background:none;color:var(--kraft-warm);border:1px solid var(--kraft-warm);font-family:'Inter',sans-serif;font-size:13px;font-weight:600;letter-spacing:0.05em;text-transform:uppercase;cursor:pointer;">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><polyline points="2,4 12,13 22,4"/></svg>
+        Send Email Enquiry
+      </button>
+    </div>
+    <p style="font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:0.1em;color:rgba(136,153,170,0.5);text-align:center;margin-top:16px;text-transform:uppercase;">WhatsApp: +91 99034 27389 &nbsp;|&nbsp; business@alhamdpackaging.com</p>
+  </div>
+</div>
+
+<script>
+// Cursor
+const dot = document.getElementById('cursorDot');
+const ring = document.getElementById('cursorRing');
+let mouseX = 0, mouseY = 0;
+let ringX = 0, ringY = 0;
+
+document.addEventListener('mousemove', e => {
+  mouseX = e.clientX; mouseY = e.clientY;
+  dot.style.left = mouseX + 'px';
+  dot.style.top = mouseY + 'px';
+});
+
+function animateRing() {
+  ringX += (mouseX - ringX) * 0.12;
+  ringY += (mouseY - ringY) * 0.12;
+  ring.style.left = ringX + 'px';
+  ring.style.top = ringY + 'px';
+  requestAnimationFrame(animateRing);
+}
+animateRing();
+
+// Nav scroll
+window.addEventListener('scroll', () => {
+  document.getElementById('nav').classList.toggle('scrolled', window.scrollY > 20);
+});
+
+// Menu
+function openMenu() { document.getElementById('fullscreenMenu').classList.add('open'); document.body.style.overflow = 'hidden'; }
+function closeMenu() { document.getElementById('fullscreenMenu').classList.remove('open'); document.body.style.overflow = ''; }
+
+// ---- GET QUOTE SYSTEM ----
+const WA_NUMBER = '919903427389';
+const EMAIL_ADDR = 'business@alhamdpackaging.com';
+let currentProduct = '';
+
+function openQuote(productName) {
+  currentProduct = productName;
+  document.getElementById('quoteProductName').textContent = productName;
+  document.getElementById('quoteQty').value = '';
+  const overlay = document.getElementById('quoteOverlay');
+  overlay.style.opacity = '1';
+  overlay.style.pointerEvents = 'all';
+  overlay.querySelector('.quote-modal').style.transform = 'translateY(0)';
+  document.body.style.overflow = 'hidden';
+  setTimeout(() => document.getElementById('quoteQty').focus(), 300);
+}
+
+function closeQuote(e) {
+  if (e.target === document.getElementById('quoteOverlay')) closeQuoteBtn();
+}
+
+function closeQuoteBtn() {
+  const overlay = document.getElementById('quoteOverlay');
+  overlay.style.opacity = '0';
+  overlay.style.pointerEvents = 'none';
+  overlay.querySelector('.quote-modal').style.transform = 'translateY(24px)';
+  document.body.style.overflow = '';
+}
+
+function getQty() {
+  const val = parseInt(document.getElementById('quoteQty').value);
+  return (val && val > 0) ? val : null;
+}
+
+function sendWhatsApp() {
+  const qty = getQty();
+  if (!qty) { document.getElementById('quoteQty').focus(); return; }
+  const msg = `Hello Alhamd Packaging,%0AI am interested in enquiring about: *${currentProduct}*%0AQuantity Required: *${qty} units*%0AKindly share your best quote and availability.%0AThank you.`;
+  window.open(`https://wa.me/${WA_NUMBER}?text=${msg}`, '_blank');
+  closeQuoteBtn();
+}
+
+function sendEmail() {
+  const qty = getQty();
+  if (!qty) { document.getElementById('quoteQty').focus(); return; }
+  const subject = encodeURIComponent(`Quote Request — ${currentProduct}`);
+  const body = encodeURIComponent(`Hello Alhamd Packaging Team,\n\nI would like to request a quote for the following product:\n\nProduct: ${currentProduct}\nQuantity Required: ${qty} units\n\nKindly share pricing, lead time, and any customisation options available.\n\nThank you.`);
+  window.location.href = `mailto:${EMAIL_ADDR}?subject=${subject}&body=${body}`;
+  closeQuoteBtn();
+}
+
+// Horizontal drag scroll
+const track = document.getElementById('productsTrack');
+let isDown = false, startX, scrollLeft;
+track.addEventListener('mousedown', e => { isDown = true; startX = e.pageX - track.offsetLeft; scrollLeft = track.scrollLeft; track.style.cursor='grabbing'; });
+track.addEventListener('mouseleave', () => { isDown = false; track.style.cursor='grab'; });
+track.addEventListener('mouseup', () => { isDown = false; track.style.cursor='grab'; });
+track.addEventListener('mousemove', e => { if(!isDown) return; e.preventDefault(); const x = e.pageX - track.offsetLeft; track.scrollLeft = scrollLeft - (x - startX) * 1.5; });
+</script>
+</body>
+</html>

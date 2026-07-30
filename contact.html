@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Alhamd Packaging — Contact Us</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@200;300;400;500;600;700&family=IBM+Plex+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --navy: #1C2B3B;
+  --navy-deep: #0E1820;
+  --kraft: #A07838;
+  --kraft-warm: #C49850;
+  --cream: #F5F0E8;
+  --white: #FAFAF8;
+  --mid: #4A6070;
+  --gray: #8899AA;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Inter', sans-serif;
+  background: var(--navy-deep);
+  color: var(--white);
+  overflow-x: hidden;
+  cursor: default;
+}
+
+/* ---- NAV ---- */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 48px; height: 72px; background: rgba(14,24,32,0.95);
+  backdrop-filter: blur(20px); border-bottom: 1px solid rgba(160,120,56,0.15);
+}
+.nav-logo img { height: 36px; filter: brightness(0) invert(1); }
+.nav-links-motion { display: flex; align-items: center; gap: 40px; list-style: none; }
+.nav-links-motion a {
+  font-size: 12px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase;
+  color: rgba(250,250,248,0.7); text-decoration: none; transition: color 0.2s;
+}
+.nav-links-motion a:hover, .nav-links-motion a.active { color: var(--white); }
+.nav-motion-cta { display: flex; align-items: center; gap: 12px; }
+.btn-motion-ghost {
+  font-size: 11px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--kraft-warm); border: 1px solid var(--kraft-warm);
+  padding: 9px 20px; text-decoration: none; transition: all 0.3s; position: relative; overflow: hidden;
+}
+.btn-motion-ghost::before {
+  content: ''; position: absolute; inset: 0; background: var(--kraft-warm);
+  transform: scaleX(0); transform-origin: left; transition: transform 0.3s;
+}
+.btn-motion-ghost:hover::before { transform: scaleX(1); }
+.btn-motion-ghost:hover { color: var(--navy-deep); }
+.btn-motion-ghost span { position: relative; z-index: 1; }
+.nav-menu-btn {
+  font-size: 11px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--white); background: none; border: none; cursor: pointer; display: flex; align-items: center; gap: 10px; padding: 0;
+}
+.menu-lines { display: flex; flex-direction: column; gap: 4px; }
+.menu-lines span { display: block; width: 18px; height: 1.5px; background: var(--white); transition: all 0.3s; }
+
+/* ---- FULLSCREEN MENU ---- */
+.fullscreen-menu {
+  position: fixed; inset: 0; background: var(--navy-deep); z-index: 1500;
+  display: flex; align-items: center; justify-content: center;
+  transform: scaleY(0); transform-origin: top; transition: transform 0.5s cubic-bezier(0.76, 0, 0.24, 1);
+}
+.fullscreen-menu.open { transform: scaleY(1); }
+.fullscreen-menu-inner { display: flex; flex-direction: column; gap: 16px; text-align: center; }
+.fullscreen-menu-item {
+  font-family: 'Anton', sans-serif; font-size: clamp(36px, 6vw, 72px);
+  text-transform: uppercase; color: rgba(250,250,248,0.4); text-decoration: none; line-height: 1.1;
+  transition: color 0.2s, transform 0.2s; display: block;
+}
+.fullscreen-menu-item:hover { color: var(--kraft-warm); transform: translateX(8px); }
+.fullscreen-close {
+  position: absolute; top: 32px; right: 48px; font-size: 12px; font-weight: 600; letter-spacing: 0.12em;
+  text-transform: uppercase; color: rgba(250,250,248,0.5); background: none; border: none; cursor: pointer; transition: color 0.2s;
+}
+.fullscreen-close:hover { color: var(--kraft-warm); }
+
+/* ---- CONTACT TOP SECTION ---- */
+.contact-header {
+  padding: 160px 48px 60px;
+  text-align: center;
+}
+.contact-pre {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 11px; letter-spacing: 0.25em; text-transform: uppercase; color: var(--kraft-warm);
+  display: inline-block; margin-bottom: 16px; position: relative;
+}
+.contact-pre::before, .contact-pre::after {
+  content: ''; position: absolute; top: 50%; width: 24px; height: 1px; background: var(--kraft-warm); opacity: 0.5;
+}
+.contact-pre::before { left: -36px; } .contact-pre::after { right: -36px; }
+.contact-title {
+  font-family: 'Anton', sans-serif;
+  font-size: clamp(48px, 7vw, 90px);
+  text-transform: uppercase; color: var(--white); line-height: 1;
+}
+
+/* ---- CONTACT CARDS ---- */
+.contact-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 24px;
+  padding: 0 48px 80px;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+.contact-card {
+  background: var(--navy);
+  border: 1px solid rgba(160,120,56,0.15);
+  padding: 40px; text-align: center;
+  transition: border-color 0.3s, transform 0.3s;
+}
+.contact-card:hover { border-color: var(--kraft-warm); transform: translateY(-4px); }
+.card-icon {
+  width: 48px; height: 48px;
+  margin: 0 auto 24px; color: var(--kraft-warm);
+}
+.card-label {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase;
+  color: var(--gray); margin-bottom: 12px;
+}
+.card-detail {
+  font-size: 18px; line-height: 1.5; color: var(--white);
+}
+
+/* ---- SPLIT FORM SECTION ---- */
+.split-section {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 80px;
+  padding: 60px 48px 120px; max-width: 1400px; margin: 0 auto;
+}
+.split-left h2 {
+  font-family: 'Anton', sans-serif; font-size: clamp(36px, 5vw, 60px);
+  text-transform: uppercase; color: var(--white); line-height: 1.1; margin-bottom: 24px;
+}
+.split-left p {
+  font-size: 18px; line-height: 1.7; font-weight: 300; color: rgba(250,250,248,0.7); max-width: 500px;
+}
+.split-right {
+  background: var(--navy); border: 1px solid rgba(160,120,56,0.15);
+  padding: 48px; border-radius: 2px;
+}
+.split-right h3 {
+  font-family: 'Anton', sans-serif; font-size: 32px; text-transform: uppercase;
+  color: var(--white); margin-bottom: 32px; border-bottom: 1px solid rgba(160,120,56,0.15); padding-bottom: 16px;
+}
+
+.form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 20px; }
+.form-group.full { grid-column: 1 / -1; }
+.form-label {
+  display: block; font-family: 'IBM Plex Mono', monospace; font-size: 10px;
+  letter-spacing: 0.1em; text-transform: uppercase; color: var(--gray); margin-bottom: 8px;
+}
+.form-input, .form-select, .form-textarea {
+  width: 100%; background: var(--navy-deep); border: 1px solid rgba(160,120,56,0.3);
+  color: var(--white); font-family: 'Inter', sans-serif; font-size: 14px; padding: 14px; outline: none;
+}
+.form-input:focus, .form-select:focus, .form-textarea:focus { border-color: var(--kraft-warm); }
+.form-select { appearance: none; cursor: pointer; }
+.form-textarea { resize: vertical; min-height: 120px; }
+
+.btn-submit {
+  width: 100%; padding: 18px; background: var(--kraft); color: var(--navy-deep);
+  border: none; font-family: 'Anton', sans-serif; font-size: 18px;
+  text-transform: uppercase; letter-spacing: 0.05em; cursor: pointer; transition: background 0.25s; margin-top: 10px;
+}
+.btn-submit:hover { background: var(--kraft-warm); }
+
+/* ---- FOOTER ---- */
+footer.motion-footer { background: var(--navy-deep); border-top: 1px solid rgba(160,120,56,0.12); padding: 60px 48px 32px; }
+.footer-motion-inner { display: flex; justify-content: space-between; align-items: center; gap: 24px; margin-bottom: 40px; }
+.footer-motion-logo img { height: 36px; filter: brightness(0) invert(1); }
+.footer-motion-links { display: flex; gap: 32px; list-style: none; }
+.footer-motion-links a { font-size: 12px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(250,250,248,0.4); text-decoration: none; transition: color 0.2s; }
+.footer-motion-links a:hover { color: var(--kraft-warm); }
+.footer-motion-bottom { border-top: 1px solid rgba(255,255,255,0.05); padding-top: 24px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; }
+.footer-motion-copy { font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 0.1em; color: rgba(250,250,248,0.2); }
+
+
+/* RESPONSIVE */
+@media (max-width: 1024px) {
+  .split-section { grid-template-columns: 1fr; gap: 48px; }
+  .split-left, .split-right { padding: 40px; }
+}
+@media (max-width: 768px) {
+  .nav-links-motion { display: none; }
+  .contact-hero { padding: 100px 24px 40px; }
+  .contact-hero-title { font-size: clamp(40px, 10vw, 60px); }
+  .cards-grid { grid-template-columns: 1fr; padding: 0 24px; margin-top: -40px; }
+  .split-container { padding: 60px 24px; }
+  .split-left, .split-right { padding: 32px 24px; }
+  .form-row { flex-direction: column; gap: 20px; }
+  .footer-motion-inner { flex-direction: column; text-align: center; }
+  .footer-motion-links { flex-wrap: wrap; justify-content: center; }
+}
+
+
+/* ---- CUSTOM TOAST & VALIDATION ---- */
+#toast-container { position: fixed; top: 24px; right: 24px; z-index: 9999; display: flex; flex-direction: column; gap: 12px; pointer-events: none; }
+.custom-toast { background: var(--navy-deep); border: 1px solid #ff4444; color: var(--white); padding: 16px 24px; border-radius: 4px; font-family: 'Inter', sans-serif; font-size: 14px; font-weight: 500; display: flex; align-items: center; gap: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); transform: translateX(120%); transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1); pointer-events: auto; }
+.custom-toast.show { transform: translateX(0); }
+.custom-toast i { color: #ff4444; }
+.error-field { border-color: #ff4444 !important; background: rgba(255, 68, 68, 0.05) !important; animation: shake 0.4s ease-in-out; }
+@keyframes shake { 0%, 100% { transform: translateX(0); } 25% { transform: translateX(-4px); } 75% { transform: translateX(4px); } }
+</style>
+
+
+<link rel="icon" type="image/png" href="assets/logos/icon-only.png">
+</head>
+<body>
+
+<!-- Fullscreen Menu -->
+<div class="fullscreen-menu" id="fullscreenMenu">
+  <div class="fullscreen-menu-inner">
+    <a href="index.html" class="fullscreen-menu-item">Home</a>
+    <a href="products.html" class="fullscreen-menu-item">Products</a>
+    <a href="custom-packaging.html" class="fullscreen-menu-item">Custom Packaging</a>
+    <a href="industries.html" class="fullscreen-menu-item">Industries</a>
+    <a href="about.html" class="fullscreen-menu-item">About</a>
+    <a href="contact.html" class="fullscreen-menu-item">Contact</a>
+  </div>
+  <button class="fullscreen-close" onclick="closeMenu()">Close ✕</button>
+</div>
+
+<!-- NAV -->
+<nav id="nav">
+  <div class="nav-logo"><a href="index.html"><img src="assets/logos/horizontal-logo.png" alt="Alhamd Packaging"></a></div>
+  <ul class="nav-links-motion">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="products.html">Products</a></li>
+    <li><a href="custom-packaging.html">Custom</a></li>
+    <li><a href="industries.html">Industries</a></li>
+    <li><a href="about.html">About</a></li>
+  </ul>
+  <div class="nav-motion-cta">
+    <a href="contact.html" class="btn-motion-ghost"><span>Contact Us</span></a>
+    <button class="nav-menu-btn" onclick="openMenu()">
+      <span>Menu</span>
+      <div class="menu-lines">
+        <span></span><span></span><span style="width:12px;"></span>
+      </div>
+    </button>
+  </div>
+</nav>
+
+<!-- TOP SECTION -->
+<div class="contact-header">
+  <span class="contact-pre">Break the Ice</span>
+  <h1 class="contact-title">We Love to Hear from You</h1>
+</div>
+
+<!-- CARDS -->
+<div class="contact-cards">
+  <div class="contact-card">
+    <div class="card-icon">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+    </div>
+    <div class="card-label">Call / WhatsApp Us</div>
+    <div class="card-detail">033-6826-3598<br>+91 99034 27389</div>
+  </div>
+
+  <div class="contact-card">
+    <div class="card-icon">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+    </div>
+    <div class="card-label">Email Us</div>
+    <div class="card-detail">business@alhamdpackaging.com</div>
+  </div>
+
+  <div class="contact-card">
+    <div class="card-icon">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+    </div>
+    <div class="card-label">Production Hub</div>
+    <div class="card-detail">P-30/B Narkel Danga Main Road,<br>Kolkata, West Bengal, 700011</div>
+  </div>
+</div>
+
+<!-- SPLIT SECTION -->
+<div class="split-section">
+  <div class="split-left">
+    <h2>The Future of Sustainable Packaging</h2>
+    <p>Frustrated with bad packaging service? Share your product details or requirements with us. We offer customised and eco-friendly packaging for every industry.</p>
+  </div>
+  
+  <div class="split-right">
+    <h3>We Can't Wait to Hear from You</h3>
+    <form action="mailto:business@alhamdpackaging.com" method="GET" enctype="text/plain">
+      <div class="form-grid">
+        <div class="form-group">
+          <label class="form-label">First Name</label>
+          <input type="text" class="form-input" required>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Last Name</label>
+          <input type="text" class="form-input" required>
+        </div>
+        
+        <div class="form-group full">
+          <label class="form-label">Email Address</label>
+          <input type="email" class="form-input" required>
+        </div>
+        
+        <div class="form-group full">
+          <label class="form-label">Subject / Business Type</label>
+          <select class="form-select">
+            <option value="Food">Food</option>
+            <option value="Apparel">Apparel</option>
+            <option value="E-Commerce">E-Commerce</option>
+            <option value="Exports">Exports</option>
+          </select>
+        </div>
+
+        <div class="form-group full">
+          <label class="form-label">Service Interested In</label>
+          <select class="form-select">
+            <option value="Reduce Packaging Cost">Reduce Packaging Cost</option>
+            <option value="Cut Damage">Cut Damage</option>
+          </select>
+        </div>
+        
+        <div class="form-group full">
+          <label class="form-label">Tell Us About Your Packaging Needs</label>
+          <textarea class="form-textarea" placeholder="Share box size (LxWxH), Quantity, or Current Packaging Issues..."></textarea>
+        </div>
+      </div>
+      <button type="submit" class="btn-submit">Get My Free 48-Hour Sample Box</button>
+    </form>
+  </div>
+</div>
+
+
+<!-- FOOTER -->
+<footer class="motion-footer">
+  <div class="footer-motion-inner">
+    <div class="footer-motion-logo">
+      <img src="assets/logos/horizontal-logo.png" alt="Alhamd Packaging">
+    </div>
+    <ul class="footer-motion-links">
+      <li><a href="products.html">Products</a></li>
+      <li><a href="custom-packaging.html">Custom</a></li>
+      <li><a href="industries.html">Industries</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+  </div>
+  <div class="footer-motion-bottom">
+    <div class="footer-motion-copy">&copy; 2026 Alhamd Packaging &mdash; Crafted in India. Delivered pan-India.</div>
+    <a href="contact.html" style="font-family:'IBM Plex Mono',monospace;font-size:9px;color:rgba(250,250,248,0.2);text-decoration:none;">business@alhamdpackaging.com</a>
+  </div>
+</footer>
+
+<script>
+function openMenu() { document.getElementById('fullscreenMenu').classList.add('open'); document.body.style.overflow='hidden'; }
+function closeMenu() { document.getElementById('fullscreenMenu').classList.remove('open'); document.body.style.overflow=''; }
+</script>
+<div id="toast-container"></div>
+
+<script src="https://unpkg.com/lucide@latest"></script>
+<script>
+lucide.createIcons();
+
+function showToast(message) {
+  const container = document.getElementById('toast-container');
+  const toast = document.createElement('div');
+  toast.className = 'custom-toast';
+  toast.innerHTML = `<i data-lucide="alert-circle" style="width:20px;height:20px;"></i> <span>${message}</span>`;
+  container.appendChild(toast);
+  if(typeof lucide !== 'undefined') { lucide.createIcons(); }
+  setTimeout(() => toast.classList.add('show'), 10);
+  setTimeout(() => {
+    toast.classList.remove('show');
+    setTimeout(() => toast.remove(), 400);
+  }, 4000);
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  const form = document.querySelector('form');
+  if(form) {
+    // Disable native browser validation
+    form.setAttribute('novalidate', true);
+    
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      
+      // Clear previous errors
+      document.querySelectorAll('.error-field').forEach(el => el.classList.remove('error-field'));
+      
+      let valid = true;
+      const requiredInputs = form.querySelectorAll('[required]');
+      
+      requiredInputs.forEach(input => {
+        if(!input.value.trim()) {
+          input.classList.add('error-field');
+          valid = false;
+        }
+      });
+      
+      if(!valid) {
+        showToast("Please fill in all mandatory fields before proceeding.");
+      } else {
+        // Validation passed, submit the form (which opens email client)
+        form.submit();
+      }
+    });
+  }
+});
+</script>
+
+
+
+<script src="init-data.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const contact = JSON.parse(localStorage.getItem('alhamd_contactInfo') || '{}');
+  
+  if (contact.waDisplay) {
+    const phoneCards = document.querySelectorAll('.card-title');
+    phoneCards.forEach(el => {
+      if(el.textContent.includes('033') || el.textContent.includes('99034')) {
+        el.textContent = contact.waDisplay;
+      }
+    });
+    const phoneSplit = document.querySelectorAll('.split-info-text');
+    phoneSplit.forEach(el => {
+      if(el.textContent.includes('033') || el.textContent.includes('99034')) {
+        el.textContent = contact.waDisplay;
+      }
+    });
+  }
+  
+  if (contact.email) {
+    const mailCards = document.querySelectorAll('.card-title');
+    mailCards.forEach(el => {
+      if(el.textContent.includes('business@')) {
+        el.textContent = contact.email;
+      }
+    });
+    const mailSplit = document.querySelectorAll('.split-info-text');
+    mailSplit.forEach(el => {
+      if(el.textContent.includes('business@')) {
+        el.textContent = contact.email;
+      }
+    });
+  }
+  
+  if (contact.addr1 || contact.addr2) {
+    const fullAddress = (contact.addr1 + " " + contact.addr2 + " " + (contact.country||'')).trim();
+    const addrCards = document.querySelectorAll('.card-desc');
+    addrCards.forEach(el => {
+      if(el.textContent.includes('Narkel Danga')) {
+        el.textContent = fullAddress;
+      }
+    });
+    const addrSplit = document.querySelectorAll('.split-info-text');
+    addrSplit.forEach(el => {
+      if(el.textContent.includes('Narkel Danga')) {
+        el.textContent = fullAddress;
+      }
+    });
+  }
+});
+</script>
+
+
+</body>
+</html>
