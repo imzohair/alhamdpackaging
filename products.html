@@ -656,6 +656,18 @@ footer.motion-footer {
   function renderProductsPage() {
     const categories = JSON.parse(localStorage.getItem('alhamd_categories') || '[]');
     const products = JSON.parse(localStorage.getItem('alhamd_products') || '[]');
+    
+    // Auto-fix any products that lost their category during previous edits
+    let modified = false;
+    products.forEach(p => {
+      if (!p.category && !p.catId && categories.length > 0) {
+        p.category = categories[0].id;
+        modified = true;
+      }
+    });
+    if (modified) {
+      localStorage.setItem('alhamd_products', JSON.stringify(products));
+    }
     const container = document.getElementById('dynamicProductsContainer');
     
     if (categories.length === 0) {
