@@ -609,11 +609,11 @@ footer.motion-footer {
 <div class="fullscreen-menu" id="fullscreenMenu">
   <div class="fullscreen-menu-inner">
     <a href="/" class="fullscreen-menu-item">Home</a>
-    <a href="products.html" class="fullscreen-menu-item">Products</a>
-    <a href="custom-packaging.html" class="fullscreen-menu-item">Custom Packaging</a>
-    <a href="industries.html" class="fullscreen-menu-item">Industries</a>
-    <a href="about.html" class="fullscreen-menu-item">About</a>
-    <a href="contact.html" class="fullscreen-menu-item">Contact</a>
+    <a href="/products" class="fullscreen-menu-item">Products</a>
+    <a href="/custom-packaging" class="fullscreen-menu-item">Custom Packaging</a>
+    <a href="/industries" class="fullscreen-menu-item">Industries</a>
+    <a href="/about" class="fullscreen-menu-item">About</a>
+    <a href="/contact" class="fullscreen-menu-item">Contact</a>
   </div>
   <button class="fullscreen-close" onclick="closeMenu()">Close &#x2715;</button>
 </div>
@@ -623,13 +623,13 @@ footer.motion-footer {
   <div class="nav-logo"><a href="/"><img src="assets/logos/horizontal-logo.png" alt="Alhamd Packaging"></a></div>
   <ul class="nav-links-motion">
     <li><a href="/">Home</a></li>
-    <li><a href="products.html" class="active">Products</a></li>
-    <li><a href="custom-packaging.html">Custom</a></li>
-    <li><a href="industries.html">Industries</a></li>
-    <li><a href="about.html">About</a></li>
+    <li><a href="/products" class="active">Products</a></li>
+    <li><a href="/custom-packaging">Custom</a></li>
+    <li><a href="/industries">Industries</a></li>
+    <li><a href="/about">About</a></li>
   </ul>
   <div class="nav-motion-cta">
-    <a href="contact.html" class="btn-motion-ghost"><span>Contact Us</span></a>
+    <a href="/contact" class="btn-motion-ghost"><span>Contact Us</span></a>
     <button class="nav-menu-btn" onclick="openMenu()">
       <span>Menu</span>
       <div class="menu-lines">
@@ -715,7 +715,7 @@ footer.motion-footer {
                     ${tags.map(t => `<span class="chip">${t}</span>`).join('')}
                   </div>
                   <div class="prod-card-actions">
-                    <a href="product-detail.html?id=${p.id}" class="btn-get-quote" style="text-align:center; text-decoration:none; display:flex; align-items:center; justify-content:center;">VIEW DETAILS</a>
+                    <a href="/product-detail?id=${p.id}" class="btn-get-quote" style="text-align:center; text-decoration:none; display:flex; align-items:center; justify-content:center;">VIEW DETAILS</a>
                     <button class="btn-whatsapp-quick" onclick="window.open('https://wa.me/919903427389?text=Hi,%20I%20am%20interested%20in%20${encodeURIComponent(p.name)}', '_blank')">
                       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
                     </button>
@@ -766,7 +766,7 @@ footer.motion-footer {
     <p class="cta-banner-sub">From exact dimensions to specific board ply and custom die-cuts, our advanced box builder lets you configure the perfect packaging solution.</p>
   </div>
   <div class="cta-banner-actions">
-    <a href="custom-packaging.html" class="btn-cta-primary" style="text-decoration:none;">Go to Box Configurator</a>
+    <a href="/custom-packaging" class="btn-cta-primary" style="text-decoration:none;">Go to Box Configurator</a>
   </div>
 </div>
 
@@ -777,16 +777,16 @@ footer.motion-footer {
       <img src="assets/logos/horizontal-logo.png" alt="Alhamd Packaging">
     </div>
     <ul class="footer-motion-links">
-      <li><a href="products.html">Products</a></li>
-      <li><a href="custom-packaging.html">Custom</a></li>
-      <li><a href="industries.html">Industries</a></li>
-      <li><a href="about.html">About</a></li>
-      <li><a href="contact.html">Contact</a></li>
+      <li><a href="/products">Products</a></li>
+      <li><a href="/custom-packaging">Custom</a></li>
+      <li><a href="/industries">Industries</a></li>
+      <li><a href="/about">About</a></li>
+      <li><a href="/contact">Contact</a></li>
     </ul>
   </div>
   <div class="footer-motion-bottom">
     <div class="footer-motion-copy">&copy; 2026 Alhamd Packaging &mdash; Crafted in India. Delivered pan-India.</div>
-    <a href="contact.html" style="font-family:'IBM Plex Mono',monospace;font-size:9px;color:rgba(250,250,248,0.2);text-decoration:none;">business@alhamdpackaging.com</a>
+    <a href="/contact" style="font-family:'IBM Plex Mono',monospace;font-size:9px;color:rgba(250,250,248,0.2);text-decoration:none;">business@alhamdpackaging.com</a>
   </div>
 </footer>
 
@@ -862,7 +862,7 @@ function closeMenu() { document.getElementById('fullscreenMenu').classList.remov
     <p class="cta-banner-sub">From exact dimensions to specific board ply and custom die-cuts, our advanced box builder lets you configure the perfect packaging solution.</p>
   </div>
   <div class="cta-banner-actions">
-    <a href="custom-packaging.html" class="btn-cta-primary" style="text-decoration:none;">Go to Box Configurator</a>
+    <a href="/custom-packaging" class="btn-cta-primary" style="text-decoration:none;">Go to Box Configurator</a>
   </div>
 </div>
 
@@ -873,16 +873,16 @@ function closeMenu() { document.getElementById('fullscreenMenu').classList.remov
       <img src="assets/logos/horizontal-logo.png" alt="Alhamd Packaging">
     </div>
     <ul class="footer-motion-links">
-      <li><a href="products.html">Products</a></li>
-      <li><a href="custom-packaging.html">Custom</a></li>
-      <li><a href="industries.html">Industries</a></li>
-      <li><a href="about.html">About</a></li>
-      <li><a href="contact.html">Contact</a></li>
+      <li><a href="/products">Products</a></li>
+      <li><a href="/custom-packaging">Custom</a></li>
+      <li><a href="/industries">Industries</a></li>
+      <li><a href="/about">About</a></li>
+      <li><a href="/contact">Contact</a></li>
     </ul>
   </div>
   <div class="footer-motion-bottom">
     <div class="footer-motion-copy">&copy; 2026 Alhamd Packaging &mdash; Crafted in India. Delivered pan-India.</div>
-    <a href="contact.html" style="font-family:'IBM Plex Mono',monospace;font-size:9px;color:rgba(250,250,248,0.2);text-decoration:none;">business@alhamdpackaging.com</a>
+    <a href="/contact" style="font-family:'IBM Plex Mono',monospace;font-size:9px;color:rgba(250,250,248,0.2);text-decoration:none;">business@alhamdpackaging.com</a>
   </div>
 </footer>
 
