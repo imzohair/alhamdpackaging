@@ -649,410 +649,199 @@ footer.motion-footer {
   <p class="header-subline">For maximum protection, lower shipping costs, and beautiful unboxing experiences</p>
 </header>
 
-<!-- CATEGORY ANCHOR NAV -->
-<div class="cat-nav-bar-wrapper">
-<div class="cat-nav-bar">
-  <div class="cat-nav-inner">
-    <a href="#food" class="cat-nav-link"><i data-lucide="utensils" style="width:14px;height:14px;"></i> Food &amp; Bakery</a>
-    <a href="#apparel" class="cat-nav-link"><i data-lucide="shirt" style="width:14px;height:14px;"></i> Apparel &amp; Fashion</a>
-    <a href="#industrial" class="cat-nav-link"><i data-lucide="factory" style="width:14px;height:14px;"></i> Heavy-Duty &amp; Industrial</a>
-    <a href="#retail" class="cat-nav-link"><i data-lucide="gift" style="width:14px;height:14px;"></i> Retail, Gift &amp; FMCG</a>
-    <a href="#specialty" class="cat-nav-link"><i data-lucide="sparkles" style="width:14px;height:14px;"></i> Specialty Products</a>
+<!-- DYNAMIC PRODUCTS CONTAINER -->
+<div id="dynamicProductsContainer"></div>
+
+<script>
+  function renderProductsPage() {
+    const categories = JSON.parse(localStorage.getItem('alhamd_categories') || '[]');
+    const products = JSON.parse(localStorage.getItem('alhamd_products') || '[]');
+    const container = document.getElementById('dynamicProductsContainer');
+    
+    if (categories.length === 0) {
+      container.innerHTML = '<p style="text-align:center; padding: 100px; color: var(--gray);">No categories found.</p>';
+      return;
+    }
+
+    // Build Nav
+    let navHtml = `
+      <div class="cat-nav-bar-wrapper">
+        <div class="cat-nav-bar">
+          <div class="cat-nav-inner">
+            ${categories.map(c => `<a href="#${c.id}" class="cat-nav-link"><i data-lucide="${c.icon || 'box'}" style="width:14px;height:14px;"></i> ${c.name}</a>`).join('')}
+          </div>
+        </div>
+      </div>
+    `;
+
+    // Build Sections
+    let sectionsHtml = '';
+    categories.forEach((cat, idx) => {
+      const catProds = products.filter(p => p.category === cat.id || p.catId === cat.id);
+      
+      let prodsHtml = '';
+      if (catProds.length === 0) {
+        prodsHtml = '<p style="color:var(--gray); font-style:italic;">No products in this category.</p>';
+      } else {
+        prodsHtml = `<div class="products-grid">
+          ${catProds.map(p => {
+            const imgHtml = p.image 
+              ? `<img src="${p.image}" style="width:100%; height:100%; object-fit:cover;">` 
+              : `<i data-lucide="${p.icon || 'package'}" style="width:48px;height:48px;color:var(--kraft-warm); stroke-width:1.5;"></i>`;
+              
+            const tags = p.tags || p.chips || [];
+            
+            return `
+              <div class="prod-card">
+                <div class="prod-card-icon">
+                  ${imgHtml}
+                </div>
+                <div class="prod-card-body">
+                  <div class="prod-card-cat">// ${cat.name.split(',')[0].toUpperCase()}</div>
+                  <h3 class="prod-card-name">${p.name}</h3>
+                  <div class="prod-card-chips">
+                    ${tags.map(t => `<span class="chip">${t}</span>`).join('')}
+                  </div>
+                  <div class="prod-card-actions">
+                    <a href="product-detail.html?id=${p.id}" class="btn-get-quote" style="text-align:center; text-decoration:none; display:flex; align-items:center; justify-content:center;">VIEW DETAILS</a>
+                    <button class="btn-whatsapp-quick" onclick="window.open('https://wa.me/919903427389?text=Hi,%20I%20am%20interested%20in%20${encodeURIComponent(p.name)}', '_blank')">
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            `;
+          }).join('')}
+        </div>`;
+      }
+      
+      const numStr = String(idx + 1).padStart(2, '0');
+      sectionsHtml += `
+        <section class="product-section" id="${cat.id}">
+          <div class="section-label">Category ${numStr}</div>
+          <h2 class="section-heading" style="display:flex; align-items:center; gap:16px;"><i data-lucide="${cat.icon || 'box'}" style="width:40px;height:40px;color:var(--kraft-warm);"></i> <span>${cat.name}</span></h2>
+          <p class="section-sub">${cat.desc || ''}</p>
+          ${prodsHtml}
+        </section>
+      `;
+    });
+
+    container.innerHTML = navHtml + sectionsHtml;
+    if (window.lucide) lucide.createIcons();
+    
+    // Setup intersection observer for active link
+    const sections = document.querySelectorAll('.product-section');
+    const catLinks = document.querySelectorAll('.cat-nav-link');
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          catLinks.forEach(l => l.classList.remove('active'));
+          const link = document.querySelector('.cat-nav-link[href="#' + entry.target.id + '"]');
+          if (link) link.classList.add('active');
+        }
+      });
+    }, { rootMargin: '-30% 0px -60% 0px' });
+    sections.forEach(s => observer.observe(s));
+  }
+
+  document.addEventListener('DOMContentLoaded', renderProductsPage);
+</script>
+
+<!-- ===== CUSTOM PACKAGING CTA ===== -->
+<div class="cta-banner">
+  <div class="cta-banner-text">
+    <h3 class="cta-banner-headline">Need Something 100% Custom?</h3>
+    <p class="cta-banner-sub">From exact dimensions to specific board ply and custom die-cuts, our advanced box builder lets you configure the perfect packaging solution.</p>
+  </div>
+  <div class="cta-banner-actions">
+    <a href="custom-packaging.html" class="btn-cta-primary" style="text-decoration:none;">Go to Box Configurator</a>
   </div>
 </div>
+
+<!-- FOOTER -->
+<footer class="motion-footer">
+  <div class="footer-motion-inner">
+    <div class="footer-motion-logo">
+      <img src="assets/logos/horizontal-logo.png" alt="Alhamd Packaging">
+    </div>
+    <ul class="footer-motion-links">
+      <li><a href="products.html">Products</a></li>
+      <li><a href="custom-packaging.html">Custom</a></li>
+      <li><a href="industries.html">Industries</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+  </div>
+  <div class="footer-motion-bottom">
+    <div class="footer-motion-copy">&copy; 2026 Alhamd Packaging &mdash; Crafted in India. Delivered pan-India.</div>
+    <a href="contact.html" style="font-family:'IBM Plex Mono',monospace;font-size:9px;color:rgba(250,250,248,0.2);text-decoration:none;">business@alhamdpackaging.com</a>
+  </div>
+</footer>
+
+<!-- GET QUOTE MODAL -->
+<div class="quote-modal-overlay" id="quoteOverlay" onclick="closeQuote(event)">
+  <div class="quote-modal">
+    <button class="quote-modal-close" onclick="closeQuoteBtn()">&#x2715;</button>
+    <span class="quote-eyebrow">Enquiry For</span>
+    <div class="quote-product-name" id="quoteProductName">Product</div>
+    <label class="quote-qty-label">Quantity Required (units)</label>
+    <input type="number" class="quote-qty-input" id="quoteQty" placeholder="e.g. 500" min="1">
+    <div class="quote-actions">
+      <button class="btn-wa-modal" onclick="sendWhatsApp()">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+        Enquire on WhatsApp
+      </button>
+      <button class="btn-email-modal" onclick="sendEmail()">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><polyline points="2,4 12,13 22,4"/></svg>
+        Send Email Enquiry
+      </button>
+    </div>
+    <p class="quote-contact-note">+91 99034 27389 &nbsp;|&nbsp; business@alhamdpackaging.com</p>
+  </div>
 </div>
 
+<script>
+
+function showToast(message) {
+  const container = document.getElementById('toast-container');
+  if(!container) return;
+  const toast = document.createElement('div');
+  toast.className = 'custom-toast';
+  toast.innerHTML = `<i data-lucide="alert-circle" style="width:20px;height:20px;"></i> <span>${message}</span>`;
+  container.appendChild(toast);
+  if(typeof lucide !== 'undefined') { lucide.createIcons(); }
+  setTimeout(() => toast.classList.add('show'), 10);
+  setTimeout(() => {
+    toast.classList.remove('show');
+    setTimeout(() => toast.remove(), 400);
+  }, 4000);
+}
+
+// Cursor
+const dot = document.getElementById('cursorDot');
+const ring = document.getElementById('cursorRing');
+let mouseX = 0, mouseY = 0, ringX = 0, ringY = 0;
+document.addEventListener('mousemove', e => {
+  mouseX = e.clientX; mouseY = e.clientY;
+  dot.style.left = mouseX + 'px'; dot.style.top = mouseY + 'px';
+});
+function animateRing() {
+  ringX += (mouseX - ringX) * 0.12;
+  ringY += (mouseY - ringY) * 0.12;
+  ring.style.left = ringX + 'px'; ring.style.top = ringY + 'px';
+  requestAnimationFrame(animateRing);
+}
+animateRing();
+
+// Menu
+function openMenu() { document.getElementById('fullscreenMenu').classList.add('open'); document.body.style.overflow='hidden'; }
+function closeMenu() { document.getElementById('fullscreenMenu').classList.remove('open'); document.body.style.overflow=''; }
 
 
-<!-- ===== SECTION 1: FOOD, BAKERY & RESTAURANT ===== -->
-<section class="product-section" id="food">
-  <div class="section-label">Category 01</div>
-  <h2 class="section-heading" style="display:flex; align-items:center; gap:16px;"><i data-lucide="utensils" style="width:40px;height:40px;color:var(--kraft-warm);"></i> <span>Food, Bakery &amp;<br>Restaurant Boxes</span></h2>
-  <p class="section-sub">Best choices for sweet shops, cloud kitchens, bakeries, and food brands</p>
+  }
 
-  <div class="products-grid">
-    <div class="prod-card">
-      <div class="prod-card-icon">
-        <i data-lucide="package" style="width:48px;height:48px;color:var(--kraft-warm); stroke-width:1.5;"></i>
-      </div>
-      <div class="prod-card-body">
-        <div class="prod-card-cat">// PACKAGING</div>
-        <h3 class="prod-card-name">Paper Sweet Boxes</h3>
-        <div class="prod-card-chips">
-          <span class="chip">Custom Print</span>
-          <span class="chip">Food-Safe</span>
-          <span class="chip">All Sizes</span>
-        </div>
-        <div class="prod-card-actions">
-          <a href="product-detail.html" class="btn-get-quote" style="text-align:center; text-decoration:none; display:flex; align-items:center; justify-content:center;">VIEW DETAILS</a>
-          <button class="btn-whatsapp-quick" onclick="window.open('https://wa.me/919903427389?text=Hi,%20I%20am%20interested%20in%20Paper%20Sweet%20Boxes', '_blank')">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
-          </button>
-        </div>
-      </div>
-    </div>
-    <div class="prod-card">
-      <div class="prod-card-icon">
-        <i data-lucide="package" style="width:48px;height:48px;color:var(--kraft-warm); stroke-width:1.5;"></i>
-      </div>
-      <div class="prod-card-body">
-        <div class="prod-card-cat">// PACKAGING</div>
-        <h3 class="prod-card-name">Cookies & Biscuit Boxes</h3>
-        <div class="prod-card-chips">
-          <span class="chip">Custom Print</span>
-          <span class="chip">Food-Safe</span>
-          <span class="chip">Window Cut</span>
-        </div>
-        <div class="prod-card-actions">
-          <a href="product-detail.html" class="btn-get-quote" style="text-align:center; text-decoration:none; display:flex; align-items:center; justify-content:center;">VIEW DETAILS</a>
-          <button class="btn-whatsapp-quick" onclick="window.open('https://wa.me/919903427389?text=Hi,%20I%20am%20interested%20in%20Cookies%20&%20Biscuit%20Boxes', '_blank')">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
-          </button>
-        </div>
-      </div>
-    </div>
-    <div class="prod-card">
-      <div class="prod-card-icon">
-        <i data-lucide="package" style="width:48px;height:48px;color:var(--kraft-warm); stroke-width:1.5;"></i>
-      </div>
-      <div class="prod-card-body">
-        <div class="prod-card-cat">// PACKAGING</div>
-        <h3 class="prod-card-name">Cake Packaging Boxes</h3>
-        <div class="prod-card-chips">
-          <span class="chip">Custom Print</span>
-          <span class="chip">Grease-Proof</span>
-          <span class="chip">All Sizes</span>
-        </div>
-        <div class="prod-card-actions">
-          <a href="product-detail.html" class="btn-get-quote" style="text-align:center; text-decoration:none; display:flex; align-items:center; justify-content:center;">VIEW DETAILS</a>
-          <button class="btn-whatsapp-quick" onclick="window.open('https://wa.me/919903427389?text=Hi,%20I%20am%20interested%20in%20Cake%20Packaging%20Boxes', '_blank')">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
-          </button>
-        </div>
-      </div>
-    </div>
-    <div class="prod-card">
-      <div class="prod-card-icon">
-        <i data-lucide="package" style="width:48px;height:48px;color:var(--kraft-warm); stroke-width:1.5;"></i>
-      </div>
-      <div class="prod-card-body">
-        <div class="prod-card-cat">// PACKAGING</div>
-        <h3 class="prod-card-name">Printed Pizza Boxes</h3>
-        <div class="prod-card-chips">
-          <span class="chip">Corrugated</span>
-          <span class="chip">Ventilated</span>
-          <span class="chip">Printed</span>
-        </div>
-        <div class="prod-card-actions">
-          <a href="product-detail.html" class="btn-get-quote" style="text-align:center; text-decoration:none; display:flex; align-items:center; justify-content:center;">VIEW DETAILS</a>
-          <button class="btn-whatsapp-quick" onclick="window.open('https://wa.me/919903427389?text=Hi,%20I%20am%20interested%20in%20Printed%20Pizza%20Boxes', '_blank')">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
-          </button>
-        </div>
-      </div>
-    </div>
-    <div class="prod-card">
-      <div class="prod-card-icon">
-        <i data-lucide="package" style="width:48px;height:48px;color:var(--kraft-warm); stroke-width:1.5;"></i>
-      </div>
-      <div class="prod-card-body">
-        <div class="prod-card-cat">// PACKAGING</div>
-        <h3 class="prod-card-name">Biryani Packaging Boxes</h3>
-        <div class="prod-card-chips">
-          <span class="chip">Leak-Proof</span>
-          <span class="chip">Food-Safe</span>
-          <span class="chip">Bulk Orders</span>
-        </div>
-        <div class="prod-card-actions">
-          <a href="product-detail.html" class="btn-get-quote" style="text-align:center; text-decoration:none; display:flex; align-items:center; justify-content:center;">VIEW DETAILS</a>
-          <button class="btn-whatsapp-quick" onclick="window.open('https://wa.me/919903427389?text=Hi,%20I%20am%20interested%20in%20Biryani%20Packaging%20Boxes', '_blank')">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
-          </button>
-        </div>
-      </div>
-    </div>
-    <div class="prod-card">
-      <div class="prod-card-icon">
-        <i data-lucide="package" style="width:48px;height:48px;color:var(--kraft-warm); stroke-width:1.5;"></i>
-      </div>
-      <div class="prod-card-body">
-        <div class="prod-card-cat">// PACKAGING</div>
-        <h3 class="prod-card-name">Cardboard Food Packing Boxes</h3>
-        <div class="prod-card-chips">
-          <span class="chip">Custom Size</span>
-          <span class="chip">Food-Grade</span>
-          <span class="chip">Printed</span>
-        </div>
-        <div class="prod-card-actions">
-          <a href="product-detail.html" class="btn-get-quote" style="text-align:center; text-decoration:none; display:flex; align-items:center; justify-content:center;">VIEW DETAILS</a>
-          <button class="btn-whatsapp-quick" onclick="window.open('https://wa.me/919903427389?text=Hi,%20I%20am%20interested%20in%20Cardboard%20Food%20Packing%20Boxes', '_blank')">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
-          </button>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ===== SECTION 2: APPAREL & FASHION ===== -->
-<section class="product-section" id="apparel">
-  <div class="section-label">Category 02</div>
-  <h2 class="section-heading" style="display:flex; align-items:center; gap:16px;"><i data-lucide="shirt" style="width:40px;height:40px;color:var(--kraft-warm);"></i> <span>Apparel &amp; Fashion<br>Packaging</span></h2>
-  <p class="section-sub">Perfect fit for garment manufacturers, boutique brands, and textile exporters</p>
-
-  <div class="products-grid">
-    <div class="prod-card">
-      <div class="prod-card-icon">
-        <i data-lucide="package" style="width:48px;height:48px;color:var(--kraft-warm); stroke-width:1.5;"></i>
-      </div>
-      <div class="prod-card-body">
-        <div class="prod-card-cat">// PACKAGING</div>
-        <h3 class="prod-card-name">Garment Packaging Boxes</h3>
-        <div class="prod-card-chips">
-          <span class="chip">Custom Print</span>
-          <span class="chip">Kraft / White</span>
-          <span class="chip">Exporters</span>
-        </div>
-        <div class="prod-card-actions">
-          <a href="product-detail.html" class="btn-get-quote" style="text-align:center; text-decoration:none; display:flex; align-items:center; justify-content:center;">VIEW DETAILS</a>
-          <button class="btn-whatsapp-quick" onclick="window.open('https://wa.me/919903427389?text=Hi,%20I%20am%20interested%20in%20Garment%20Packaging%20Boxes', '_blank')">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
-          </button>
-        </div>
-      </div>
-    </div>
-    <div class="prod-card">
-      <div class="prod-card-icon">
-        <i data-lucide="package" style="width:48px;height:48px;color:var(--kraft-warm); stroke-width:1.5;"></i>
-      </div>
-      <div class="prod-card-body">
-        <div class="prod-card-cat">// PACKAGING</div>
-        <h3 class="prod-card-name">Shirt & Saree Packaging Boxes</h3>
-        <div class="prod-card-chips">
-          <span class="chip">Flat Pack</span>
-          <span class="chip">Custom Print</span>
-          <span class="chip">Duplex Board</span>
-        </div>
-        <div class="prod-card-actions">
-          <a href="product-detail.html" class="btn-get-quote" style="text-align:center; text-decoration:none; display:flex; align-items:center; justify-content:center;">VIEW DETAILS</a>
-          <button class="btn-whatsapp-quick" onclick="window.open('https://wa.me/919903427389?text=Hi,%20I%20am%20interested%20in%20Shirt%20&%20Saree%20Packaging%20Boxes', '_blank')">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
-          </button>
-        </div>
-      </div>
-    </div>
-    <div class="prod-card">
-      <div class="prod-card-icon">
-        <i data-lucide="package" style="width:48px;height:48px;color:var(--kraft-warm); stroke-width:1.5;"></i>
-      </div>
-      <div class="prod-card-body">
-        <div class="prod-card-cat">// PACKAGING</div>
-        <h3 class="prod-card-name">Printed Corrugated Shoe Boxes</h3>
-        <div class="prod-card-chips">
-          <span class="chip">5-PLY</span>
-          <span class="chip">Full Colour</span>
-          <span class="chip">Stacking Strong</span>
-        </div>
-        <div class="prod-card-actions">
-          <a href="product-detail.html" class="btn-get-quote" style="text-align:center; text-decoration:none; display:flex; align-items:center; justify-content:center;">VIEW DETAILS</a>
-          <button class="btn-whatsapp-quick" onclick="window.open('https://wa.me/919903427389?text=Hi,%20I%20am%20interested%20in%20Printed%20Corrugated%20Shoe%20Boxes', '_blank')">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
-          </button>
-        </div>
-      </div>
-    </div>
-    <div class="prod-card">
-      <div class="prod-card-icon">
-        <i data-lucide="package" style="width:48px;height:48px;color:var(--kraft-warm); stroke-width:1.5;"></i>
-      </div>
-      <div class="prod-card-body">
-        <div class="prod-card-cat">// PACKAGING</div>
-        <h3 class="prod-card-name">Jewelry Packaging Boxes</h3>
-        <div class="prod-card-chips">
-          <span class="chip">Premium Board</span>
-          <span class="chip">Custom Size</span>
-          <span class="chip">Rigid / Folding</span>
-        </div>
-        <div class="prod-card-actions">
-          <a href="product-detail.html" class="btn-get-quote" style="text-align:center; text-decoration:none; display:flex; align-items:center; justify-content:center;">VIEW DETAILS</a>
-          <button class="btn-whatsapp-quick" onclick="window.open('https://wa.me/919903427389?text=Hi,%20I%20am%20interested%20in%20Jewelry%20Packaging%20Boxes', '_blank')">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
-          </button>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ===== SECTION 3: HEAVY-DUTY & INDUSTRIAL ===== -->
-<section class="product-section" id="industrial">
-  <div class="section-label">Category 03</div>
-  <h2 class="section-heading" style="display:flex; align-items:center; gap:16px;"><i data-lucide="factory" style="width:40px;height:40px;color:var(--kraft-warm);"></i> <span>Heavy-Duty Industrial<br>&amp; Bulk Shipping</span></h2>
-  <p class="section-sub">Maximum strength for warehouse storage, logistics, and heavy freight</p>
-
-  <div class="products-grid">
-    <div class="prod-card">
-      <div class="prod-card-icon">
-        <i data-lucide="package" style="width:48px;height:48px;color:var(--kraft-warm); stroke-width:1.5;"></i>
-      </div>
-      <div class="prod-card-body">
-        <div class="prod-card-cat">// PACKAGING</div>
-        <h3 class="prod-card-name">Heavy Duty Industrial Corrugated Boxes</h3>
-        <div class="prod-card-chips">
-          <span class="chip">3, 5, 7 PLY</span>
-          <span class="chip">Export Quality</span>
-          <span class="chip">Heavy Loads</span>
-        </div>
-        <div class="prod-card-actions">
-          <a href="product-detail.html" class="btn-get-quote" style="text-align:center; text-decoration:none; display:flex; align-items:center; justify-content:center;">VIEW DETAILS</a>
-          <button class="btn-whatsapp-quick" onclick="window.open('https://wa.me/919903427389?text=Hi,%20I%20am%20interested%20in%20Heavy%20Duty%20Industrial%20Corrugated%20Boxes', '_blank')">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
-          </button>
-        </div>
-      </div>
-    </div>
-    <div class="prod-card">
-      <div class="prod-card-icon">
-        <i data-lucide="package" style="width:48px;height:48px;color:var(--kraft-warm); stroke-width:1.5;"></i>
-      </div>
-      <div class="prod-card-body">
-        <div class="prod-card-cat">// PACKAGING</div>
-        <h3 class="prod-card-name">Printed Corrugated Boxes</h3>
-        <div class="prod-card-chips">
-          <span class="chip">Custom Logo</span>
-          <span class="chip">Kraft & White</span>
-          <span class="chip">All Sizes</span>
-        </div>
-        <div class="prod-card-actions">
-          <a href="product-detail.html" class="btn-get-quote" style="text-align:center; text-decoration:none; display:flex; align-items:center; justify-content:center;">VIEW DETAILS</a>
-          <button class="btn-whatsapp-quick" onclick="window.open('https://wa.me/919903427389?text=Hi,%20I%20am%20interested%20in%20Printed%20Corrugated%20Boxes', '_blank')">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
-          </button>
-        </div>
-      </div>
-    </div>
-    <div class="prod-card">
-      <div class="prod-card-icon">
-        <i data-lucide="package" style="width:48px;height:48px;color:var(--kraft-warm); stroke-width:1.5;"></i>
-      </div>
-      <div class="prod-card-body">
-        <div class="prod-card-cat">// PACKAGING</div>
-        <h3 class="prod-card-name">Corrugated Rolls</h3>
-        <div class="prod-card-chips">
-          <span class="chip">2-PLY</span>
-          <span class="chip">Cushioning</span>
-          <span class="chip">Bulk Supply</span>
-        </div>
-        <div class="prod-card-actions">
-          <a href="product-detail.html" class="btn-get-quote" style="text-align:center; text-decoration:none; display:flex; align-items:center; justify-content:center;">VIEW DETAILS</a>
-          <button class="btn-whatsapp-quick" onclick="window.open('https://wa.me/919903427389?text=Hi,%20I%20am%20interested%20in%20Corrugated%20Rolls', '_blank')">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
-          </button>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ===== SECTION 4: RETAIL, GIFT & FMCG ===== -->
-<section class="product-section" id="retail">
-  <div class="section-label">Category 04</div>
-  <h2 class="section-heading" style="display:flex; align-items:center; gap:16px;"><i data-lucide="gift" style="width:40px;height:40px;color:var(--kraft-warm);"></i> <span>Retail, Gift<br>&amp; FMCG Packaging</span></h2>
-  <p class="section-sub">Eye-catching custom boxes for consumer goods, gifting, and retail displays</p>
-
-  <div class="products-grid">
-    <div class="prod-card">
-      <div class="prod-card-icon">
-        <i data-lucide="package" style="width:48px;height:48px;color:var(--kraft-warm); stroke-width:1.5;"></i>
-      </div>
-      <div class="prod-card-body">
-        <div class="prod-card-cat">// PACKAGING</div>
-        <h3 class="prod-card-name">Folding Carton Boxes</h3>
-        <div class="prod-card-chips">
-          <span class="chip">Cosmetics</span>
-          <span class="chip">FMCG</span>
-          <span class="chip">Full Print</span>
-        </div>
-        <div class="prod-card-actions">
-          <a href="product-detail.html" class="btn-get-quote" style="text-align:center; text-decoration:none; display:flex; align-items:center; justify-content:center;">VIEW DETAILS</a>
-          <button class="btn-whatsapp-quick" onclick="window.open('https://wa.me/919903427389?text=Hi,%20I%20am%20interested%20in%20Folding%20Carton%20Boxes', '_blank')">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
-          </button>
-        </div>
-      </div>
-    </div>
-    <div class="prod-card">
-      <div class="prod-card-icon">
-        <i data-lucide="package" style="width:48px;height:48px;color:var(--kraft-warm); stroke-width:1.5;"></i>
-      </div>
-      <div class="prod-card-body">
-        <div class="prod-card-cat">// PACKAGING</div>
-        <h3 class="prod-card-name">Gift Packaging Boxes</h3>
-        <div class="prod-card-chips">
-          <span class="chip">Rigid Board</span>
-          <span class="chip">Magnetic Closure</span>
-          <span class="chip">Luxury Finish</span>
-        </div>
-        <div class="prod-card-actions">
-          <a href="product-detail.html" class="btn-get-quote" style="text-align:center; text-decoration:none; display:flex; align-items:center; justify-content:center;">VIEW DETAILS</a>
-          <button class="btn-whatsapp-quick" onclick="window.open('https://wa.me/919903427389?text=Hi,%20I%20am%20interested%20in%20Gift%20Packaging%20Boxes', '_blank')">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
-          </button>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ===== SECTION 5: SPECIALTY PRODUCTS ===== -->
-<section class="product-section" id="specialty">
-  <div class="section-label">Category 05</div>
-  <h2 class="section-heading" style="display:flex; align-items:center; gap:16px;"><i data-lucide="sparkles" style="width:40px;height:40px;color:var(--kraft-warm);"></i> <span>Specialty Consumer<br>Product Boxes</span></h2>
-  <p class="section-sub">Precision-crafted packaging for electronics, cosmetics, and pharmaceuticals</p>
-
-  <div class="products-grid">
-    <div class="prod-card">
-      <div class="prod-card-icon">
-        <i data-lucide="package" style="width:48px;height:48px;color:var(--kraft-warm); stroke-width:1.5;"></i>
-      </div>
-      <div class="prod-card-body">
-        <div class="prod-card-cat">// PACKAGING</div>
-        <h3 class="prod-card-name">Mono Carton Boxes</h3>
-        <div class="prod-card-chips">
-          <span class="chip">Pharmaceuticals</span>
-          <span class="chip">Electronics</span>
-          <span class="chip">High Gloss</span>
-        </div>
-        <div class="prod-card-actions">
-          <a href="product-detail.html" class="btn-get-quote" style="text-align:center; text-decoration:none; display:flex; align-items:center; justify-content:center;">VIEW DETAILS</a>
-          <button class="btn-whatsapp-quick" onclick="window.open('https://wa.me/919903427389?text=Hi,%20I%20am%20interested%20in%20Mono%20Carton%20Boxes', '_blank')">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
-          </button>
-        </div>
-      </div>
-    </div>
-    <div class="prod-card">
-      <div class="prod-card-icon">
-        <i data-lucide="package" style="width:48px;height:48px;color:var(--kraft-warm); stroke-width:1.5;"></i>
-      </div>
-      <div class="prod-card-body">
-        <div class="prod-card-cat">// PACKAGING</div>
-        <h3 class="prod-card-name">Custom Mailing Boxes</h3>
-        <div class="prod-card-chips">
-          <span class="chip">E-Commerce</span>
-          <span class="chip">Self-Locking</span>
-          <span class="chip">Custom Print</span>
-        </div>
-        <div class="prod-card-actions">
-          <a href="product-detail.html" class="btn-get-quote" style="text-align:center; text-decoration:none; display:flex; align-items:center; justify-content:center;">VIEW DETAILS</a>
-          <button class="btn-whatsapp-quick" onclick="window.open('https://wa.me/919903427389?text=Hi,%20I%20am%20interested%20in%20Custom%20Mailing%20Boxes', '_blank')">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
-          </button>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
+  document.addEventListener('DOMContentLoaded', renderProductsPage);
+</script>
 
 <!-- ===== CUSTOM PACKAGING CTA ===== -->
 <div class="cta-banner">

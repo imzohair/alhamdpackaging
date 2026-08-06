@@ -969,11 +969,29 @@ body {
       <div class="tag-list" id="prodTagList"></div>
     </div>
     <div class="form-field">
-      <label class="form-label">Product Image</label>
+      <label class="form-label">Main Product Image (Thumbnail)</label>
       <div class="img-upload-area">
-        <input type="file" accept="image/*" onchange="previewImage(this)">
+        <input type="file" accept="image/*" onchange="previewImage(this, 'prodImgPreview')">
         <div class="img-upload-label">Click to upload image (JPG, PNG, WebP)</div>
         <img class="img-preview" id="prodImgPreview" alt="Product image preview">
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-field">
+        <label class="form-label">Detail Image 2</label>
+        <div class="img-upload-area">
+          <input type="file" accept="image/*" onchange="previewImage(this, 'prodImgPreview2')">
+          <div class="img-upload-label">Click to upload</div>
+          <img class="img-preview" id="prodImgPreview2" alt="Product image preview">
+        </div>
+      </div>
+      <div class="form-field">
+        <label class="form-label">Detail Image 3</label>
+        <div class="img-upload-area">
+          <input type="file" accept="image/*" onchange="previewImage(this, 'prodImgPreview3')">
+          <div class="img-upload-label">Click to upload</div>
+          <img class="img-preview" id="prodImgPreview3" alt="Product image preview">
+        </div>
       </div>
     </div>
     <div class="form-row">
@@ -1118,6 +1136,8 @@ function openProductModal(product = null) {
   prodTags = [];
   document.getElementById('prodTagList').innerHTML = '';
   document.getElementById('prodImgPreview').classList.remove('show');
+  document.getElementById('prodImgPreview2').classList.remove('show');
+  document.getElementById('prodImgPreview3').classList.remove('show');
   document.getElementById('productModalTitle').textContent = product ? 'Edit Product' : 'Add Product';
   editingProductId = product ? product.id : null;
   populateCategorySelect();
@@ -1136,6 +1156,16 @@ function openProductModal(product = null) {
     if (product.image) {
       const img = document.getElementById('prodImgPreview');
       img.src = product.image;
+      img.classList.add('show');
+    }
+    if (product.image2) {
+      const img = document.getElementById('prodImgPreview2');
+      img.src = product.image2;
+      img.classList.add('show');
+    }
+    if (product.image3) {
+      const img = document.getElementById('prodImgPreview3');
+      img.src = product.image3;
       img.classList.add('show');
     }
   } else {
@@ -1181,11 +1211,11 @@ function removeTag(i) {
   renderTags();
 }
 
-function previewImage(input) {
+function previewImage(input, imgId) {
   if (input.files && input.files[0]) {
     const reader = new FileReader();
     reader.onload = e => {
-      const img = document.getElementById('prodImgPreview');
+      const img = document.getElementById(imgId);
       img.src = e.target.result;
       img.classList.add('show');
     };
@@ -1199,6 +1229,8 @@ function saveProduct() {
 
   const products = getData('products');
   const imgPreview = document.getElementById('prodImgPreview');
+  const imgPreview2 = document.getElementById('prodImgPreview2');
+  const imgPreview3 = document.getElementById('prodImgPreview3');
 
   const prod = {
     id: editingProductId || Date.now(),
@@ -1212,6 +1244,8 @@ function saveProduct() {
     tags: [...prodTags],
     status: document.getElementById('prodStatus').value,
     image: imgPreview.classList.contains('show') ? imgPreview.src : null,
+    image2: imgPreview2.classList.contains('show') ? imgPreview2.src : null,
+    image3: imgPreview3.classList.contains('show') ? imgPreview3.src : null,
     updatedAt: new Date().toISOString()
   };
 
