@@ -1,12 +1,11 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@200;300;400;500;600;700&family=IBM+Plex+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Anton&amp;family=Inter:wght@200;300;400;500;600;700&amp;family=IBM+Plex+Mono:wght@300;400;500&amp;display=swap" rel="stylesheet"/>
 <style>
 :root {
   --navy: #1C2B3B;
@@ -397,32 +396,38 @@ footer.motion-footer {
   .certs-grid { grid-template-columns: 1fr; }
   .fullscreen-close { right: 24px; }
 }
+
+    .visually-hidden {
+      position: absolute !important;
+      width: 1px !important;
+      height: 1px !important;
+      padding: 0 !important;
+      margin: -1px !important;
+      overflow: hidden !important;
+      clip: rect(0, 0, 0, 0) !important;
+      border: 0 !important;
+    }
 </style>
-
-<link rel="icon" type="image/png" href="assets/logos/icon-only.png">
-  <script src="init-data.js"></script>
-
-  <!-- SEO Metadata -->
-  <title>Sustainable Corrugated Packaging | Alhamd Packaging</title>
-  <meta name="description" content="Explore recyclable corrugated packaging solutions designed to help businesses reduce packaging waste without compromising protection.">
-  <meta name="robots" content="index, follow">
-  <link rel="canonical" href="https://www.alhamdpackaging.com/sustainability">
-  
-  <!-- Open Graph -->
-  <meta property="og:title" content="Sustainable Corrugated Packaging | Alhamd Packaging">
-  <meta property="og:description" content="Explore recyclable corrugated packaging solutions designed to help businesses reduce packaging waste without compromising protection.">
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="https://www.alhamdpackaging.com/sustainability">
-  <meta property="og:image" content="https://www.alhamdpackaging.com/assets/logos/horizontal-logo.png">
-  
-  <!-- Twitter -->
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Sustainable Corrugated Packaging | Alhamd Packaging">
-  <meta name="twitter:description" content="Explore recyclable corrugated packaging solutions designed to help businesses reduce packaging waste without compromising protection.">
-  <meta name="twitter:image" content="https://www.alhamdpackaging.com/assets/logos/horizontal-logo.png">
-  
-  <!-- Structured Data -->
-  <script type="application/ld+json">
+<link href="assets/logos/icon-only.png" rel="icon" type="image/png"/>
+<script src="init-data.js"></script>
+<!-- SEO Metadata -->
+<title>Sustainable Corrugated Packaging | Alhamd Packaging</title>
+<meta content="Explore recyclable corrugated packaging solutions designed to help businesses reduce packaging waste without compromising protection." name="description"/>
+<meta content="index, follow" name="robots"/>
+<link href="https://www.alhamdpackaging.com/sustainability" rel="canonical"/>
+<!-- Open Graph -->
+<meta content="Sustainable Corrugated Packaging | Alhamd Packaging" property="og:title"/>
+<meta content="Explore recyclable corrugated packaging solutions designed to help businesses reduce packaging waste without compromising protection." property="og:description"/>
+<meta content="website" property="og:type"/>
+<meta content="https://www.alhamdpackaging.com/sustainability" property="og:url"/>
+<meta content="https://www.alhamdpackaging.com/assets/logos/horizontal-logo.png" property="og:image"/>
+<!-- Twitter -->
+<meta content="summary_large_image" name="twitter:card"/>
+<meta content="Sustainable Corrugated Packaging | Alhamd Packaging" name="twitter:title"/>
+<meta content="Explore recyclable corrugated packaging solutions designed to help businesses reduce packaging waste without compromising protection." name="twitter:description"/>
+<meta content="https://www.alhamdpackaging.com/assets/logos/horizontal-logo.png" name="twitter:image"/>
+<!-- Structured Data -->
+<script type="application/ld+json">
 {
     "@context": "https://schema.org",
     "@type": "LocalBusiness",
@@ -446,130 +451,123 @@ footer.motion-footer {
   </script>
 </head>
 <body>
-
 <!-- Cursor -->
 <div class="cursor-dot" id="cursorDot"></div>
 <div class="cursor-ring" id="cursorRing"></div>
-
 <!-- Fullscreen menu -->
 <div class="fullscreen-menu" id="fullscreenMenu">
-  <div class="fullscreen-menu-inner">
-    <a href="/" class="fullscreen-menu-item">Home</a>
-    <a href="/products" class="fullscreen-menu-item">Products</a>
-    <a href="/custom-packaging" class="fullscreen-menu-item">Custom Packaging</a>
-    <a href="/industries" class="fullscreen-menu-item">Industries</a>
-    <a href="/sustainability" class="fullscreen-menu-item">Sustainability</a>
-    <a href="/about" class="fullscreen-menu-item">About</a>
-    <a href="/contact" class="fullscreen-menu-item">Contact</a>
-  </div>
-  <button class="fullscreen-close" onclick="closeMenu()">Close ✕</button>
+<div class="fullscreen-menu-inner">
+<a class="fullscreen-menu-item" href="/">Home</a>
+<a class="fullscreen-menu-item" href="/products">Products</a>
+<a class="fullscreen-menu-item" href="/custom-packaging">Custom Packaging</a>
+<a class="fullscreen-menu-item" href="/industries">Industries</a>
+<a class="fullscreen-menu-item" href="/sustainability">Sustainability</a>
+<a class="fullscreen-menu-item" href="/about">About</a>
+<a class="fullscreen-menu-item" href="/contact">Contact</a>
 </div>
-
+<button class="fullscreen-close" onclick="closeMenu()">Close ✕</button>
+</div>
 <!-- NAV -->
 <nav id="nav">
-  <div class="nav-logo"><a href="/"><img src="assets/logos/horizontal-logo.png" alt="Alhamd Packaging"></a></div>
-  <ul class="nav-links-motion">
-    <li><a href="/">Home</a></li>
-    <li><a href="/products">Products</a></li>
-    <li><a href="/custom-packaging">Custom</a></li>
-    <li><a href="/industries">Industries</a></li>
-    <li><a href="/about">About</a></li>
-  </ul>
-  <div class="nav-motion-cta">
-    <a href="/contact" class="btn-motion-ghost"><span>Contact Us</span></a>
-    <button class="nav-menu-btn" onclick="openMenu()">
-      <span>Menu</span>
-      <div class="menu-lines">
-        <span></span><span></span><span style="width:12px;"></span>
-      </div>
-    </button>
-  </div>
+<div class="nav-logo"><a href="/"><img alt="Alhamd Packaging" src="assets/logos/horizontal-logo.png"/></a></div>
+<ul class="nav-links-motion">
+<li><a href="/">Home</a></li>
+<li><a href="/products">Products</a></li>
+<li><a href="/custom-packaging">Custom</a></li>
+<li><a href="/industries">Industries</a></li>
+<li><a href="/about">About</a></li>
+</ul>
+<div class="nav-motion-cta">
+<a class="btn-motion-ghost" href="/contact"><span>Contact Us</span></a>
+<button class="nav-menu-btn" onclick="openMenu()">
+<span>Menu</span>
+<div class="menu-lines">
+<span></span><span></span><span style="width:12px;"></span>
+</div>
+</button>
+</div>
 </nav>
-
+<h1 class="visually-hidden">Sustainable Corrugated Packaging</h1>
 <!-- HERO -->
 <section class="sus-hero">
-  <span class="sus-pre">Eco Commitments</span>
-  <h1 class="sus-title">WRAPPING BRANDS<br><span>SUSTAINABLY</span></h1>
-  <p class="sus-desc">Every box we engineer is structured with ecological stewardship at the core. We verify that our corrugated boards remain 100% recyclable.</p>
+<span class="sus-pre">Eco Commitments</span>
+<div class="sus-title">WRAPPING BRANDS<br/><span>SUSTAINABLY</span></div>
+<p class="sus-desc">Every box we engineer is structured with ecological stewardship at the core. We verify that our corrugated boards remain 100% recyclable.</p>
 </section>
-
 <!-- PILLARS -->
 <section class="sus-pillars-section">
-  <div class="sus-pillars-grid">
-    <div class="sus-pillar-card">
-      <span class="sus-pillar-icon">♻️</span>
-      <h3 class="sus-pillar-title">100% Recyclable</h3>
-      <p class="sus-pillar-desc">All corrugated layouts use natural kraft paper that integrates back into green recycling channels easily.</p>
-    </div>
-    <div class="sus-pillar-card">
-      <span class="sus-pillar-icon">🌿</span>
-      <h3 class="sus-pillar-title">Organic Inks</h3>
-      <p class="sus-pillar-desc">We print our Single-Color and Multi-Color flexo box custom designs using organic, water-soluble bases (demo standard).</p>
-    </div>
-    <div class="sus-pillar-card">
-      <span class="sus-pillar-icon">⚡</span>
-      <h3 class="sus-pillar-title">Zero Waste Fit</h3>
-      <p class="sus-pillar-desc">Our structural custom die-cut setup minimizes production card offcut scraps across all volume orders.</p>
-    </div>
-  </div>
+<div class="sus-pillars-grid">
+<div class="sus-pillar-card">
+<span class="sus-pillar-icon">♻️</span>
+<h3 class="sus-pillar-title">100% Recyclable</h3>
+<p class="sus-pillar-desc">All corrugated layouts use natural kraft paper that integrates back into green recycling channels easily.</p>
+</div>
+<div class="sus-pillar-card">
+<span class="sus-pillar-icon">🌿</span>
+<h3 class="sus-pillar-title">Organic Inks</h3>
+<p class="sus-pillar-desc">We print our Single-Color and Multi-Color flexo box custom designs using organic, water-soluble bases (demo standard).</p>
+</div>
+<div class="sus-pillar-card">
+<span class="sus-pillar-icon">⚡</span>
+<h3 class="sus-pillar-title">Zero Waste Fit</h3>
+<p class="sus-pillar-desc">Our structural custom die-cut setup minimizes production card offcut scraps across all volume orders.</p>
+</div>
+</div>
 </section>
-
 <!-- CERTIFICATIONS -->
 <section class="certs-section">
-  <h2 class="certs-title">Standard Targets</h2>
-  <div class="certs-grid">
-    <div class="cert-card">
-      <div class="cert-badge-icon">🌿</div>
-      <div class="cert-name">FSC Sourced Board (Demo)</div>
-    </div>
-    <div class="cert-card">
-      <div class="cert-badge-icon">♻️</div>
-      <div class="cert-name">100% Post-Consumer Fit</div>
-    </div>
-    <div class="cert-card">
-      <div class="cert-badge-icon">💧</div>
-      <div class="cert-name">Water-based flexo inks</div>
-    </div>
-    <div class="cert-card">
-      <div class="cert-badge-icon">⚡</div>
-      <div class="cert-name">Low Carbon footprint goals</div>
-    </div>
-  </div>
+<h2 class="certs-title">Standard Targets</h2>
+<div class="certs-grid">
+<div class="cert-card">
+<div class="cert-badge-icon">🌿</div>
+<div class="cert-name">FSC Sourced Board (Demo)</div>
+</div>
+<div class="cert-card">
+<div class="cert-badge-icon">♻️</div>
+<div class="cert-name">100% Post-Consumer Fit</div>
+</div>
+<div class="cert-card">
+<div class="cert-badge-icon">💧</div>
+<div class="cert-name">Water-based flexo inks</div>
+</div>
+<div class="cert-card">
+<div class="cert-badge-icon">⚡</div>
+<div class="cert-name">Low Carbon footprint goals</div>
+</div>
+</div>
 </section>
-
 <!-- FOOTER -->
 <footer class="motion-footer">
-  <div class="footer-motion-inner">
-    <div class="footer-motion-logo">
-      <img src="assets/logos/horizontal-logo.png" alt="Alhamd Packaging">
-    </div>
-    <ul class="footer-motion-links">
-      <li><a href="/products">Products</a></li>
-      <li><a href="/custom-packaging">Custom</a></li>
-      <li><a href="/industries">Industries</a></li>
-      <li><a href="/sustainability">Sustainability</a></li>
-      <li><a href="/about">About</a></li>
-    </ul>
-  </div>
-  <div class="footer-motion-bottom">
-    <div class="footer-motion-copy">&copy; 2026 Alhamd Packaging &mdash; Crafted in India. Delivered pan-India.</div>
-    <div style="display:flex;gap:20px;align-items:center;">
-      <a href="/contact" style="font-family:'IBM Plex Mono',monospace;font-size:9px;color:rgba(250,250,248,0.25);text-decoration:none;">business@alhamdpackaging.com</a>
-      <div class="footer-socials" style="display:flex;gap:12px;align-items:center;">
-        <a href="https://www.instagram.com/alhamdpackaging/" target="_blank" style="color:rgba(250,250,248,0.4);transition:color 0.2s;" onmouseover="this.style.color='#C49850'" onmouseout="this.style.color='rgba(250,250,248,0.4)'">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
-        </a>
-        <a href="https://www.linkedin.com/company/alhamd-packaging/" target="_blank" style="color:rgba(250,250,248,0.4);transition:color 0.2s;" onmouseover="this.style.color='#C49850'" onmouseout="this.style.color='rgba(250,250,248,0.4)'">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
-        </a>
-        <a href="https://www.facebook.com/AlhamdPackaging/" target="_blank" style="color:rgba(250,250,248,0.4);transition:color 0.2s;" onmouseover="this.style.color='#C49850'" onmouseout="this.style.color='rgba(250,250,248,0.4)'">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg>
-        </a>
-      </div>
-    </div>
-  </div>
+<div class="footer-motion-inner">
+<div class="footer-motion-logo">
+<img alt="Alhamd Packaging" src="assets/logos/horizontal-logo.png"/>
+</div>
+<ul class="footer-motion-links">
+<li><a href="/products">Products</a></li>
+<li><a href="/custom-packaging">Custom</a></li>
+<li><a href="/industries">Industries</a></li>
+<li><a href="/sustainability">Sustainability</a></li>
+<li><a href="/about">About</a></li>
+</ul>
+</div>
+<div class="footer-motion-bottom">
+<div class="footer-motion-copy">© 2026 Alhamd Packaging — Crafted in India. Delivered pan-India.</div>
+<div style="display:flex;gap:20px;align-items:center;">
+<a href="/contact" style="font-family:'IBM Plex Mono',monospace;font-size:9px;color:rgba(250,250,248,0.25);text-decoration:none;">business@alhamdpackaging.com</a>
+<div class="footer-socials" style="display:flex;gap:12px;align-items:center;">
+<a href="https://www.instagram.com/alhamdpackaging/" onmouseout="this.style.color='rgba(250,250,248,0.4)'" onmouseover="this.style.color='#C49850'" style="color:rgba(250,250,248,0.4);transition:color 0.2s;" target="_blank">
+<svg fill="none" height="16" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="16"><rect height="20" rx="5" ry="5" width="20" x="2" y="2"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"></line></svg>
+</a>
+<a href="https://www.linkedin.com/company/alhamd-packaging/" onmouseout="this.style.color='rgba(250,250,248,0.4)'" onmouseover="this.style.color='#C49850'" style="color:rgba(250,250,248,0.4);transition:color 0.2s;" target="_blank">
+<svg fill="none" height="16" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="16"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect height="12" width="4" x="2" y="9"></rect><circle cx="4" cy="4" r="2"></circle></svg>
+</a>
+<a href="https://www.facebook.com/AlhamdPackaging/" onmouseout="this.style.color='rgba(250,250,248,0.4)'" onmouseover="this.style.color='#C49850'" style="color:rgba(250,250,248,0.4);transition:color 0.2s;" target="_blank">
+<svg fill="none" height="16" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="16"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg>
+</a>
+</div>
+</div>
+</div>
 </footer>
-
 <script>
 // Cursor
 const dot = document.getElementById('cursorDot');

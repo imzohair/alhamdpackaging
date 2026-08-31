@@ -1,12 +1,11 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@200;300;400;500;600;700&family=IBM+Plex+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Anton&amp;family=Inter:wght@200;300;400;500;600;700&amp;family=IBM+Plex+Mono:wght@300;400;500&amp;display=swap" rel="stylesheet"/>
 <style>
 :root {
   --navy: #1C2B3B;
@@ -389,32 +388,38 @@ footer.motion-footer {
   .ind-cards-grid { grid-template-columns: 1fr; }
   .fullscreen-close { right: 24px; }
 }
+
+    .visually-hidden {
+      position: absolute !important;
+      width: 1px !important;
+      height: 1px !important;
+      padding: 0 !important;
+      margin: -1px !important;
+      overflow: hidden !important;
+      clip: rect(0, 0, 0, 0) !important;
+      border: 0 !important;
+    }
 </style>
-
-<link rel="icon" type="image/png" href="assets/logos/icon-only.png">
-  <script src="init-data.js"></script>
-
-  <!-- SEO Metadata -->
-  <title>Packaging Solutions for Every Industry | Alhamd Packaging</title>
-  <meta name="description" content="Discover corrugated packaging solutions for e-commerce, retail, FMCG, food, electronics, logistics and other businesses.">
-  <meta name="robots" content="index, follow">
-  <link rel="canonical" href="https://www.alhamdpackaging.com/industries">
-  
-  <!-- Open Graph -->
-  <meta property="og:title" content="Packaging Solutions for Every Industry | Alhamd Packaging">
-  <meta property="og:description" content="Discover corrugated packaging solutions for e-commerce, retail, FMCG, food, electronics, logistics and other businesses.">
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="https://www.alhamdpackaging.com/industries">
-  <meta property="og:image" content="https://www.alhamdpackaging.com/assets/logos/horizontal-logo.png">
-  
-  <!-- Twitter -->
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Packaging Solutions for Every Industry | Alhamd Packaging">
-  <meta name="twitter:description" content="Discover corrugated packaging solutions for e-commerce, retail, FMCG, food, electronics, logistics and other businesses.">
-  <meta name="twitter:image" content="https://www.alhamdpackaging.com/assets/logos/horizontal-logo.png">
-  
-  <!-- Structured Data -->
-  <script type="application/ld+json">
+<link href="assets/logos/icon-only.png" rel="icon" type="image/png"/>
+<script src="init-data.js"></script>
+<!-- SEO Metadata -->
+<title>Packaging Solutions for Every Industry | Alhamd Packaging</title>
+<meta content="Discover corrugated packaging solutions for e-commerce, retail, FMCG, food, electronics, logistics and other businesses." name="description"/>
+<meta content="index, follow" name="robots"/>
+<link href="https://www.alhamdpackaging.com/industries" rel="canonical"/>
+<!-- Open Graph -->
+<meta content="Packaging Solutions for Every Industry | Alhamd Packaging" property="og:title"/>
+<meta content="Discover corrugated packaging solutions for e-commerce, retail, FMCG, food, electronics, logistics and other businesses." property="og:description"/>
+<meta content="website" property="og:type"/>
+<meta content="https://www.alhamdpackaging.com/industries" property="og:url"/>
+<meta content="https://www.alhamdpackaging.com/assets/logos/horizontal-logo.png" property="og:image"/>
+<!-- Twitter -->
+<meta content="summary_large_image" name="twitter:card"/>
+<meta content="Packaging Solutions for Every Industry | Alhamd Packaging" name="twitter:title"/>
+<meta content="Discover corrugated packaging solutions for e-commerce, retail, FMCG, food, electronics, logistics and other businesses." name="twitter:description"/>
+<meta content="https://www.alhamdpackaging.com/assets/logos/horizontal-logo.png" name="twitter:image"/>
+<!-- Structured Data -->
+<script type="application/ld+json">
 {
     "@context": "https://schema.org",
     "@type": "LocalBusiness",
@@ -438,155 +443,142 @@ footer.motion-footer {
   </script>
 </head>
 <body>
-
 <!-- Cursor -->
 <div class="cursor-dot" id="cursorDot"></div>
 <div class="cursor-ring" id="cursorRing"></div>
-
 <!-- Fullscreen menu -->
 <div class="fullscreen-menu" id="fullscreenMenu">
-  <div class="fullscreen-menu-inner">
-    <a href="/" class="fullscreen-menu-item">Home</a>
-    <a href="/products" class="fullscreen-menu-item">Products</a>
-    <a href="/custom-packaging" class="fullscreen-menu-item">Custom Packaging</a>
-    <a href="/industries" class="fullscreen-menu-item">Industries</a>
-    <a href="/sustainability" class="fullscreen-menu-item">Sustainability</a>
-    <a href="/about" class="fullscreen-menu-item">About</a>
-    <a href="/contact" class="fullscreen-menu-item">Contact</a>
-  </div>
-  <button class="fullscreen-close" onclick="closeMenu()">Close ✕</button>
+<div class="fullscreen-menu-inner">
+<a class="fullscreen-menu-item" href="/">Home</a>
+<a class="fullscreen-menu-item" href="/products">Products</a>
+<a class="fullscreen-menu-item" href="/custom-packaging">Custom Packaging</a>
+<a class="fullscreen-menu-item" href="/industries">Industries</a>
+<a class="fullscreen-menu-item" href="/sustainability">Sustainability</a>
+<a class="fullscreen-menu-item" href="/about">About</a>
+<a class="fullscreen-menu-item" href="/contact">Contact</a>
 </div>
-
+<button class="fullscreen-close" onclick="closeMenu()">Close ✕</button>
+</div>
 <!-- NAV -->
 <nav id="nav">
-  <div class="nav-logo"><a href="/"><img src="assets/logos/horizontal-logo.png" alt="Alhamd Packaging"></a></div>
-  <ul class="nav-links-motion">
-    <li><a href="/">Home</a></li>
-    <li><a href="/products">Products</a></li>
-    <li><a href="/custom-packaging">Custom</a></li>
-    <li><a href="/industries" style="color:var(--kraft-warm);">Industries</a></li>
-    <li><a href="/about">About</a></li>
-  </ul>
-  <div class="nav-motion-cta">
-    <a href="/contact" class="btn-motion-ghost"><span>Contact Us</span></a>
-    <button class="nav-menu-btn" onclick="openMenu()">
-      <span>Menu</span>
-      <div class="menu-lines">
-        <span></span><span></span><span style="width:12px;"></span>
-      </div>
-    </button>
-  </div>
+<div class="nav-logo"><a href="/"><img alt="Alhamd Packaging" src="assets/logos/horizontal-logo.png"/></a></div>
+<ul class="nav-links-motion">
+<li><a href="/">Home</a></li>
+<li><a href="/products">Products</a></li>
+<li><a href="/custom-packaging">Custom</a></li>
+<li><a href="/industries" style="color:var(--kraft-warm);">Industries</a></li>
+<li><a href="/about">About</a></li>
+</ul>
+<div class="nav-motion-cta">
+<a class="btn-motion-ghost" href="/contact"><span>Contact Us</span></a>
+<button class="nav-menu-btn" onclick="openMenu()">
+<span>Menu</span>
+<div class="menu-lines">
+<span></span><span></span><span style="width:12px;"></span>
+</div>
+</button>
+</div>
 </nav>
-
+<h1 class="visually-hidden">Packaging Solutions for Businesses</h1>
 <!-- INDUSTRIES HERO -->
 <section class="ind-hero">
-  <span class="ind-pre">Sectors We Serve</span>
-  <h1 class="ind-title">PACKAGING TAILORED FOR<br>YOUR <span>INDUSTRY</span></h1>
-  <p class="ind-desc">Different sectors demand distinct structural specifications. We provide tailored corrugated profiles to meet compression, strength, and print needs.</p>
+<span class="ind-pre">Sectors We Serve</span>
+<div class="ind-title">PACKAGING TAILORED FOR<br/>YOUR <span>INDUSTRY</span></div>
+<p class="ind-desc">Different sectors demand distinct structural specifications. We provide tailored corrugated profiles to meet compression, strength, and print needs.</p>
 </section>
-
 <!-- CARDS GRID -->
 <section class="ind-grid-section">
-  <div class="ind-cards-grid">
-    <!-- Card 1 -->
-    <div class="ind-card-motion">
-      <div class="ind-card-emoji"><i data-lucide="package" style="color: var(--kraft-warm); width: 32px; height: 32px;"></i></div>
-      <h3 class="ind-card-name">E-commerce</h3>
-      <p class="ind-card-desc">Tuck-in mailers and slot containers designed for unboxing experience and safe transit.</p>
-      <a href="/products" class="ind-card-link">Explore Mailers →</a>
-    </div>
-
-    <!-- Card 2 -->
-    <div class="ind-card-motion">
-      <div class="ind-card-emoji"><i data-lucide="shirt" style="color: var(--kraft-warm); width: 32px; height: 32px;"></i></div>
-      <h3 class="ind-card-name">Fashion & Apparel</h3>
-      <p class="ind-card-desc">Dust-free, premium kraft shippers with clean brand logos for high-end clothing lines.</p>
-      <a href="/products" class="ind-card-link">View Apparel Boxes →</a>
-    </div>
-
-    <!-- Card 3 -->
-    <div class="ind-card-motion">
-      <div class="ind-card-emoji"><i data-lucide="sparkles" style="color: var(--kraft-warm); width: 32px; height: 32px;"></i></div>
-      <h3 class="ind-card-name">Beauty & Cosmetics</h3>
-      <p class="ind-card-desc">Secure mailer structures designed to pack delicate makeup kits and glass jars.</p>
-      <a href="/products" class="ind-card-link">View Cosmetic Mailers →</a>
-    </div>
-
-    <!-- Card 4 -->
-    <div class="ind-card-motion">
-      <div class="ind-card-emoji"><i data-lucide="utensils" style="color: var(--kraft-warm); width: 32px; height: 32px;"></i></div>
-      <h3 class="ind-card-name">Food & Beverage</h3>
-      <p class="ind-card-desc">Food-grade corrugated cartons engineered for food deliveries and bulk shipping.</p>
-      <a href="/products" class="ind-card-link">Browse Food Cartons →</a>
-    </div>
-
-    <!-- Card 5 -->
-    <div class="ind-card-motion">
-      <div class="ind-card-emoji"><i data-lucide="smartphone" style="color: var(--kraft-warm); width: 32px; height: 32px;"></i></div>
-      <h3 class="ind-card-name">Electronics</h3>
-      <p class="ind-card-desc">Highly resistant 5-PLY corrugated boxes to wrap and transport smart devices and gadgets.</p>
-      <a href="/products" class="ind-card-link">Explore Heavy Shippers →</a>
-    </div>
-
-    <!-- Card 6 -->
-    <div class="ind-card-motion">
-      <div class="ind-card-emoji"><i data-lucide="gift" style="color: var(--kraft-warm); width: 32px; height: 32px;"></i></div>
-      <h3 class="ind-card-name">Gifting</h3>
-      <p class="ind-card-desc">Subscription boxes featuring premium colored kraft board liners and laminations.</p>
-      <a href="/products" class="ind-card-link">Shop Subscriptions →</a>
-    </div>
-
-    <!-- Card 7 -->
-    <div class="ind-card-motion">
-      <div class="ind-card-emoji"><i data-lucide="factory" style="color: var(--kraft-warm); width: 32px; height: 32px;"></i></div>
-      <h3 class="ind-card-name">Industrial</h3>
-      <p class="ind-card-desc">High-strength 7-PLY triple-wall cartons engineered to move massive spare parts.</p>
-      <a href="/products" class="ind-card-link">Explore 7-PLY Cartons →</a>
-    </div>
-
-    <!-- Card 8 -->
-    <div class="ind-card-motion">
-      <div class="ind-card-emoji"><i data-lucide="shopping-bag" style="color: var(--kraft-warm); width: 32px; height: 32px;"></i></div>
-      <h3 class="ind-card-name">Retail Display</h3>
-      <p class="ind-card-desc">Shelf-ready, custom die-cut box layouts that stand out at physical retail fronts.</p>
-      <a href="/products" class="ind-card-link">Shop Retail Displays →</a>
-    </div>
-  </div>
+<div class="ind-cards-grid">
+<!-- Card 1 -->
+<div class="ind-card-motion">
+<div class="ind-card-emoji"><i data-lucide="package" style="color: var(--kraft-warm); width: 32px; height: 32px;"></i></div>
+<h3 class="ind-card-name">E-commerce</h3>
+<p class="ind-card-desc">Tuck-in mailers and slot containers designed for unboxing experience and safe transit.</p>
+<a class="ind-card-link" href="/products">Explore Mailers →</a>
+</div>
+<!-- Card 2 -->
+<div class="ind-card-motion">
+<div class="ind-card-emoji"><i data-lucide="shirt" style="color: var(--kraft-warm); width: 32px; height: 32px;"></i></div>
+<h3 class="ind-card-name">Fashion &amp; Apparel</h3>
+<p class="ind-card-desc">Dust-free, premium kraft shippers with clean brand logos for high-end clothing lines.</p>
+<a class="ind-card-link" href="/products">View Apparel Boxes →</a>
+</div>
+<!-- Card 3 -->
+<div class="ind-card-motion">
+<div class="ind-card-emoji"><i data-lucide="sparkles" style="color: var(--kraft-warm); width: 32px; height: 32px;"></i></div>
+<h3 class="ind-card-name">Beauty &amp; Cosmetics</h3>
+<p class="ind-card-desc">Secure mailer structures designed to pack delicate makeup kits and glass jars.</p>
+<a class="ind-card-link" href="/products">View Cosmetic Mailers →</a>
+</div>
+<!-- Card 4 -->
+<div class="ind-card-motion">
+<div class="ind-card-emoji"><i data-lucide="utensils" style="color: var(--kraft-warm); width: 32px; height: 32px;"></i></div>
+<h3 class="ind-card-name">Food &amp; Beverage</h3>
+<p class="ind-card-desc">Food-grade corrugated cartons engineered for food deliveries and bulk shipping.</p>
+<a class="ind-card-link" href="/products">Browse Food Cartons →</a>
+</div>
+<!-- Card 5 -->
+<div class="ind-card-motion">
+<div class="ind-card-emoji"><i data-lucide="smartphone" style="color: var(--kraft-warm); width: 32px; height: 32px;"></i></div>
+<h3 class="ind-card-name">Electronics</h3>
+<p class="ind-card-desc">Highly resistant 5-PLY corrugated boxes to wrap and transport smart devices and gadgets.</p>
+<a class="ind-card-link" href="/products">Explore Heavy Shippers →</a>
+</div>
+<!-- Card 6 -->
+<div class="ind-card-motion">
+<div class="ind-card-emoji"><i data-lucide="gift" style="color: var(--kraft-warm); width: 32px; height: 32px;"></i></div>
+<h3 class="ind-card-name">Gifting</h3>
+<p class="ind-card-desc">Subscription boxes featuring premium colored kraft board liners and laminations.</p>
+<a class="ind-card-link" href="/products">Shop Subscriptions →</a>
+</div>
+<!-- Card 7 -->
+<div class="ind-card-motion">
+<div class="ind-card-emoji"><i data-lucide="factory" style="color: var(--kraft-warm); width: 32px; height: 32px;"></i></div>
+<h3 class="ind-card-name">Industrial</h3>
+<p class="ind-card-desc">High-strength 7-PLY triple-wall cartons engineered to move massive spare parts.</p>
+<a class="ind-card-link" href="/products">Explore 7-PLY Cartons →</a>
+</div>
+<!-- Card 8 -->
+<div class="ind-card-motion">
+<div class="ind-card-emoji"><i data-lucide="shopping-bag" style="color: var(--kraft-warm); width: 32px; height: 32px;"></i></div>
+<h3 class="ind-card-name">Retail Display</h3>
+<p class="ind-card-desc">Shelf-ready, custom die-cut box layouts that stand out at physical retail fronts.</p>
+<a class="ind-card-link" href="/products">Shop Retail Displays →</a>
+</div>
+</div>
 </section>
-
 <!-- FOOTER -->
 <footer class="motion-footer">
-  <div class="footer-motion-inner">
-    <div class="footer-motion-logo">
-      <img src="assets/logos/horizontal-logo.png" alt="Alhamd Packaging">
-    </div>
-    <ul class="footer-motion-links">
-      <li><a href="/products">Products</a></li>
-      <li><a href="/custom-packaging">Custom</a></li>
-      <li><a href="/industries">Industries</a></li>
-      <li><a href="/sustainability">Sustainability</a></li>
-      <li><a href="/about">About</a></li>
-    </ul>
-  </div>
-  <div class="footer-motion-bottom">
-    <div class="footer-motion-copy">&copy; 2026 Alhamd Packaging &mdash; Crafted in India. Delivered pan-India.</div>
-    <div style="display:flex;gap:20px;align-items:center;">
-      <a href="/contact" style="font-family:'IBM Plex Mono',monospace;font-size:9px;color:rgba(250,250,248,0.25);text-decoration:none;">business@alhamdpackaging.com</a>
-      <div class="footer-socials" style="display:flex;gap:12px;align-items:center;">
-        <a href="https://www.instagram.com/alhamdpackaging/" target="_blank" style="color:rgba(250,250,248,0.4);transition:color 0.2s;" onmouseover="this.style.color='#C49850'" onmouseout="this.style.color='rgba(250,250,248,0.4)'">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
-        </a>
-        <a href="https://www.linkedin.com/company/alhamd-packaging/" target="_blank" style="color:rgba(250,250,248,0.4);transition:color 0.2s;" onmouseover="this.style.color='#C49850'" onmouseout="this.style.color='rgba(250,250,248,0.4)'">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
-        </a>
-        <a href="https://www.facebook.com/AlhamdPackaging/" target="_blank" style="color:rgba(250,250,248,0.4);transition:color 0.2s;" onmouseover="this.style.color='#C49850'" onmouseout="this.style.color='rgba(250,250,248,0.4)'">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg>
-        </a>
-      </div>
-    </div>
-  </div>
+<div class="footer-motion-inner">
+<div class="footer-motion-logo">
+<img alt="Alhamd Packaging" src="assets/logos/horizontal-logo.png"/>
+</div>
+<ul class="footer-motion-links">
+<li><a href="/products">Products</a></li>
+<li><a href="/custom-packaging">Custom</a></li>
+<li><a href="/industries">Industries</a></li>
+<li><a href="/sustainability">Sustainability</a></li>
+<li><a href="/about">About</a></li>
+</ul>
+</div>
+<div class="footer-motion-bottom">
+<div class="footer-motion-copy">© 2026 Alhamd Packaging — Crafted in India. Delivered pan-India.</div>
+<div style="display:flex;gap:20px;align-items:center;">
+<a href="/contact" style="font-family:'IBM Plex Mono',monospace;font-size:9px;color:rgba(250,250,248,0.25);text-decoration:none;">business@alhamdpackaging.com</a>
+<div class="footer-socials" style="display:flex;gap:12px;align-items:center;">
+<a href="https://www.instagram.com/alhamdpackaging/" onmouseout="this.style.color='rgba(250,250,248,0.4)'" onmouseover="this.style.color='#C49850'" style="color:rgba(250,250,248,0.4);transition:color 0.2s;" target="_blank">
+<svg fill="none" height="16" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="16"><rect height="20" rx="5" ry="5" width="20" x="2" y="2"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"></line></svg>
+</a>
+<a href="https://www.linkedin.com/company/alhamd-packaging/" onmouseout="this.style.color='rgba(250,250,248,0.4)'" onmouseover="this.style.color='#C49850'" style="color:rgba(250,250,248,0.4);transition:color 0.2s;" target="_blank">
+<svg fill="none" height="16" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="16"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect height="12" width="4" x="2" y="9"></rect><circle cx="4" cy="4" r="2"></circle></svg>
+</a>
+<a href="https://www.facebook.com/AlhamdPackaging/" onmouseout="this.style.color='rgba(250,250,248,0.4)'" onmouseover="this.style.color='#C49850'" style="color:rgba(250,250,248,0.4);transition:color 0.2s;" target="_blank">
+<svg fill="none" height="16" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="16"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg>
+</a>
+</div>
+</div>
+</div>
 </footer>
-
 <script>
 // Cursor
 const dot = document.getElementById('cursorDot');

@@ -1,12 +1,11 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@200;300;400;500;600;700&family=IBM+Plex+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Anton&amp;family=Inter:wght@200;300;400;500;600;700&amp;family=IBM+Plex+Mono:wght@300;400;500&amp;display=swap" rel="stylesheet"/>
 <style>
 :root {
   --navy: #1C2B3B;
@@ -454,33 +453,38 @@ nav {
 .custom-toast i { color: #ff4444; }
 .error-field { border-color: #ff4444 !important; background: rgba(255, 68, 68, 0.05) !important; animation: shake 0.4s ease-in-out; }
 @keyframes shake { 0%, 100% { transform: translateX(0); } 25% { transform: translateX(-4px); } 75% { transform: translateX(4px); } }
+
+    .visually-hidden {
+      position: absolute !important;
+      width: 1px !important;
+      height: 1px !important;
+      padding: 0 !important;
+      margin: -1px !important;
+      overflow: hidden !important;
+      clip: rect(0, 0, 0, 0) !important;
+      border: 0 !important;
+    }
 </style>
-
-
-<link rel="icon" type="image/png" href="assets/logos/icon-only.png">
-  <script src="init-data.js"></script>
-
-  <!-- SEO Metadata -->
-  <title>Custom Packaging Boxes | Alhamd Packaging</title>
-  <meta name="description" content="Get custom-made corrugated packaging boxes designed to suit your product, dimensions, printing and business requirements.">
-  <meta name="robots" content="index, follow">
-  <link rel="canonical" href="https://www.alhamdpackaging.com/custom-packaging">
-  
-  <!-- Open Graph -->
-  <meta property="og:title" content="Custom Packaging Boxes | Alhamd Packaging">
-  <meta property="og:description" content="Get custom-made corrugated packaging boxes designed to suit your product, dimensions, printing and business requirements.">
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="https://www.alhamdpackaging.com/custom-packaging">
-  <meta property="og:image" content="https://www.alhamdpackaging.com/assets/logos/horizontal-logo.png">
-  
-  <!-- Twitter -->
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Custom Packaging Boxes | Alhamd Packaging">
-  <meta name="twitter:description" content="Get custom-made corrugated packaging boxes designed to suit your product, dimensions, printing and business requirements.">
-  <meta name="twitter:image" content="https://www.alhamdpackaging.com/assets/logos/horizontal-logo.png">
-  
-  <!-- Structured Data -->
-  <script type="application/ld+json">
+<link href="assets/logos/icon-only.png" rel="icon" type="image/png"/>
+<script src="init-data.js"></script>
+<!-- SEO Metadata -->
+<title>Custom Packaging Boxes | Alhamd Packaging</title>
+<meta content="Get custom-made corrugated packaging boxes designed to suit your product, dimensions, printing and business requirements." name="description"/>
+<meta content="index, follow" name="robots"/>
+<link href="https://www.alhamdpackaging.com/custom-packaging" rel="canonical"/>
+<!-- Open Graph -->
+<meta content="Custom Packaging Boxes | Alhamd Packaging" property="og:title"/>
+<meta content="Get custom-made corrugated packaging boxes designed to suit your product, dimensions, printing and business requirements." property="og:description"/>
+<meta content="website" property="og:type"/>
+<meta content="https://www.alhamdpackaging.com/custom-packaging" property="og:url"/>
+<meta content="https://www.alhamdpackaging.com/assets/logos/horizontal-logo.png" property="og:image"/>
+<!-- Twitter -->
+<meta content="summary_large_image" name="twitter:card"/>
+<meta content="Custom Packaging Boxes | Alhamd Packaging" name="twitter:title"/>
+<meta content="Get custom-made corrugated packaging boxes designed to suit your product, dimensions, printing and business requirements." name="twitter:description"/>
+<meta content="https://www.alhamdpackaging.com/assets/logos/horizontal-logo.png" name="twitter:image"/>
+<!-- Structured Data -->
+<script type="application/ld+json">
 {
     "@context": "https://schema.org",
     "@type": "LocalBusiness",
@@ -504,231 +508,216 @@ nav {
   </script>
 </head>
 <body>
-
 <!-- Cursor -->
 <div class="cursor-dot" id="cursorDot"></div>
 <div class="cursor-ring" id="cursorRing"></div>
-
 <!-- Fullscreen menu -->
 <div class="fullscreen-menu" id="fullscreenMenu">
-  <div class="fullscreen-menu-inner">
-    <a href="/" class="fullscreen-menu-item">Home</a>
-    <a href="/products" class="fullscreen-menu-item">Products</a>
-    <a href="/custom-packaging" class="fullscreen-menu-item">Custom Packaging</a>
-    <a href="/industries" class="fullscreen-menu-item">Industries</a>
-    <a href="/sustainability" class="fullscreen-menu-item">Sustainability</a>
-    <a href="/about" class="fullscreen-menu-item">About</a>
-    <a href="/contact" class="fullscreen-menu-item">Contact</a>
-  </div>
-  <button class="fullscreen-close" onclick="closeMenu()">Close ✕</button>
+<div class="fullscreen-menu-inner">
+<a class="fullscreen-menu-item" href="/">Home</a>
+<a class="fullscreen-menu-item" href="/products">Products</a>
+<a class="fullscreen-menu-item" href="/custom-packaging">Custom Packaging</a>
+<a class="fullscreen-menu-item" href="/industries">Industries</a>
+<a class="fullscreen-menu-item" href="/sustainability">Sustainability</a>
+<a class="fullscreen-menu-item" href="/about">About</a>
+<a class="fullscreen-menu-item" href="/contact">Contact</a>
 </div>
-
+<button class="fullscreen-close" onclick="closeMenu()">Close ✕</button>
+</div>
 <!-- NAV -->
 <nav id="nav">
-  <div class="nav-logo"><a href="/"><img src="assets/logos/horizontal-logo.png" alt="Alhamd Packaging"></a></div>
-  <ul class="nav-links-motion">
-    <li><a href="/">Home</a></li>
-    <li><a href="/products">Products</a></li>
-    <li><a href="/custom-packaging" style="color:var(--kraft-warm);">Custom</a></li>
-    <li><a href="/industries">Industries</a></li>
-    <li><a href="/about">About</a></li>
-  </ul>
-  <div class="nav-motion-cta">
-    <a href="/contact" class="btn-motion-ghost"><span>Contact Us</span></a>
-    <button class="nav-menu-btn" onclick="openMenu()">
-      <span>Menu</span>
-      <div class="menu-lines">
-        <span></span><span></span><span style="width:12px;"></span>
-      </div>
-    </button>
-  </div>
+<div class="nav-logo"><a href="/"><img alt="Alhamd Packaging" src="assets/logos/horizontal-logo.png"/></a></div>
+<ul class="nav-links-motion">
+<li><a href="/">Home</a></li>
+<li><a href="/products">Products</a></li>
+<li><a href="/custom-packaging" style="color:var(--kraft-warm);">Custom</a></li>
+<li><a href="/industries">Industries</a></li>
+<li><a href="/about">About</a></li>
+</ul>
+<div class="nav-motion-cta">
+<a class="btn-motion-ghost" href="/contact"><span>Contact Us</span></a>
+<button class="nav-menu-btn" onclick="openMenu()">
+<span>Menu</span>
+<div class="menu-lines">
+<span></span><span></span><span style="width:12px;"></span>
+</div>
+</button>
+</div>
 </nav>
-
+<h1 class="visually-hidden">Custom Packaging Boxes</h1>
 <!-- CONFIG CONTENT -->
 <div class="config-layout" id="configuratorLayout">
-  
-  <!-- LEFT: STEP FLOW -->
-  <main class="config-steps-main">
-    
-    <!-- STEP 1: BOX TYPE -->
-    <div class="step-panel-motion active" id="step1">
-      <span class="step-eyebrow">Step 01 / 06</span>
-      <h2 class="step-heading">Choose Box Type</h2>
-      <div class="config-grid-options">
-        <div class="option-motion-card selected" onclick="selectBoxType('Shipping Box', this)">
-          <div class="option-motion-icon"><i data-lucide="package" style="color: var(--kraft-warm); width: 32px; height: 32px;"></i></div>
-          <div class="option-motion-title">Shipping Box</div>
-        </div>
-        <div class="option-motion-card" onclick="selectBoxType('Mailer Box', this)">
-          <div class="option-motion-icon"><i data-lucide="mail" style="color: var(--kraft-warm); width: 32px; height: 32px;"></i></div>
-          <div class="option-motion-title">Mailer Box</div>
-        </div>
-        <div class="option-motion-card" onclick="selectBoxType('Printed Box', this)">
-          <div class="option-motion-icon"><i data-lucide="palette" style="color: var(--kraft-warm); width: 32px; height: 32px;"></i></div>
-          <div class="option-motion-title">Printed Box</div>
-        </div>
-      </div>
-      <div class="step-nav-buttons">
-        <button class="btn-motion-step btn-motion-step-next" onclick="nextStep(2)">Next Step →</button>
-      </div>
-    </div>
-
-    <!-- STEP 2: DIMENSIONS -->
-    <div class="step-panel-motion" id="step2">
-      <span class="step-eyebrow">Step 02 / 06</span>
-      <h2 class="step-heading">Enter Dimensions</h2>
-      <div class="input-dims-row">
-        <div class="dim-input-field-wrapper">
-          <label class="dim-input-label">Length (mm)</label>
-          <input type="number" class="dim-text-input" placeholder="e.g. 200" id="inputL" oninput="updateDims()">
-        </div>
-        <div class="dim-input-field-wrapper">
-          <label class="dim-input-label">Width (mm)</label>
-          <input type="number" class="dim-text-input" placeholder="e.g. 150" id="inputW" oninput="updateDims()">
-        </div>
-        <div class="dim-input-field-wrapper">
-          <label class="dim-input-label">Height (mm)</label>
-          <input type="number" class="dim-text-input" placeholder="e.g. 100" id="inputH" oninput="updateDims()">
-        </div>
-      </div>
-      <div class="step-nav-buttons">
-        <button class="btn-motion-step btn-motion-step-prev" onclick="prevStep(1)">← Back</button>
-        <button class="btn-motion-step btn-motion-step-next" onclick="nextStep(3)">Next Step →</button>
-      </div>
-    </div>
-
-    <!-- STEP 3: MATERIAL -->
-    <div class="step-panel-motion" id="step3">
-      <span class="step-eyebrow">Step 03 / 06</span>
-      <h2 class="step-heading">Select Material</h2>
-      <div class="config-grid-options">
-        <div class="option-motion-card selected" onclick="selectMaterial('Natural Kraft', this)">
-          <div class="option-motion-icon"><i data-lucide="box" style="color: var(--kraft-warm); width: 32px; height: 32px;"></i></div>
-          <div class="option-motion-title">Natural Kraft</div>
-        </div>
-        <div class="option-motion-card" onclick="selectMaterial('White Premium', this)">
-          <div class="option-motion-icon"><i data-lucide="box-select" style="color: var(--kraft-warm); width: 32px; height: 32px;"></i></div>
-          <div class="option-motion-title">White Premium</div>
-        </div>
-      </div>
-      <div class="step-nav-buttons">
-        <button class="btn-motion-step btn-motion-step-prev" onclick="prevStep(2)">← Back</button>
-        <button class="btn-motion-step btn-motion-step-next" onclick="nextStep(4)">Next Step →</button>
-      </div>
-    </div>
-
-    <!-- STEP 4: PLY / STRENGTH -->
-    <div class="step-panel-motion" id="step4">
-      <span class="step-eyebrow">Step 04 / 06</span>
-      <h2 class="step-heading">Board Ply</h2>
-      <div class="config-grid-options">
-        <div class="option-motion-card selected" onclick="selectPly('3-PLY (Standard)', this)">
-          <div class="option-motion-icon"><i data-lucide="layers" style="color: var(--kraft-warm); width: 32px; height: 32px;"></i></div>
-          <div class="option-motion-title">3-PLY Standard</div>
-        </div>
-        <div class="option-motion-card" onclick="selectPly('5-PLY (Heavy Duty)', this)">
-          <div class="option-motion-icon"><i data-lucide="package" style="color: var(--kraft-warm); width: 32px; height: 32px;"></i></div>
-          <div class="option-motion-title">5-PLY Heavy Duty</div>
-        </div>
-        <div class="option-motion-card" onclick="selectPly('7-PLY (Industrial)', this)">
-          <div class="option-motion-icon"><i data-lucide="boxes" style="color: var(--kraft-warm); width: 32px; height: 32px;"></i></div>
-          <div class="option-motion-title">7-PLY Industrial</div>
-        </div>
-      </div>
-      <div class="step-nav-buttons">
-        <button class="btn-motion-step btn-motion-step-prev" onclick="prevStep(3)">← Back</button>
-        <button class="btn-motion-step btn-motion-step-next" onclick="nextStep(5)">Next Step →</button>
-      </div>
-    </div>
-
-    <!-- STEP 5: QUANTITY -->
-    <div class="step-panel-motion" id="step5">
-      <span class="step-eyebrow">Step 05 / 06</span>
-      <h2 class="step-heading">Enter Quantity</h2>
-      <div class="input-dims-row" style="grid-template-columns: 1fr;">
-        <div class="dim-input-field-wrapper" style="max-width: 250px;">
-          <label class="dim-input-label">Quantity (Min: 100)</label>
-          <input type="number" class="dim-text-input" value="500" min="100" id="inputQty" oninput="updateQty()">
-        </div>
-      </div>
-      <div class="step-nav-buttons">
-        <button class="btn-motion-step btn-motion-step-prev" onclick="prevStep(4)">← Back</button>
-        <button class="btn-motion-step btn-motion-step-next" onclick="nextStep(6)">Next Step →</button>
-      </div>
-    </div>
-
-    <!-- STEP 6: BUSINESS INFORMATION -->
-    <div class="step-panel-motion" id="step6">
-      <span class="step-eyebrow">Step 06 / 06</span>
-      <h2 class="step-heading">Your Information</h2>
-      <div class="form-info-grid">
-        <div class="form-info-group">
-          <label class="dim-input-label">Company Name</label>
-          <input type="text" class="dim-text-input" placeholder="Brand Name" id="infoCompany" oninput="updateInfo()">
-        </div>
-        <div class="form-info-group">
-          <label class="dim-input-label">Contact Person</label>
-          <input type="text" class="dim-text-input" placeholder="Full Name" id="infoName">
-        </div>
-        <div class="form-info-group">
-          <label class="dim-input-label">Email Address</label>
-          <input type="email" class="dim-text-input" placeholder="email@company.com" id="infoEmail">
-        </div>
-        <div class="form-info-group">
-          <label class="dim-input-label">Location / City</label>
-          <input type="text" class="dim-text-input" placeholder="Mumbai, IN" id="infoLocation">
-        </div>
-      </div>
-      <div class="step-nav-buttons">
-        <button class="btn-motion-step btn-motion-step-prev" onclick="prevStep(5)">← Back</button>
-        <button class="btn-motion-step btn-motion-step-next" onclick="submitConfiguration()">Submit Request →</button>
-      </div>
-    </div>
-
-  </main>
-
-  <!-- RIGHT: LIVE SPEC OVERVIEW -->
-  <aside class="config-spec-sidebar">
-    <h3 class="spec-sidebar-title">Live Spec</h3>
-    <div class="spec-overview-item">
-      <span class="spec-overview-label">Box Format</span>
-      <span class="spec-overview-value" id="specFormat">Shipping Box</span>
-    </div>
-    <div class="spec-overview-item">
-      <span class="spec-overview-label">Dimensions</span>
-      <span class="spec-overview-value" id="specDims">—</span>
-    </div>
-    <div class="spec-overview-item">
-      <span class="spec-overview-label">Board Kraft</span>
-      <span class="spec-overview-value" id="specKraft">Natural Kraft</span>
-    </div>
-    <div class="spec-overview-item">
-      <span class="spec-overview-label">Thickness</span>
-      <span class="spec-overview-value" id="specPly">3-PLY (Standard)</span>
-    </div>
-    <div class="spec-overview-item">
-      <span class="spec-overview-label">Total Units</span>
-      <span class="spec-overview-value" id="specQty">500 units</span>
-    </div>
-    <div class="spec-overview-item">
-      <span class="spec-overview-label">Company</span>
-      <span class="spec-overview-value" id="specCompany">—</span>
-    </div>
-  </aside>
-
+<!-- LEFT: STEP FLOW -->
+<main class="config-steps-main">
+<!-- STEP 1: BOX TYPE -->
+<div class="step-panel-motion active" id="step1">
+<span class="step-eyebrow">Step 01 / 06</span>
+<h2 class="step-heading">Choose Box Type</h2>
+<div class="config-grid-options">
+<div class="option-motion-card selected" onclick="selectBoxType('Shipping Box', this)">
+<div class="option-motion-icon"><i data-lucide="package" style="color: var(--kraft-warm); width: 32px; height: 32px;"></i></div>
+<div class="option-motion-title">Shipping Box</div>
 </div>
-
+<div class="option-motion-card" onclick="selectBoxType('Mailer Box', this)">
+<div class="option-motion-icon"><i data-lucide="mail" style="color: var(--kraft-warm); width: 32px; height: 32px;"></i></div>
+<div class="option-motion-title">Mailer Box</div>
+</div>
+<div class="option-motion-card" onclick="selectBoxType('Printed Box', this)">
+<div class="option-motion-icon"><i data-lucide="palette" style="color: var(--kraft-warm); width: 32px; height: 32px;"></i></div>
+<div class="option-motion-title">Printed Box</div>
+</div>
+</div>
+<div class="step-nav-buttons">
+<button class="btn-motion-step btn-motion-step-next" onclick="nextStep(2)">Next Step →</button>
+</div>
+</div>
+<!-- STEP 2: DIMENSIONS -->
+<div class="step-panel-motion" id="step2">
+<span class="step-eyebrow">Step 02 / 06</span>
+<h2 class="step-heading">Enter Dimensions</h2>
+<div class="input-dims-row">
+<div class="dim-input-field-wrapper">
+<label class="dim-input-label">Length (mm)</label>
+<input class="dim-text-input" id="inputL" oninput="updateDims()" placeholder="e.g. 200" type="number"/>
+</div>
+<div class="dim-input-field-wrapper">
+<label class="dim-input-label">Width (mm)</label>
+<input class="dim-text-input" id="inputW" oninput="updateDims()" placeholder="e.g. 150" type="number"/>
+</div>
+<div class="dim-input-field-wrapper">
+<label class="dim-input-label">Height (mm)</label>
+<input class="dim-text-input" id="inputH" oninput="updateDims()" placeholder="e.g. 100" type="number"/>
+</div>
+</div>
+<div class="step-nav-buttons">
+<button class="btn-motion-step btn-motion-step-prev" onclick="prevStep(1)">← Back</button>
+<button class="btn-motion-step btn-motion-step-next" onclick="nextStep(3)">Next Step →</button>
+</div>
+</div>
+<!-- STEP 3: MATERIAL -->
+<div class="step-panel-motion" id="step3">
+<span class="step-eyebrow">Step 03 / 06</span>
+<h2 class="step-heading">Select Material</h2>
+<div class="config-grid-options">
+<div class="option-motion-card selected" onclick="selectMaterial('Natural Kraft', this)">
+<div class="option-motion-icon"><i data-lucide="box" style="color: var(--kraft-warm); width: 32px; height: 32px;"></i></div>
+<div class="option-motion-title">Natural Kraft</div>
+</div>
+<div class="option-motion-card" onclick="selectMaterial('White Premium', this)">
+<div class="option-motion-icon"><i data-lucide="box-select" style="color: var(--kraft-warm); width: 32px; height: 32px;"></i></div>
+<div class="option-motion-title">White Premium</div>
+</div>
+</div>
+<div class="step-nav-buttons">
+<button class="btn-motion-step btn-motion-step-prev" onclick="prevStep(2)">← Back</button>
+<button class="btn-motion-step btn-motion-step-next" onclick="nextStep(4)">Next Step →</button>
+</div>
+</div>
+<!-- STEP 4: PLY / STRENGTH -->
+<div class="step-panel-motion" id="step4">
+<span class="step-eyebrow">Step 04 / 06</span>
+<h2 class="step-heading">Board Ply</h2>
+<div class="config-grid-options">
+<div class="option-motion-card selected" onclick="selectPly('3-PLY (Standard)', this)">
+<div class="option-motion-icon"><i data-lucide="layers" style="color: var(--kraft-warm); width: 32px; height: 32px;"></i></div>
+<div class="option-motion-title">3-PLY Standard</div>
+</div>
+<div class="option-motion-card" onclick="selectPly('5-PLY (Heavy Duty)', this)">
+<div class="option-motion-icon"><i data-lucide="package" style="color: var(--kraft-warm); width: 32px; height: 32px;"></i></div>
+<div class="option-motion-title">5-PLY Heavy Duty</div>
+</div>
+<div class="option-motion-card" onclick="selectPly('7-PLY (Industrial)', this)">
+<div class="option-motion-icon"><i data-lucide="boxes" style="color: var(--kraft-warm); width: 32px; height: 32px;"></i></div>
+<div class="option-motion-title">7-PLY Industrial</div>
+</div>
+</div>
+<div class="step-nav-buttons">
+<button class="btn-motion-step btn-motion-step-prev" onclick="prevStep(3)">← Back</button>
+<button class="btn-motion-step btn-motion-step-next" onclick="nextStep(5)">Next Step →</button>
+</div>
+</div>
+<!-- STEP 5: QUANTITY -->
+<div class="step-panel-motion" id="step5">
+<span class="step-eyebrow">Step 05 / 06</span>
+<h2 class="step-heading">Enter Quantity</h2>
+<div class="input-dims-row" style="grid-template-columns: 1fr;">
+<div class="dim-input-field-wrapper" style="max-width: 250px;">
+<label class="dim-input-label">Quantity (Min: 100)</label>
+<input class="dim-text-input" id="inputQty" min="100" oninput="updateQty()" type="number" value="500"/>
+</div>
+</div>
+<div class="step-nav-buttons">
+<button class="btn-motion-step btn-motion-step-prev" onclick="prevStep(4)">← Back</button>
+<button class="btn-motion-step btn-motion-step-next" onclick="nextStep(6)">Next Step →</button>
+</div>
+</div>
+<!-- STEP 6: BUSINESS INFORMATION -->
+<div class="step-panel-motion" id="step6">
+<span class="step-eyebrow">Step 06 / 06</span>
+<h2 class="step-heading">Your Information</h2>
+<div class="form-info-grid">
+<div class="form-info-group">
+<label class="dim-input-label">Company Name</label>
+<input class="dim-text-input" id="infoCompany" oninput="updateInfo()" placeholder="Brand Name" type="text"/>
+</div>
+<div class="form-info-group">
+<label class="dim-input-label">Contact Person</label>
+<input class="dim-text-input" id="infoName" placeholder="Full Name" type="text"/>
+</div>
+<div class="form-info-group">
+<label class="dim-input-label">Email Address</label>
+<input class="dim-text-input" id="infoEmail" placeholder="email@company.com" type="email"/>
+</div>
+<div class="form-info-group">
+<label class="dim-input-label">Location / City</label>
+<input class="dim-text-input" id="infoLocation" placeholder="Mumbai, IN" type="text"/>
+</div>
+</div>
+<div class="step-nav-buttons">
+<button class="btn-motion-step btn-motion-step-prev" onclick="prevStep(5)">← Back</button>
+<button class="btn-motion-step btn-motion-step-next" onclick="submitConfiguration()">Submit Request →</button>
+</div>
+</div>
+</main>
+<!-- RIGHT: LIVE SPEC OVERVIEW -->
+<aside class="config-spec-sidebar">
+<h3 class="spec-sidebar-title">Live Spec</h3>
+<div class="spec-overview-item">
+<span class="spec-overview-label">Box Format</span>
+<span class="spec-overview-value" id="specFormat">Shipping Box</span>
+</div>
+<div class="spec-overview-item">
+<span class="spec-overview-label">Dimensions</span>
+<span class="spec-overview-value" id="specDims">—</span>
+</div>
+<div class="spec-overview-item">
+<span class="spec-overview-label">Board Kraft</span>
+<span class="spec-overview-value" id="specKraft">Natural Kraft</span>
+</div>
+<div class="spec-overview-item">
+<span class="spec-overview-label">Thickness</span>
+<span class="spec-overview-value" id="specPly">3-PLY (Standard)</span>
+</div>
+<div class="spec-overview-item">
+<span class="spec-overview-label">Total Units</span>
+<span class="spec-overview-value" id="specQty">500 units</span>
+</div>
+<div class="spec-overview-item">
+<span class="spec-overview-label">Company</span>
+<span class="spec-overview-value" id="specCompany">—</span>
+</div>
+</aside>
+</div>
 <!-- SUCCESS SCREEN -->
 <div class="success-screen" id="successScreen">
-  <div class="success-icon">✓</div>
-  <h1 class="step-heading" style="font-size: 48px; color: var(--kraft-warm);">Request Received</h1>
-  <p style="font-size: 15px; color: var(--gray); line-height: 1.7; margin-bottom: 32px;">Your custom box configuration request has been successfully submitted to our design studio. One of our structural design experts will reach out to you with physical sizing and unit quote details.</p>
-  <div style="display: flex; gap: 16px; justify-content: center;">
-    <a href="/products" class="btn-motion-step btn-motion-step-next" style="text-decoration: none;">Explore Range</a>
-    <a href="/" class="btn-motion-step btn-motion-step-prev" style="text-decoration: none;">Back Home</a>
-  </div>
+<div class="success-icon">✓</div>
+<div class="step-heading" style="font-size: 48px; color: var(--kraft-warm);">Request Received</div>
+<p style="font-size: 15px; color: var(--gray); line-height: 1.7; margin-bottom: 32px;">Your custom box configuration request has been successfully submitted to our design studio. One of our structural design experts will reach out to you with physical sizing and unit quote details.</p>
+<div style="display: flex; gap: 16px; justify-content: center;">
+<a class="btn-motion-step btn-motion-step-next" href="/products" style="text-decoration: none;">Explore Range</a>
+<a class="btn-motion-step btn-motion-step-prev" href="/" style="text-decoration: none;">Back Home</a>
 </div>
-
+</div>
 <script>
 
 function showToast(message) {

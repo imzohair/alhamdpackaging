@@ -1,12 +1,11 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@200;300;400;500;600;700&family=IBM+Plex+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Anton&amp;family=Inter:wght@200;300;400;500;600;700&amp;family=IBM+Plex+Mono:wght@300;400;500&amp;display=swap" rel="stylesheet"/>
 <style>
 :root {
   --navy: #1C2B3B;
@@ -420,32 +419,38 @@ footer.motion-footer {
   .btn-cta-primary { text-align: center; width: 100%; padding: 14px 24px; }
 }
 
+
+    .visually-hidden {
+      position: absolute !important;
+      width: 1px !important;
+      height: 1px !important;
+      padding: 0 !important;
+      margin: -1px !important;
+      overflow: hidden !important;
+      clip: rect(0, 0, 0, 0) !important;
+      border: 0 !important;
+    }
 </style>
-
-<link rel="icon" type="image/png" href="assets/logos/icon-only.png">
-  <script src="init-data.js"></script>
-
-  <!-- SEO Metadata -->
-  <title>About Alhamd Packaging | Corrugated Packaging Manufacturer</title>
-  <meta name="description" content="Learn about Alhamd Packaging and our approach to reliable, custom-made corrugated packaging solutions for businesses.">
-  <meta name="robots" content="index, follow">
-  <link rel="canonical" href="https://www.alhamdpackaging.com/about">
-  
-  <!-- Open Graph -->
-  <meta property="og:title" content="About Alhamd Packaging | Corrugated Packaging Manufacturer">
-  <meta property="og:description" content="Learn about Alhamd Packaging and our approach to reliable, custom-made corrugated packaging solutions for businesses.">
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="https://www.alhamdpackaging.com/about">
-  <meta property="og:image" content="https://www.alhamdpackaging.com/assets/logos/horizontal-logo.png">
-  
-  <!-- Twitter -->
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="About Alhamd Packaging | Corrugated Packaging Manufacturer">
-  <meta name="twitter:description" content="Learn about Alhamd Packaging and our approach to reliable, custom-made corrugated packaging solutions for businesses.">
-  <meta name="twitter:image" content="https://www.alhamdpackaging.com/assets/logos/horizontal-logo.png">
-  
-  <!-- Structured Data -->
-  <script type="application/ld+json">
+<link href="assets/logos/icon-only.png" rel="icon" type="image/png"/>
+<script src="init-data.js"></script>
+<!-- SEO Metadata -->
+<title>About Alhamd Packaging | Corrugated Packaging Manufacturer</title>
+<meta content="Learn about Alhamd Packaging and our approach to reliable, custom-made corrugated packaging solutions for businesses." name="description"/>
+<meta content="index, follow" name="robots"/>
+<link href="https://www.alhamdpackaging.com/about" rel="canonical"/>
+<!-- Open Graph -->
+<meta content="About Alhamd Packaging | Corrugated Packaging Manufacturer" property="og:title"/>
+<meta content="Learn about Alhamd Packaging and our approach to reliable, custom-made corrugated packaging solutions for businesses." property="og:description"/>
+<meta content="website" property="og:type"/>
+<meta content="https://www.alhamdpackaging.com/about" property="og:url"/>
+<meta content="https://www.alhamdpackaging.com/assets/logos/horizontal-logo.png" property="og:image"/>
+<!-- Twitter -->
+<meta content="summary_large_image" name="twitter:card"/>
+<meta content="About Alhamd Packaging | Corrugated Packaging Manufacturer" name="twitter:title"/>
+<meta content="Learn about Alhamd Packaging and our approach to reliable, custom-made corrugated packaging solutions for businesses." name="twitter:description"/>
+<meta content="https://www.alhamdpackaging.com/assets/logos/horizontal-logo.png" name="twitter:image"/>
+<!-- Structured Data -->
+<script type="application/ld+json">
 {
     "@context": "https://schema.org",
     "@type": "LocalBusiness",
@@ -469,219 +474,198 @@ footer.motion-footer {
   </script>
 </head>
 <body>
-
 <!-- Cursor -->
 <div class="cursor-dot" id="cursorDot"></div>
 <div class="cursor-ring" id="cursorRing"></div>
-
 <!-- Fullscreen Menu -->
 <div class="fullscreen-menu" id="fullscreenMenu">
-  <div class="fullscreen-menu-inner">
-    <a href="/" class="fullscreen-menu-item">Home</a>
-    <a href="/products" class="fullscreen-menu-item">Products</a>
-    <a href="/custom-packaging" class="fullscreen-menu-item">Custom Packaging</a>
-    <a href="/industries" class="fullscreen-menu-item">Industries</a>
-    <a href="/about" class="fullscreen-menu-item">About</a>
-    <a href="/contact" class="fullscreen-menu-item">Contact</a>
-  </div>
-  <button class="fullscreen-close" onclick="closeMenu()">Close &#x2715;</button>
+<div class="fullscreen-menu-inner">
+<a class="fullscreen-menu-item" href="/">Home</a>
+<a class="fullscreen-menu-item" href="/products">Products</a>
+<a class="fullscreen-menu-item" href="/custom-packaging">Custom Packaging</a>
+<a class="fullscreen-menu-item" href="/industries">Industries</a>
+<a class="fullscreen-menu-item" href="/about">About</a>
+<a class="fullscreen-menu-item" href="/contact">Contact</a>
 </div>
-
+<button class="fullscreen-close" onclick="closeMenu()">Close ✕</button>
+</div>
 <!-- NAV -->
 <nav id="nav">
-  <div class="nav-logo"><a href="/"><img src="assets/logos/horizontal-logo.png" alt="Alhamd Packaging"></a></div>
-  <ul class="nav-links-motion">
-    <li><a href="/">Home</a></li>
-    <li><a href="/products">Products</a></li>
-    <li><a href="/custom-packaging">Custom</a></li>
-    <li><a href="/industries">Industries</a></li>
-    <li><a href="/about" class="active">About</a></li>
-  </ul>
-  <div class="nav-motion-cta">
-    <a href="/contact" class="btn-motion-ghost"><span>Contact Us</span></a>
-    <button class="nav-menu-btn" onclick="openMenu()">
-      <span>Menu</span>
-      <div class="menu-lines">
-        <span></span><span></span><span style="width:12px;"></span>
-      </div>
-    </button>
-  </div>
+<div class="nav-logo"><a href="/"><img alt="Alhamd Packaging" src="assets/logos/horizontal-logo.png"/></a></div>
+<ul class="nav-links-motion">
+<li><a href="/">Home</a></li>
+<li><a href="/products">Products</a></li>
+<li><a href="/custom-packaging">Custom</a></li>
+<li><a href="/industries">Industries</a></li>
+<li><a class="active" href="/about">About</a></li>
+</ul>
+<div class="nav-motion-cta">
+<a class="btn-motion-ghost" href="/contact"><span>Contact Us</span></a>
+<button class="nav-menu-btn" onclick="openMenu()">
+<span>Menu</span>
+<div class="menu-lines">
+<span></span><span></span><span style="width:12px;"></span>
+</div>
+</button>
+</div>
 </nav>
-
+<h1 class="visually-hidden">About Alhamd Packaging</h1>
 <div class="page-container">
-  
-  <h1 class="page-title">We Make <span>Boxes</span><br>We’re Proud Of</h1>
-  <div class="page-subtitle">About Alhamd Packaging</div>
-
-  <div class="content-block">
-    <div class="founder-grid">
-      <div class="founder-left">
-        <h2 class="section-heading" style="margin-bottom: 16px;">The Founder’s Note</h2>
-        <div class="founder-quote-large">
+<div class="page-title">We Make <span>Boxes</span><br/>We’re Proud Of</div>
+<div class="page-subtitle">About Alhamd Packaging</div>
+<div class="content-block">
+<div class="founder-grid">
+<div class="founder-left">
+<h2 class="section-heading" style="margin-bottom: 16px;">The Founder’s Note</h2>
+<div class="founder-quote-large">
           Every product has a story. We give it a presentation that it deserves.
         </div>
-      </div>
-      <div class="founder-right">
-        <p class="text-body">
+</div>
+<div class="founder-right">
+<p class="text-body">
           What made us step into the packaging industry? To be honest, it was pure fascination.
         </p>
-        <p class="text-body">
+<p class="text-body">
           Packaging sits at the intersection of everything: heavy industrial machinery, intricate handwork, structural engineering, and creative design. Virtually every industry on earth—from local bakeries and garment exporters to electronics manufacturers—relies on packaging to survive and grow. That diversity means every single day brings a new product to learn about, a new puzzle to solve, and a new business owner to partner with.
         </p>
-        <p class="text-body">
+<p class="text-body">
           We started Alhamd because we noticed a huge gap in the market. Too many suppliers treat boxes as cheap commodities, ignoring clean manufacturing, structural strength, and visual appeal. We saw an opportunity to do things differently: to bring <strong>creativity, surgical cleanliness, and genuine reliability</strong> back to packaging.
         </p>
-        <p class="text-body">
+<p class="text-body">
           As a young, growing company in Kolkata, we don't just want to sell you corrugated boxes. We want to understand your product, protect your margin, and give your customers an unboxing experience they remember.
         </p>
-      </div>
-    </div>
-  </div>
-
-  <div class="content-block">
-    <div class="cta-banner" style="background:var(--navy-deep); border-color:rgba(160,120,56,0.2); text-align: center; display: flex; flex-direction: column; align-items: center; margin: 0;">
-      <div class="cta-banner-text" style="text-align: center; margin-bottom: 16px;">
-        <div class="cta-banner-headline">Join Our Community</div>
-        <div class="cta-banner-sub" style="max-width: 600px; margin: 0 auto 32px auto;">Follow us on social media for a behind-the-scenes look at our manufacturing process, packaging tips, and new product launches.</div>
-      </div>
-      <div style="display:flex; gap: 20px; justify-content: center; flex-wrap: wrap; width: 100%; max-width: 800px;">
-        <a href="https://www.instagram.com/alhamdpackaging/" target="_blank" class="big-social-link">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
-          <span>Instagram</span>
-        </a>
-        <a href="https://www.linkedin.com/company/alhamd-packaging/" target="_blank" class="big-social-link">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
-          <span>LinkedIn</span>
-        </a>
-        <a href="https://www.facebook.com/AlhamdPackaging/" target="_blank" class="big-social-link">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg>
-          <span>Facebook</span>
-        </a>
-      </div>
-    </div>
-  </div>
-
-  <div class="content-block" style="margin-top: 100px;">
-    <h2 class="section-heading" style="text-align: center;">The Alhamd Standards</h2>
-    <div class="highlight-box" style="text-align: center; max-width: 800px; margin: 0 auto 40px;">
-      <p>“Most traditional suppliers sell cardboard by the kilo. We prioritize your product safety, reduce your shipping bills, and make your customers smile.”</p>
-    </div>
-
-    <div class="standards-grid">
-      <div class="standard-card">
-        <div class="std-icon"><i data-lucide="sparkles" style="color: var(--kraft-warm); width: 32px; height: 32px;"></i></div>
-        <div class="std-title">Mandatory Cleanliness</div>
-        <div class="std-desc">Traditional suppliers often handle boxes in dusty, unhygienic spaces. We provide 100% dust-free packaging specially made for bakeries, food, and luxury FMCG.</div>
-        <div class="std-benefit">Result: Protects Brand Image & Food Safety</div>
-      </div>
-      
-      <div class="standard-card">
-        <div class="std-icon"><i data-lucide="leaf" style="color: var(--kraft-warm); width: 32px; height: 32px;"></i></div>
-        <div class="std-title">100% Paper-Based</div>
-        <div class="std-desc">Heavy use of plastic bubble wrap hurts the planet and looks cheap. We design custom paper inserts that hold your product tightly without plastic or foam.</div>
-        <div class="std-benefit">Result: Eco-Friendly Unboxing Experience</div>
-      </div>
-      
-      <div class="standard-card">
-        <div class="std-icon"><i data-lucide="maximize" style="color: var(--kraft-warm); width: 32px; height: 32px;"></i></div>
-        <div class="std-title">Exact-Fit Sizing</div>
-        <div class="std-desc">Oversized boxes force you to pay to ship empty air. We manufacture boxes shaped perfectly to your product’s dimensions so there is zero wasted space.</div>
-        <div class="std-benefit">Result: Lower Courier Bills Instantly</div>
-      </div>
-      
-      <div class="standard-card">
-        <div class="std-icon"><i data-lucide="truck" style="color: var(--kraft-warm); width: 32px; height: 32px;"></i></div>
-        <div class="std-title">Reliable Support</div>
-        <div class="std-desc">Late deliveries disrupt your packing line. As your local partner, we offer a guarantee on zero damage, instant response, and transparent pricing.</div>
-        <div class="std-benefit">Result: Smooth Operations & No Delays</div>
-      </div>
-    </div>
-    
-    <div class="cta-banner">
-      <div class="cta-banner-text">
-        <div class="cta-banner-headline">Test our boxes before bulk ordering</div>
-        <div class="cta-banner-sub">Send us your product size, and we will deliver a custom-made physical sample box to your office within 48 hours. No worries, it’s FREE.<br><br>Test the Strength, Quality, and Fit with Your Products.</div>
-      </div>
-      <div class="cta-banner-actions">
-        <a href="/contact" class="btn-cta-primary">Request FREE Sample Box</a>
-      </div>
-    </div>
-  </div>
-
-  <div class="content-block" style="margin-top: 100px;">
-    <h2 class="section-heading" style="text-align: center;">Answers Before You Buy</h2>
-    
-    <div class="faq-acc-container">
-      <div class="faq-acc-item">
-        <div class="faq-acc-q">How do I know I won’t lose money on shipping fees?</div>
-        <div class="faq-acc-a">Courier companies charge you for both the space your box takes up and its weight. Even a small gap adds extra bills. Our smart fit boxes are crafted for your products only. So, you don’t pay any extra charges.</div>
-      </div>
-      
-      <div class="faq-acc-item">
-        <div class="faq-acc-q">I sell Food and Sweets. Will the boxes smell?</div>
-        <div class="faq-acc-a">No. Most local suppliers store cardboard on dusty floors near machinery oil. We manufacture our food boxes in a dedicated clean space. So, you get 100% odor-free, dust-free, and safe food boxes.</div>
-      </div>
-      
-      <div class="faq-acc-item">
-        <div class="faq-acc-q">What if my boxes arrive late and my packing line stops?</div>
-        <div class="faq-acc-a">We are your local partner, so you don’t have to wait for long-distance trucks or unresponsive suppliers. We give you a clear delivery date and keep local stocks ready, so your business runs smoothly.</div>
-      </div>
-      
-      <div class="faq-acc-item">
-        <div class="faq-acc-q">Can I stop using plastic bubble wrap without breakage?</div>
-        <div class="faq-acc-a">We design smart paper inserts that hold your product firmly inside the box. Your goods won’t rattle around during transport. So, you won’t see breakage or unnecessary plastic waste.</div>
-      </div>
-      
-      <div class="faq-acc-item">
-        <div class="faq-acc-q">How do I test your quality before risking a large order?</div>
-        <div class="faq-acc-a">You don’t have to pay a single penny. Send us your product size and need today, and we will deliver a custom-made sample box to you within 48 hours for free.</div>
-      </div>
-    </div>
-    
-    <div class="cta-banner" style="background:var(--navy-deep); border-color:transparent; margin-top: 60px;">
-      <div class="cta-banner-text">
-        <div class="cta-banner-headline">Get Instant Answers on Pricing</div>
-      </div>
-      <div class="cta-banner-actions">
-        <a href="https://wa.me/919088819228" target="_blank" class="btn-cta-primary" style="background:#25D366; color:#fff;">Chat on WhatsApp Now</a>
-      </div>
-    </div>
-  </div>
 </div>
-
+</div>
+</div>
+<div class="content-block">
+<div class="cta-banner" style="background:var(--navy-deep); border-color:rgba(160,120,56,0.2); text-align: center; display: flex; flex-direction: column; align-items: center; margin: 0;">
+<div class="cta-banner-text" style="text-align: center; margin-bottom: 16px;">
+<div class="cta-banner-headline">Join Our Community</div>
+<div class="cta-banner-sub" style="max-width: 600px; margin: 0 auto 32px auto;">Follow us on social media for a behind-the-scenes look at our manufacturing process, packaging tips, and new product launches.</div>
+</div>
+<div style="display:flex; gap: 20px; justify-content: center; flex-wrap: wrap; width: 100%; max-width: 800px;">
+<a class="big-social-link" href="https://www.instagram.com/alhamdpackaging/" target="_blank">
+<svg fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="24"><rect height="20" rx="5" ry="5" width="20" x="2" y="2"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"></line></svg>
+<span>Instagram</span>
+</a>
+<a class="big-social-link" href="https://www.linkedin.com/company/alhamd-packaging/" target="_blank">
+<svg fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="24"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect height="12" width="4" x="2" y="9"></rect><circle cx="4" cy="4" r="2"></circle></svg>
+<span>LinkedIn</span>
+</a>
+<a class="big-social-link" href="https://www.facebook.com/AlhamdPackaging/" target="_blank">
+<svg fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="24"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg>
+<span>Facebook</span>
+</a>
+</div>
+</div>
+</div>
+<div class="content-block" style="margin-top: 100px;">
+<h2 class="section-heading" style="text-align: center;">The Alhamd Standards</h2>
+<div class="highlight-box" style="text-align: center; max-width: 800px; margin: 0 auto 40px;">
+<p>“Most traditional suppliers sell cardboard by the kilo. We prioritize your product safety, reduce your shipping bills, and make your customers smile.”</p>
+</div>
+<div class="standards-grid">
+<div class="standard-card">
+<div class="std-icon"><i data-lucide="sparkles" style="color: var(--kraft-warm); width: 32px; height: 32px;"></i></div>
+<div class="std-title">Mandatory Cleanliness</div>
+<div class="std-desc">Traditional suppliers often handle boxes in dusty, unhygienic spaces. We provide 100% dust-free packaging specially made for bakeries, food, and luxury FMCG.</div>
+<div class="std-benefit">Result: Protects Brand Image &amp; Food Safety</div>
+</div>
+<div class="standard-card">
+<div class="std-icon"><i data-lucide="leaf" style="color: var(--kraft-warm); width: 32px; height: 32px;"></i></div>
+<div class="std-title">100% Paper-Based</div>
+<div class="std-desc">Heavy use of plastic bubble wrap hurts the planet and looks cheap. We design custom paper inserts that hold your product tightly without plastic or foam.</div>
+<div class="std-benefit">Result: Eco-Friendly Unboxing Experience</div>
+</div>
+<div class="standard-card">
+<div class="std-icon"><i data-lucide="maximize" style="color: var(--kraft-warm); width: 32px; height: 32px;"></i></div>
+<div class="std-title">Exact-Fit Sizing</div>
+<div class="std-desc">Oversized boxes force you to pay to ship empty air. We manufacture boxes shaped perfectly to your product’s dimensions so there is zero wasted space.</div>
+<div class="std-benefit">Result: Lower Courier Bills Instantly</div>
+</div>
+<div class="standard-card">
+<div class="std-icon"><i data-lucide="truck" style="color: var(--kraft-warm); width: 32px; height: 32px;"></i></div>
+<div class="std-title">Reliable Support</div>
+<div class="std-desc">Late deliveries disrupt your packing line. As your local partner, we offer a guarantee on zero damage, instant response, and transparent pricing.</div>
+<div class="std-benefit">Result: Smooth Operations &amp; No Delays</div>
+</div>
+</div>
+<div class="cta-banner">
+<div class="cta-banner-text">
+<div class="cta-banner-headline">Test our boxes before bulk ordering</div>
+<div class="cta-banner-sub">Send us your product size, and we will deliver a custom-made physical sample box to your office within 48 hours. No worries, it’s FREE.<br/><br/>Test the Strength, Quality, and Fit with Your Products.</div>
+</div>
+<div class="cta-banner-actions">
+<a class="btn-cta-primary" href="/contact">Request FREE Sample Box</a>
+</div>
+</div>
+</div>
+<div class="content-block" style="margin-top: 100px;">
+<h2 class="section-heading" style="text-align: center;">Answers Before You Buy</h2>
+<div class="faq-acc-container">
+<div class="faq-acc-item">
+<div class="faq-acc-q">How do I know I won’t lose money on shipping fees?</div>
+<div class="faq-acc-a">Courier companies charge you for both the space your box takes up and its weight. Even a small gap adds extra bills. Our smart fit boxes are crafted for your products only. So, you don’t pay any extra charges.</div>
+</div>
+<div class="faq-acc-item">
+<div class="faq-acc-q">I sell Food and Sweets. Will the boxes smell?</div>
+<div class="faq-acc-a">No. Most local suppliers store cardboard on dusty floors near machinery oil. We manufacture our food boxes in a dedicated clean space. So, you get 100% odor-free, dust-free, and safe food boxes.</div>
+</div>
+<div class="faq-acc-item">
+<div class="faq-acc-q">What if my boxes arrive late and my packing line stops?</div>
+<div class="faq-acc-a">We are your local partner, so you don’t have to wait for long-distance trucks or unresponsive suppliers. We give you a clear delivery date and keep local stocks ready, so your business runs smoothly.</div>
+</div>
+<div class="faq-acc-item">
+<div class="faq-acc-q">Can I stop using plastic bubble wrap without breakage?</div>
+<div class="faq-acc-a">We design smart paper inserts that hold your product firmly inside the box. Your goods won’t rattle around during transport. So, you won’t see breakage or unnecessary plastic waste.</div>
+</div>
+<div class="faq-acc-item">
+<div class="faq-acc-q">How do I test your quality before risking a large order?</div>
+<div class="faq-acc-a">You don’t have to pay a single penny. Send us your product size and need today, and we will deliver a custom-made sample box to you within 48 hours for free.</div>
+</div>
+</div>
+<div class="cta-banner" style="background:var(--navy-deep); border-color:transparent; margin-top: 60px;">
+<div class="cta-banner-text">
+<div class="cta-banner-headline">Get Instant Answers on Pricing</div>
+</div>
+<div class="cta-banner-actions">
+<a class="btn-cta-primary" href="https://wa.me/919088819228" style="background:#25D366; color:#fff;" target="_blank">Chat on WhatsApp Now</a>
+</div>
+</div>
+</div>
+</div>
 <!-- FOOTER -->
 <footer class="motion-footer">
-  <div class="footer-motion-inner">
-    <div class="footer-motion-logo">
-      <img src="assets/logos/horizontal-logo.png" alt="Alhamd Packaging">
-    </div>
-    <ul class="footer-motion-links">
-      <li><a href="/products">Products</a></li>
-      <li><a href="/custom-packaging">Custom</a></li>
-      <li><a href="/industries">Industries</a></li>
-      <li><a href="/about">About</a></li>
-      <li><a href="/contact">Contact</a></li>
-    </ul>
-  </div>
-  <div class="footer-motion-bottom">
-    <div class="footer-motion-copy">&copy; 2026 Alhamd Packaging &mdash; Crafted in India. Delivered pan-India.</div>
-    <div style="display:flex;gap:20px;align-items:center;">
-      <a href="/contact" style="font-family:'IBM Plex Mono',monospace;font-size:9px;color:rgba(250,250,248,0.25);text-decoration:none;">business@alhamdpackaging.com</a>
-      <div class="footer-socials" style="display:flex;gap:12px;align-items:center;">
-        <a href="https://www.instagram.com/alhamdpackaging/" target="_blank" style="color:rgba(250,250,248,0.4);transition:color 0.2s;" onmouseover="this.style.color='#C49850'" onmouseout="this.style.color='rgba(250,250,248,0.4)'">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
-        </a>
-        <a href="https://www.linkedin.com/company/alhamd-packaging/" target="_blank" style="color:rgba(250,250,248,0.4);transition:color 0.2s;" onmouseover="this.style.color='#C49850'" onmouseout="this.style.color='rgba(250,250,248,0.4)'">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
-        </a>
-        <a href="https://www.facebook.com/AlhamdPackaging/" target="_blank" style="color:rgba(250,250,248,0.4);transition:color 0.2s;" onmouseover="this.style.color='#C49850'" onmouseout="this.style.color='rgba(250,250,248,0.4)'">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg>
-        </a>
-      </div>
-    </div>
-  </div>
+<div class="footer-motion-inner">
+<div class="footer-motion-logo">
+<img alt="Alhamd Packaging" src="assets/logos/horizontal-logo.png"/>
+</div>
+<ul class="footer-motion-links">
+<li><a href="/products">Products</a></li>
+<li><a href="/custom-packaging">Custom</a></li>
+<li><a href="/industries">Industries</a></li>
+<li><a href="/about">About</a></li>
+<li><a href="/contact">Contact</a></li>
+</ul>
+</div>
+<div class="footer-motion-bottom">
+<div class="footer-motion-copy">© 2026 Alhamd Packaging — Crafted in India. Delivered pan-India.</div>
+<div style="display:flex;gap:20px;align-items:center;">
+<a href="/contact" style="font-family:'IBM Plex Mono',monospace;font-size:9px;color:rgba(250,250,248,0.25);text-decoration:none;">business@alhamdpackaging.com</a>
+<div class="footer-socials" style="display:flex;gap:12px;align-items:center;">
+<a href="https://www.instagram.com/alhamdpackaging/" onmouseout="this.style.color='rgba(250,250,248,0.4)'" onmouseover="this.style.color='#C49850'" style="color:rgba(250,250,248,0.4);transition:color 0.2s;" target="_blank">
+<svg fill="none" height="16" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="16"><rect height="20" rx="5" ry="5" width="20" x="2" y="2"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"></line></svg>
+</a>
+<a href="https://www.linkedin.com/company/alhamd-packaging/" onmouseout="this.style.color='rgba(250,250,248,0.4)'" onmouseover="this.style.color='#C49850'" style="color:rgba(250,250,248,0.4);transition:color 0.2s;" target="_blank">
+<svg fill="none" height="16" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="16"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect height="12" width="4" x="2" y="9"></rect><circle cx="4" cy="4" r="2"></circle></svg>
+</a>
+<a href="https://www.facebook.com/AlhamdPackaging/" onmouseout="this.style.color='rgba(250,250,248,0.4)'" onmouseover="this.style.color='#C49850'" style="color:rgba(250,250,248,0.4);transition:color 0.2s;" target="_blank">
+<svg fill="none" height="16" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="16"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg>
+</a>
+</div>
+</div>
+</div>
 </footer>
-
 <script>
 // Cursor
 const dot = document.getElementById('cursorDot');
