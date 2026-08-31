@@ -168,6 +168,18 @@ nav {
 }
 
 /* ---- NEW ABOUT LAYOUT CSS ---- */
+.big-social-link {
+  display: flex; align-items: center; justify-content: center; gap: 12px;
+  background: rgba(160,120,56,0.05); border: 1px solid rgba(160,120,56,0.2);
+  padding: 18px 32px; border-radius: 4px; color: var(--white);
+  text-decoration: none; font-family: 'Anton', sans-serif;
+  font-size: 20px; letter-spacing: 0.05em; text-transform: uppercase;
+  transition: all 0.3s; flex: 1; min-width: 200px;
+}
+.big-social-link i { width: 24px; height: 24px; color: var(--kraft-warm); transition: color 0.3s; }
+.big-social-link:hover { background: var(--kraft-warm); color: var(--navy-deep); transform: translateY(-4px); }
+.big-social-link:hover i { color: var(--navy-deep); }
+
 .founder-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -479,6 +491,29 @@ footer.motion-footer {
         <p class="text-body">
           As a young, growing company in Kolkata, we don't just want to sell you corrugated boxes. We want to understand your product, protect your margin, and give your customers an unboxing experience they remember.
         </p>
+      </div>
+    </div>
+  </div>
+
+  <div class="content-block">
+    <div class="cta-banner" style="background:var(--navy-deep); border-color:rgba(160,120,56,0.2); text-align: center; display: flex; flex-direction: column; align-items: center; margin: 0;">
+      <div class="cta-banner-text" style="text-align: center; margin-bottom: 16px;">
+        <div class="cta-banner-headline">Join Our Community</div>
+        <div class="cta-banner-sub" style="max-width: 600px; margin: 0 auto 32px auto;">Follow us on social media for a behind-the-scenes look at our manufacturing process, packaging tips, and new product launches.</div>
+      </div>
+      <div style="display:flex; gap: 20px; justify-content: center; flex-wrap: wrap; width: 100%; max-width: 800px;">
+        <a href="https://www.instagram.com/alhamdpackaging/" target="_blank" class="big-social-link">
+          <i data-lucide="instagram"></i>
+          <span>Instagram</span>
+        </a>
+        <a href="https://www.linkedin.com/company/alhamd-packaging/" target="_blank" class="big-social-link">
+          <i data-lucide="linkedin"></i>
+          <span>LinkedIn</span>
+        </a>
+        <a href="https://www.facebook.com/AlhamdPackaging/" target="_blank" class="big-social-link">
+          <i data-lucide="facebook"></i>
+          <span>Facebook</span>
+        </a>
       </div>
     </div>
   </div>
