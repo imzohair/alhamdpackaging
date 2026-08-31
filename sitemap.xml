@@ -2,30 +2,26 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://alhamdpackaging.com/</loc>
-    <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://alhamdpackaging.com/products.html</loc>
-    <priority>0.8</priority>
+    <loc>https://alhamdpackaging.com/about</loc>
   </url>
   <url>
-    <loc>https://alhamdpackaging.com/custom-packaging.html</loc>
-    <priority>0.8</priority>
+    <loc>https://alhamdpackaging.com/products</loc>
   </url>
   <url>
-    <loc>https://alhamdpackaging.com/industries.html</loc>
-    <priority>0.7</priority>
+    <loc>https://alhamdpackaging.com/product-detail</loc>
   </url>
   <url>
-    <loc>https://alhamdpackaging.com/about.html</loc>
-    <priority>0.7</priority>
+    <loc>https://alhamdpackaging.com/custom-packaging</loc>
   </url>
   <url>
-    <loc>https://alhamdpackaging.com/sustainability.html</loc>
-    <priority>0.6</priority>
+    <loc>https://alhamdpackaging.com/industries</loc>
   </url>
   <url>
-    <loc>https://alhamdpackaging.com/contact.html</loc>
-    <priority>0.8</priority>
+    <loc>https://alhamdpackaging.com/sustainability</loc>
+  </url>
+  <url>
+    <loc>https://alhamdpackaging.com/contact</loc>
   </url>
 </urlset>
