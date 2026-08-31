@@ -34,8 +34,8 @@ const defaultProducts = [
 ];
 
 const defaultContact = {
-  wa: '919903427389',
-  waDisplay: '033-6826-3598 / +91 99034 27389',
+  wa: '919088819228',
+  waDisplay: 'Call: 033 6826 3598 / WA: +91 90888 19228',
   email: 'business@alhamdpackaging.com',
   addr1: 'P-30/B Narkel Danga Main Road',
   addr2: 'Kolkata, West Bengal, 700011',
