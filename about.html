@@ -200,6 +200,23 @@ nav {
   position: relative;
 }
 
+.founder-quote-large::before,
+.founder-quote-large::after {
+  font-family: 'Anton', sans-serif;
+  color: var(--kraft-warm);
+  font-size: 1.2em;
+  display: inline-block;
+  vertical-align: middle;
+  transform: translateY(-5px);
+}
+.founder-quote-large::before {
+  content: '“';
+  margin-right: 8px;
+}
+.founder-quote-large::after {
+  content: '”';
+  margin-left: 8px;
+}
 
 .highlight-box {
   background: rgba(160, 120, 56, 0.05);
@@ -514,7 +531,7 @@ footer.motion-footer {
 <div class="founder-left">
 <h2 class="section-heading" style="margin-bottom: 16px;">The Founder’s Note</h2>
 <div class="founder-quote-large">
-          "Every product has a story. We give it a presentation that it deserves."
+          Every product has a story. We give it a presentation that it deserves.
         </div>
 </div>
 <div class="founder-right">
