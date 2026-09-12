@@ -287,7 +287,7 @@ footer.motion-footer {
 @keyframes shake { 0%, 100% { transform: translateX(0); } 25% { transform: translateX(-4px); } 75% { transform: translateX(4px); } }
 </style>
 
-<script src="init-data.js"></script>
+<script src="init-data.js?v=2"></script>
 <!-- SEO Metadata -->
 <title>Product Details | Corrugated Packaging | Alhamd Packaging</title>
 <meta content="Explore specifications, applications and packaging options for our products from Alhamd Packaging." name="description"/>
@@ -485,7 +485,7 @@ function closeMenu() { document.getElementById('fullscreenMenu').classList.remov
 // Init data from URL and LocalStorage
 const urlParams = new URLSearchParams(window.location.search);
 const prodId = urlParams.get('id');
-const products = JSON.parse(localStorage.getItem('alhamd_products') || '[]');
+const products = JSON.parse(localStorage.getItem('alhamd_products_v2') || '[]');
 let product = products.find(p => p.id == prodId);
 
 if (!product && products.length > 0) {

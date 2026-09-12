@@ -55,9 +55,9 @@ const defaultContact = {
 function initData() {
   const version = 'v2'; // Bump this version when making changes to force client updates
   if (localStorage.getItem('alhamd_data_version') !== version) {
-    localStorage.setItem('alhamd_categories', JSON.stringify(defaultCategories));
-    localStorage.setItem('alhamd_products', JSON.stringify(defaultProducts));
-    localStorage.setItem('alhamd_contactInfo', JSON.stringify(defaultContact));
+    localStorage.setItem('alhamd_categories_v2', JSON.stringify(defaultCategories));
+    localStorage.setItem('alhamd_products_v2', JSON.stringify(defaultProducts));
+    localStorage.setItem('alhamd_contactInfo_v2', JSON.stringify(defaultContact));
     localStorage.setItem('alhamd_data_version', version);
   }
 }

@@ -606,7 +606,7 @@ footer.motion-footer {
     }
 </style>
 
-<script src="init-data.js"></script>
+<script src="init-data.js?v=2"></script>
 <!-- SEO Metadata -->
 <title>Corrugated Packaging Boxes &amp; Solutions | Alhamd Packaging</title>
 <meta content="Explore corrugated boxes, sheets, rolls and custom packaging solutions from Alhamd Packaging in Kolkata." name="description"/>
@@ -701,8 +701,8 @@ footer.motion-footer {
 <div id="dynamicProductsContainer"></div>
 <script>
   function renderProductsPage() {
-    const categories = JSON.parse(localStorage.getItem('alhamd_categories') || '[]');
-    const products = JSON.parse(localStorage.getItem('alhamd_products') || '[]');
+    const categories = JSON.parse(localStorage.getItem('alhamd_categories_v2') || '[]');
+    const products = JSON.parse(localStorage.getItem('alhamd_products_v2') || '[]');
     
     // Auto-fix any products that lost their category during previous edits
     let modified = false;
@@ -713,7 +713,7 @@ footer.motion-footer {
       }
     });
     if (modified) {
-      localStorage.setItem('alhamd_products', JSON.stringify(products));
+      localStorage.setItem('alhamd_products_v2', JSON.stringify(products));
     }
     const container = document.getElementById('dynamicProductsContainer');
     
