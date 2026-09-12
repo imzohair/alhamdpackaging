@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Packaging Insights Blog | Alhamd Packaging</title>
+<meta name="description" content="Expert insights on packaging, corrugated boxes, and sustainable solutions from Alhamd Packaging, Kolkata.">
+<link rel="canonical" href="https://alhamdpackaging.com/blog">
+<meta property="og:title" content="Packaging Insights Blog | Alhamd Packaging">
+<meta property="og:description" content="Expert insights on packaging, corrugated boxes, and sustainable solutions from Alhamd Packaging, Kolkata.">
+<meta property="og:url" content="https://alhamdpackaging.com/blog">
+<link rel="icon" href="/favicon.ico">
+<link rel="icon" type="image/png" sizes="48x48" href="/favicon.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --navy: #1C2B3B;
+  --navy-deep: #0E1820;
+  --navy-mid: #162230;
+  --kraft: #A07838;
+  --kraft-warm: #C49850;
+  --cream: #F5F0E8;
+  --white: #FAFAF8;
+  --mid: #4A6070;
+  --gray: #8899AA;
+}
+
+*,*::before,*::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Inter', sans-serif;
+  background: var(--navy-deep);
+  color: var(--white);
+  min-height: 100vh;
+}
+
+/* NAV */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 24px 48px;
+  background: rgba(14,24,32,0.92);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(160,120,56,0.1);
+}
+.nav-logo img { height: 36px; }
+.nav-links-motion { display: flex; gap: 40px; list-style: none; }
+.nav-links-motion a {
+  font-size: 11px; font-weight: 500; letter-spacing: 0.12em;
+  text-transform: uppercase; color: rgba(250,250,248,0.55);
+  text-decoration: none; transition: color 0.2s;
+}
+.nav-links-motion a:hover, .nav-links-motion a.active { color: var(--white); }
+.nav-motion-cta { display: flex; align-items: center; gap: 20px; }
+.btn-motion-ghost {
+  font-size: 11px; font-weight: 600; letter-spacing: 0.12em;
+  text-transform: uppercase; color: var(--kraft-warm);
+  border: 1px solid var(--kraft-warm); padding: 10px 24px;
+  text-decoration: none; transition: all 0.25s;
+}
+.btn-motion-ghost:hover { background: var(--kraft-warm); color: var(--navy-deep); }
+.nav-menu-btn {
+  display: flex; align-items: center; gap: 10px;
+  background: none; border: none; color: var(--white);
+  font-family: 'Inter', sans-serif; font-size: 11px;
+  font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase;
+  cursor: pointer;
+}
+.menu-lines { display: flex; flex-direction: column; gap: 3px; }
+.menu-lines span { display: block; height: 1.5px; width: 20px; background: var(--white); }
+
+/* HERO */
+.blog-hero {
+  padding: 160px 48px 80px;
+  border-bottom: 1px solid rgba(160,120,56,0.1);
+}
+.blog-hero-label {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase;
+  color: var(--kraft-warm); margin-bottom: 20px;
+  display: flex; align-items: center; gap: 12px;
+}
+.blog-hero-label::before { content: ''; display: block; width: 32px; height: 1px; background: var(--kraft-warm); }
+.blog-hero-title {
+  font-family: 'Anton', sans-serif;
+  font-size: clamp(48px, 8vw, 96px);
+  text-transform: uppercase; line-height: 0.95;
+  color: var(--white); margin-bottom: 24px;
+}
+.blog-hero-title span { color: var(--kraft-warm); }
+.blog-hero-sub { font-size: 16px; color: var(--gray); max-width: 520px; line-height: 1.65; }
+
+/* BLOG SECTION */
+.blog-section { max-width: 1200px; margin: 0 auto; padding: 80px 48px 120px; }
+
+.blog-filter-bar { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 60px; }
+.filter-btn {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase;
+  background: none; border: 1px solid rgba(160,120,56,0.25);
+  color: var(--gray); padding: 8px 18px; cursor: pointer;
+  transition: all 0.2s; border-radius: 100px;
+}
+.filter-btn:hover { border-color: var(--kraft-warm); color: var(--kraft-warm); }
+.filter-btn.active { background: var(--kraft-warm); border-color: var(--kraft-warm); color: var(--navy-deep); }
+
+.blog-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; }
+
+.blog-card {
+  background: var(--navy);
+  border: 1px solid rgba(160,120,56,0.12);
+  transition: border-color 0.3s, transform 0.3s;
+  cursor: pointer; text-decoration: none; color: inherit; display: block;
+}
+.blog-card:hover { border-color: rgba(160,120,56,0.4); transform: translateY(-4px); }
+
+.blog-card-img {
+  height: 200px;
+  background: linear-gradient(135deg, rgba(160,120,56,0.2), rgba(14,24,32,0.95));
+  position: relative; overflow: hidden;
+  display: flex; align-items: center; justify-content: center;
+}
+.blog-card-img img { width: 100%; height: 100%; object-fit: cover; }
+.blog-card-img svg { opacity: 0.2; }
+
+.blog-card-body { padding: 28px; }
+.blog-card-tag {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 9px; letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--kraft-warm); margin-bottom: 12px;
+}
+.blog-card-title {
+  font-family: 'Anton', sans-serif;
+  font-size: 22px; text-transform: uppercase;
+  line-height: 1.15; margin-bottom: 12px; color: var(--white);
+}
+.blog-card-excerpt {
+  font-size: 13px; color: var(--gray); line-height: 1.65; margin-bottom: 20px;
+  display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;
+}
+.blog-card-meta {
+  display: flex; align-items: center; justify-content: space-between;
+  border-top: 1px solid rgba(255,255,255,0.06); padding-top: 16px;
+}
+.blog-card-date { font-family: 'IBM Plex Mono', monospace; font-size: 9px; letter-spacing: 0.12em; color: var(--gray); text-transform: uppercase; }
+.blog-card-read { font-family: 'IBM Plex Mono', monospace; font-size: 9px; letter-spacing: 0.1em; color: var(--kraft-warm); text-transform: uppercase; display: flex; align-items: center; gap: 6px; }
+
+/* Featured card */
+.blog-card.featured { grid-column: 1 / -1; display: grid; grid-template-columns: 1fr 1fr; }
+.blog-card.featured .blog-card-img { height: 100%; min-height: 280px; }
+.blog-card.featured .blog-card-title { font-size: 36px; }
+.blog-card.featured .blog-card-excerpt { -webkit-line-clamp: 4; }
+.blog-card.featured .blog-card-body { padding: 40px; display: flex; flex-direction: column; justify-content: center; }
+
+/* Empty state */
+.empty-state { grid-column: 1 / -1; text-align: center; padding: 100px 0; }
+.empty-state-icon { font-size: 64px; margin-bottom: 20px; opacity: 0.3; }
+.empty-state-title { font-family: 'Anton', sans-serif; font-size: 28px; text-transform: uppercase; color: var(--gray); margin-bottom: 12px; }
+.empty-state-sub { font-size: 14px; color: rgba(136,153,170,0.6); }
+
+/* FOOTER */
+footer.motion-footer { background: var(--navy-deep); border-top: 1px solid rgba(160,120,56,0.12); padding: 60px 48px 32px; }
+.footer-motion-inner { display: flex; justify-content: space-between; align-items: center; gap: 24px; margin-bottom: 40px; }
+.footer-motion-logo img { height: 36px; filter: brightness(0) invert(1); }
+.footer-motion-links { display: flex; gap: 32px; list-style: none; }
+.footer-motion-links a { font-size: 12px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(250,250,248,0.4); text-decoration: none; transition: color 0.2s; }
+.footer-motion-links a:hover { color: var(--kraft-warm); }
+.footer-social-row { display: flex; gap: 16px; align-items: center; justify-content: center; margin-bottom: 32px; }
+.footer-social-link { display: flex; align-items: center; justify-content: center; width: 40px; height: 40px; border: 1px solid rgba(160,120,56,0.25); border-radius: 50%; transition: all 0.25s; color: var(--gray); text-decoration: none; }
+.footer-social-link:hover { border-color: var(--kraft-warm); color: var(--kraft-warm); background: rgba(160,120,56,0.08); }
+.footer-motion-bottom { border-top: 1px solid rgba(255,255,255,0.05); padding-top: 24px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; }
+.footer-motion-copy { font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 0.1em; color: rgba(250,250,248,0.2); }
+
+/* Fullscreen menu */
+.fullscreen-menu { position: fixed; inset: 0; z-index: 200; background: var(--navy-deep); display: flex; align-items: center; justify-content: center; opacity: 0; pointer-events: none; transition: opacity 0.4s; }
+.fullscreen-menu.open { opacity: 1; pointer-events: all; }
+.fullscreen-nav { list-style: none; text-align: center; }
+.fullscreen-nav a { font-family: 'Anton', sans-serif; font-size: clamp(36px, 8vw, 72px); text-transform: uppercase; color: rgba(250,250,248,0.15); text-decoration: none; display: block; padding: 8px 0; transition: color 0.2s; }
+.fullscreen-nav a:hover { color: var(--kraft-warm); }
+.fullscreen-close { position: absolute; top: 28px; right: 48px; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gray); background: none; border: none; font-family: 'Inter', sans-serif; cursor: pointer; transition: color 0.2s; }
+.fullscreen-close:hover { color: var(--white); }
+
+.visually-hidden { position: absolute !important; width: 1px !important; height: 1px !important; padding: 0 !important; margin: -1px !important; overflow: hidden !important; clip: rect(0,0,0,0) !important; white-space: nowrap !important; border: 0 !important; }
+
+@media (max-width: 1024px) {
+  .blog-grid { grid-template-columns: repeat(2, 1fr); }
+  .blog-card.featured { grid-template-columns: 1fr; }
+  .blog-card.featured .blog-card-img { height: 240px; }
+}
+@media (max-width: 768px) {
+  nav .nav-links-motion { display: none; }
+  .blog-hero { padding: 120px 24px 60px; }
+  .blog-section { padding: 60px 24px 80px; }
+  .blog-grid { grid-template-columns: 1fr; }
+  nav { padding: 20px 24px; }
+  .footer-motion-inner { flex-direction: column; text-align: center; }
+  .footer-motion-links { flex-wrap: wrap; gap: 16px; justify-content: center; }
+}
+</style>
+<script src="init-data.js?v=2"></script>
+</head>
+<body>
+
+<h1 class="visually-hidden">Alhamd Packaging Blog — Packaging Insights</h1>
+
+<nav role="navigation" aria-label="Main navigation">
+  <div class="nav-logo"><a href="/"><img src="assets/logos/horizontal-logo.png" alt="Alhamd Packaging Logo" height="36"></a></div>
+  <ul class="nav-links-motion">
+    <li><a href="/">Home</a></li>
+    <li><a href="/products">Products</a></li>
+    <li><a href="/custom-packaging">Custom</a></li>
+    <li><a href="/industries">Industries</a></li>
+    <li><a href="/about">About</a></li>
+    <li><a href="/blog" class="active">Blog</a></li>
+  </ul>
+  <div class="nav-motion-cta">
+    <a class="btn-motion-ghost" href="/contact"><span>Contact Us</span></a>
+    <button class="nav-menu-btn" onclick="openMenu()"><span>Menu</span><div class="menu-lines"><span></span><span></span><span style="width:12px;"></span></div></button>
+  </div>
+</nav>
+
+<div class="fullscreen-menu" id="fullscreenMenu">
+  <button class="fullscreen-close" onclick="closeMenu()">&#x2715; Close</button>
+  <ul class="fullscreen-nav">
+    <li><a href="/">Home</a></li>
+    <li><a href="/products">Products</a></li>
+    <li><a href="/custom-packaging">Custom</a></li>
+    <li><a href="/industries">Industries</a></li>
+    <li><a href="/about">About</a></li>
+    <li><a href="/blog">Blog</a></li>
+    <li><a href="/contact">Contact</a></li>
+  </ul>
+</div>
+
+<div class="blog-hero">
+  <div class="blog-hero-label">Packaging Insights</div>
+  <div class="blog-hero-title">WE WRITE <span>BOXES</span><br>AND BLOGS</div>
+  <p class="blog-hero-sub">Industry insights, packaging tips, product guides, and behind-the-scenes from the Alhamd Packaging factory floor in Kolkata.</p>
+</div>
+
+<div class="blog-section">
+  <div class="blog-filter-bar" id="filterBar">
+    <button class="filter-btn active" onclick="filterPosts(null, this)">All Posts</button>
+  </div>
+  <div class="blog-grid" id="blogGrid"></div>
+</div>
+
+<footer class="motion-footer">
+  <div class="footer-motion-inner">
+    <div class="footer-motion-logo"><img src="assets/logos/horizontal-logo.png" alt="Alhamd Packaging"></div>
+    <ul class="footer-motion-links">
+      <li><a href="/">Home</a></li>
+      <li><a href="/products">Products</a></li>
+      <li><a href="/custom-packaging">Custom</a></li>
+      <li><a href="/industries">Industries</a></li>
+      <li><a href="/about">About</a></li>
+      <li><a href="/blog">Blog</a></li>
+      <li><a href="/contact">Contact</a></li>
+    </ul>
+  </div>
+  <div class="footer-social-row">
+    <a href="https://www.instagram.com/alhamdpackaging/" target="_blank" rel="noopener noreferrer" class="footer-social-link" aria-label="Instagram">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+    </a>
+    <a href="https://www.linkedin.com/company/alhamd-packaging/" target="_blank" rel="noopener noreferrer" class="footer-social-link" aria-label="LinkedIn">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+    </a>
+    <a href="https://www.facebook.com/AlhamdPackaging/" target="_blank" rel="noopener noreferrer" class="footer-social-link" aria-label="Facebook">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg>
+    </a>
+    <a href="https://wa.me/919088819228" target="_blank" rel="noopener noreferrer" class="footer-social-link" aria-label="WhatsApp">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"/></svg>
+    </a>
+  </div>
+  <div class="footer-motion-bottom">
+    <div class="footer-motion-copy">© 2026 Alhamd Packaging · P-30/B Narkel Danga Main Road, Kolkata</div>
+    <div class="footer-motion-copy">business@alhamdpackaging.com</div>
+  </div>
+</footer>
+
+<script>
+function openMenu() { document.getElementById('fullscreenMenu').classList.add('open'); }
+function closeMenu() { document.getElementById('fullscreenMenu').classList.remove('open'); }
+
+function getBlogs() {
+  const d = localStorage.getItem('alhamd_blogs_v2');
+  return d ? JSON.parse(d) : [];
+}
+
+let activeTag = null;
+
+function filterPosts(tag, btn) {
+  activeTag = tag;
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  renderBlogGrid();
+}
+
+function renderBlogGrid() {
+  const posts = getBlogs().filter(p => p.status === 'published');
+  const grid = document.getElementById('blogGrid');
+  let filtered = activeTag ? posts.filter(p => p.tags && p.tags.includes(activeTag)) : posts;
+  filtered = filtered.sort((a, b) => new Date(b.publishedAt || b.createdAt) - new Date(a.publishedAt || a.createdAt));
+
+  if (!filtered.length) {
+    grid.innerHTML = `<div class="empty-state"><div class="empty-state-icon">📦</div><div class="empty-state-title">No posts yet</div><div class="empty-state-sub">Stay tuned — our team is writing something great.</div></div>`;
+    return;
+  }
+
+  grid.innerHTML = filtered.map((post, idx) => {
+    const date = new Date(post.publishedAt || post.createdAt);
+    const dateStr = date.toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' });
+    const readTime = Math.max(1, Math.round((post.content || '').split(' ').length / 200));
+    const isFeatured = idx === 0;
+    const imgHtml = post.coverImage
+      ? `<img src="${post.coverImage}" alt="${post.title}" loading="lazy">`
+      : `<svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>`;
+
+    return `<a class="blog-card${isFeatured ? ' featured' : ''}" href="/blog-post?id=${post.id}">
+      <div class="blog-card-img">${imgHtml}</div>
+      <div class="blog-card-body">
+        <div class="blog-card-tag">${(post.tags && post.tags[0]) ? post.tags[0] : 'Packaging'}</div>
+        <div class="blog-card-title">${post.title}</div>
+        <div class="blog-card-excerpt">${post.excerpt || (post.content || '').substring(0, 180)}</div>
+        <div class="blog-card-meta">
+          <div class="blog-card-date">${dateStr}</div>
+          <div class="blog-card-read">Read &middot; ${readTime} min <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div>
+        </div>
+      </div>
+    </a>`;
+  }).join('');
+}
+
+function buildFilters() {
+  const posts = getBlogs().filter(p => p.status === 'published');
+  const allTags = new Set();
+  posts.forEach(p => (p.tags || []).forEach(t => allTags.add(t)));
+  const bar = document.getElementById('filterBar');
+  bar.innerHTML = `<button class="filter-btn active" onclick="filterPosts(null, this)">All Posts</button>`;
+  allTags.forEach(tag => {
+    const btn = document.createElement('button');
+    btn.className = 'filter-btn';
+    btn.textContent = tag;
+    btn.onclick = function() { filterPosts(tag, this); };
+    bar.appendChild(btn);
+  });
+}
+
+buildFilters();
+renderBlogGrid();
+</script>
+</body>
+</html>

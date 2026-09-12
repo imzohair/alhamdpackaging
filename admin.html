@@ -658,6 +658,11 @@ body {
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
         Contact Info
       </div>
+      <div class="nav-section-label">Content</div>
+      <div class="nav-item" onclick="showPanel('blogs')">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+        Blog Posts
+      </div>
       <div class="nav-section-label">Settings</div>
       <div class="nav-item" onclick="showPanel('settings')">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/></svg>
@@ -687,7 +692,7 @@ body {
           View Website
         </a>
       </div>
-      <div class="stats-grid">
+      <div class="stats-grid" style="grid-template-columns:repeat(3,1fr);">
         <div class="stat-card">
           <div class="stat-label">Total Products</div>
           <div class="stat-value" id="statProducts">0</div>
@@ -699,13 +704,9 @@ body {
           <div class="stat-delta">Product groups</div>
         </div>
         <div class="stat-card">
-          <div class="stat-label">WhatsApp</div>
-          <div class="stat-value">+91</div>
-          <div class="stat-delta">99034 27389</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-label">Email Enquiries</div>
-          <div class="stat-value" style="font-size:16px;padding-top:8px;">business@<br>alhamdpackaging<br>.com</div>
+          <div class="stat-label">Blog Posts</div>
+          <div class="stat-value" id="statBlogs">0</div>
+          <div class="stat-delta">Published articles</div>
         </div>
       </div>
       <div style="background:var(--navy);border:1px solid rgba(160,120,56,0.12);padding:28px;margin-top:4px;">
@@ -718,6 +719,10 @@ body {
           <button class="btn-secondary-admin" onclick="showPanel('categories')">
             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
             Add Category
+          </button>
+          <button class="btn-primary-admin" onclick="showPanel('blogs');openBlogModal()">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            New Blog Post
           </button>
           <button class="btn-secondary-admin" onclick="showPanel('content')">Edit Page Content</button>
           <a href="/contact" target="_blank" class="btn-secondary-admin">View Contact Page</a>
@@ -929,6 +934,42 @@ body {
       </div>
     </div>
 
+    </div>
+
+    <!-- ===== BLOG POSTS ===== -->
+    <div id="panel-blogs" class="panel">
+      <div class="admin-topbar">
+        <div>
+          <div class="page-title">Blog Posts</div>
+          <div class="page-subtitle">Write &amp; publish articles for your website</div>
+        </div>
+        <div style="display:flex;gap:12px;">
+          <a href="/blog" target="_blank" class="btn-secondary-admin">View Blog Page</a>
+          <button class="btn-primary-admin" onclick="openBlogModal()">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            New Post
+          </button>
+        </div>
+      </div>
+      <div class="admin-table-wrap">
+        <table class="admin-table">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Title</th>
+              <th>Tags</th>
+              <th>Status</th>
+              <th>Published</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="blogsTableBody">
+            <tr><td colspan="6" style="text-align:center;padding:40px;color:var(--gray);font-family:'IBM Plex Mono',monospace;font-size:11px;">No posts yet. Click "New Post" to get started.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
     <!-- ===== SETTINGS ===== -->
     <div id="panel-settings" class="panel">
       <div class="admin-topbar">
@@ -1078,6 +1119,52 @@ body {
   </div>
 </div>
 
+<!-- BLOG MODAL -->
+<div class="modal-overlay" id="blogModal" style="align-items:flex-start;overflow-y:auto;padding:40px 0;">
+  <div class="modal-box" style="max-width:760px;width:100%;">
+    <button class="modal-close" onclick="closeBlogModal()">&#x2715;</button>
+    <div class="modal-title" id="blogModalTitle">New Blog Post</div>
+    <div class="form-field">
+      <label class="form-label">Post Title *</label>
+      <input type="text" class="form-input" id="blogTitle" placeholder="e.g. 5 Reasons Your Food Business Needs Custom Boxes">
+    </div>
+    <div class="form-field">
+      <label class="form-label">Short Excerpt (shown on blog listing)</label>
+      <textarea class="form-textarea" id="blogExcerpt" placeholder="A brief 1-2 sentence summary of the post..."></textarea>
+    </div>
+    <div class="form-field">
+      <label class="form-label">Full Content *</label>
+      <textarea class="form-textarea" id="blogContent" placeholder="Write your full article here. You can use plain paragraphs — new lines will be preserved." style="min-height:320px;"></textarea>
+    </div>
+    <div class="form-field">
+      <label class="form-label">Tags (press Enter to add)</label>
+      <input type="text" class="form-input" id="blogTagInput" placeholder="e.g. Food Packaging, Tips, Industry" onkeydown="addBlogTag(event)">
+      <div class="tag-list" id="blogTagList"></div>
+    </div>
+    <div class="form-field">
+      <label class="form-label">Cover Image (optional)</label>
+      <div class="img-upload-area">
+        <input type="file" accept="image/*" onchange="previewImage(this, 'blogImgPreview')">
+        <div class="img-upload-label">Click to upload cover image</div>
+        <img class="img-preview" id="blogImgPreview" alt="Cover image preview">
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-field">
+        <label class="form-label">Status</label>
+        <select class="form-select" id="blogStatus">
+          <option value="published">Published (Live)</option>
+          <option value="draft">Draft (Hidden)</option>
+        </select>
+      </div>
+    </div>
+    <div class="form-actions">
+      <button class="btn-primary-admin" onclick="saveBlogPost()">Publish Post</button>
+      <button class="btn-secondary-admin" onclick="closeBlogModal()">Cancel</button>
+    </div>
+  </div>
+</div>
+
 <!-- TOAST -->
 <div class="toast" id="toast">Saved successfully.</div>
 
@@ -1154,12 +1241,15 @@ function initAdmin() {
   refreshStats();
   renderProductsTable();
   renderCategoriesTable();
+  renderBlogsTable();
   loadContent();
 }
 
 function refreshStats() {
   document.getElementById('statProducts').textContent = getData('products').length;
   document.getElementById('statCategories').textContent = getData('categories').length;
+  const published = (getData('blogs_v2') || []).filter(p => p.status === 'published').length;
+  document.getElementById('statBlogs').textContent = published;
 }
 
 /* ======================================================
@@ -1484,6 +1574,133 @@ function clearAllData() {
   ['products','categories','content','contactInfo'].forEach(k => localStorage.removeItem('alhamd_' + k));
   initAdmin();
   showToast('All data cleared.');
+}
+
+/* ======================================================
+   BLOG POSTS
+====================================================== */
+let editingBlogId = null;
+let blogTags = [];
+
+function getBlogs() { return JSON.parse(localStorage.getItem('alhamd_blogs_v2') || '[]'); }
+function setBlogs(val) { localStorage.setItem('alhamd_blogs_v2', JSON.stringify(val)); }
+
+function openBlogModal(post = null) {
+  blogTags = [];
+  document.getElementById('blogTagList').innerHTML = '';
+  document.getElementById('blogImgPreview').classList.remove('show');
+  document.getElementById('blogModalTitle').textContent = post ? 'Edit Post' : 'New Blog Post';
+  editingBlogId = post ? post.id : null;
+  if (post) {
+    document.getElementById('blogTitle').value = post.title || '';
+    document.getElementById('blogExcerpt').value = post.excerpt || '';
+    document.getElementById('blogContent').value = post.content || '';
+    document.getElementById('blogStatus').value = post.status || 'published';
+    blogTags = [...(post.tags || [])];
+    renderBlogTags();
+    if (post.coverImage) {
+      const img = document.getElementById('blogImgPreview');
+      img.src = post.coverImage;
+      img.classList.add('show');
+    }
+  } else {
+    ['blogTitle','blogExcerpt','blogContent'].forEach(id => document.getElementById(id).value = '');
+    document.getElementById('blogStatus').value = 'published';
+  }
+  document.getElementById('blogModal').classList.add('open');
+}
+
+function closeBlogModal() {
+  document.getElementById('blogModal').classList.remove('open');
+  editingBlogId = null;
+}
+
+function addBlogTag(e) {
+  if (e.key === 'Enter') {
+    e.preventDefault();
+    const inp = document.getElementById('blogTagInput');
+    const val = inp.value.trim();
+    if (val && !blogTags.includes(val)) { blogTags.push(val); renderBlogTags(); }
+    inp.value = '';
+  }
+}
+
+function renderBlogTags() {
+  document.getElementById('blogTagList').innerHTML = blogTags.map((t, i) =>
+    `<span class="tag-item">${t} <button class="tag-del" onclick="removeBlogTag(${i})">&#x2715;</button></span>`
+  ).join('');
+}
+
+function removeBlogTag(i) { blogTags.splice(i, 1); renderBlogTags(); }
+
+function saveBlogPost() {
+  const title = document.getElementById('blogTitle').value.trim();
+  if (!title) { showToast('Post title is required.', true); return; }
+  const content = document.getElementById('blogContent').value.trim();
+  if (!content) { showToast('Post content is required.', true); return; }
+
+  const blogs = getBlogs();
+  const imgPreview = document.getElementById('blogImgPreview');
+  const status = document.getElementById('blogStatus').value;
+
+  const post = {
+    id: editingBlogId || Date.now(),
+    title,
+    excerpt: document.getElementById('blogExcerpt').value.trim(),
+    content,
+    tags: [...blogTags],
+    status,
+    coverImage: imgPreview.classList.contains('show') ? imgPreview.src : null,
+    updatedAt: new Date().toISOString()
+  };
+
+  if (editingBlogId) {
+    const idx = blogs.findIndex(p => p.id === editingBlogId);
+    if (idx > -1) blogs[idx] = post;
+    else blogs.push(post);
+  } else {
+    post.createdAt = post.updatedAt;
+    post.publishedAt = status === 'published' ? post.createdAt : null;
+    blogs.push(post);
+  }
+
+  setBlogs(blogs);
+  closeBlogModal();
+  renderBlogsTable();
+  refreshStats();
+  showToast(editingBlogId ? 'Post updated.' : (status === 'published' ? 'Post published!' : 'Draft saved.'));
+}
+
+function deleteBlogPost(id) {
+  if (!confirm('Delete this post? This cannot be undone.')) return;
+  const blogs = getBlogs().filter(p => p.id !== id);
+  setBlogs(blogs);
+  renderBlogsTable();
+  refreshStats();
+  showToast('Post deleted.');
+}
+
+function renderBlogsTable() {
+  const blogs = getBlogs();
+  const tbody = document.getElementById('blogsTableBody');
+  if (!blogs.length) {
+    tbody.innerHTML = '<tr><td colspan="6" style="text-align:center;padding:40px;color:var(--gray);font-family:\'IBM Plex Mono\',monospace;font-size:11px;">No posts yet. Click "New Post" to get started.</td></tr>';
+    return;
+  }
+  tbody.innerHTML = blogs.slice().sort((a,b)=>new Date(b.createdAt)-new Date(a.createdAt)).map((p, i) => {
+    const date = p.publishedAt ? new Date(p.publishedAt).toLocaleDateString('en-IN',{day:'numeric',month:'short',year:'numeric'}) : '—';
+    return `<tr>
+      <td style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--gray);">${String(i+1).padStart(2,'0')}</td>
+      <td style="font-weight:600;max-width:280px;">${p.title}</td>
+      <td style="font-size:11px;color:var(--gray);">${(p.tags||[]).join(', ')||'—'}</td>
+      <td><span class="badge badge-${p.status === 'published' ? 'active' : 'draft'}">${p.status}</span></td>
+      <td style="font-family:'IBM Plex Mono',monospace;font-size:10px;">${date}</td>
+      <td><div class="action-btns">
+        <button class="btn-secondary-admin" onclick='openBlogModal(${JSON.stringify(p).replace(/'/g,"\\'")})' style="padding:7px 12px;font-size:10px;">Edit</button>
+        <button class="btn-danger-admin" onclick="deleteBlogPost(${p.id})" style="padding:7px 12px;">Delete</button>
+      </div></td>
+    </tr>`;
+  }).join('');
 }
 
 /* ======================================================
