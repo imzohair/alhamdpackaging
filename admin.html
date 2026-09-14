@@ -1333,13 +1333,18 @@ function showPanel(name) {
 let editingProductId = null;
 let prodTags = [];
 
-function openProductModal(product = null) {
+function openProductModal(prodId = null) {
+  let product = null;
+  if (prodId !== null) {
+    product = _cache.products.find(p => String(p.id) === String(prodId));
+  }
+
   prodTags = [];
   document.getElementById('prodTagList').innerHTML = '';
   document.getElementById('prodImgPreview').classList.remove('show');
   document.getElementById('prodImgPreview2').classList.remove('show');
   document.getElementById('prodImgPreview3').classList.remove('show');
-  document.getElementById('productModalTitle').textContent = product ? 'Edit Product' : 'Add Product';
+  document.getElementById('productModalTitle').textContent = product ? 'Edit Product' : 'Add New Product';
   editingProductId = product ? product.id : null;
   populateCategorySelect();
 
@@ -1527,8 +1532,8 @@ function renderProductsTable() {
       <td style="font-family:'IBM Plex Mono',monospace;font-size:10px;">${p.moq ? p.moq + ' units' : '—'}</td>
       <td><span class="badge badge-${p.status === 'active' ? 'active' : 'draft'}">${p.status || 'active'}</span></td>
       <td><div class="action-btns">
-        <button class="btn-secondary-admin" onclick='openProductModal(${JSON.stringify(p)})' style="padding:7px 12px;font-size:10px;">Edit</button>
-        <button class="btn-danger-admin" onclick="deleteProduct(${p.id})" style="padding:7px 12px;">Delete</button>
+        <button class="btn-secondary-admin" onclick="openProductModal('${p.id}')" style="padding:7px 12px;font-size:10px;">Edit</button>
+        <button class="btn-danger-admin" onclick="deleteProduct('${p.id}')" style="padding:7px 12px;">Delete</button>
       </div></td>
     </tr>`;
   }).join('');
@@ -1539,9 +1544,14 @@ function renderProductsTable() {
 ====================================================== */
 let editingCategoryId = null;
 
-function openCategoryModal(cat = null) {
+function openCategoryModal(catId = null) {
+  let cat = null;
+  if (catId !== null) {
+    cat = _cache.categories.find(c => String(c.id) === String(catId));
+  }
+
+  document.getElementById('catModalTitle').textContent = cat ? 'Edit Category' : 'Add New Category';
   editingCategoryId = cat ? cat.id : null;
-  document.getElementById('catModalTitle').textContent = cat ? 'Edit Category' : 'Add Category';
   document.getElementById('catName').value = cat ? cat.name : '';
   document.getElementById('catDesc').value = cat ? (cat.description || '') : '';
   document.getElementById('categoryModal').classList.add('open');
@@ -1607,8 +1617,8 @@ function renderCategoriesTable() {
       <td style="font-family:'IBM Plex Mono',monospace;font-size:11px;">${count} product${count !== 1 ? 's' : ''}</td>
       <td style="color:var(--gray);font-size:12px;">${c.description || '—'}</td>
       <td><div class="action-btns">
-        <button class="btn-secondary-admin" onclick='openCategoryModal(${JSON.stringify(c)})' style="padding:7px 12px;font-size:10px;">Edit</button>
-        <button class="btn-danger-admin" onclick="deleteCategory(${c.id})" style="padding:7px 12px;">Delete</button>
+        <button class="btn-secondary-admin" onclick="openCategoryModal('${c.id}')" style="padding:7px 12px;font-size:10px;">Edit</button>
+        <button class="btn-danger-admin" onclick="deleteCategory('${c.id}')" style="padding:7px 12px;">Delete</button>
       </div></td>
     </tr>`;
   }).join('');
@@ -1756,7 +1766,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
 function getBlogs() { return _cache.blogs; }
 
-function openBlogModal(post = null) {
+function openBlogModal(postId = null) {
+  let post = null;
+  if (postId !== null) {
+    post = _cache.blogs.find(b => String(b.id) === String(postId));
+  }
+
   blogTags = [];
   document.getElementById('blogTagList').innerHTML = '';
   document.getElementById('blogImgPreview').classList.remove('show');
@@ -1878,7 +1893,6 @@ function renderBlogsTable() {
   }
   tbody.innerHTML = blogs.slice().sort((a,b)=>new Date(b.createdAt)-new Date(a.createdAt)).map((p, i) => {
     const date = p.publishedAt ? new Date(p.publishedAt).toLocaleDateString('en-IN',{day:'numeric',month:'short',year:'numeric'}) : '—';
-    const safePost = JSON.stringify(p).replace(/\\/g,'\\\\').replace(/'/g,"\\'");
     return `<tr>
       <td style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--gray);">${String(i+1).padStart(2,'0')}</td>
       <td style="font-weight:600;max-width:280px;">${p.title}</td>
@@ -1886,7 +1900,7 @@ function renderBlogsTable() {
       <td><span class="badge badge-${p.status === 'published' ? 'active' : 'draft'}">${p.status}</span></td>
       <td style="font-family:'IBM Plex Mono',monospace;font-size:10px;">${date}</td>
       <td><div class="action-btns">
-        <button class="btn-secondary-admin" onclick='openBlogModal(${safePost})' style="padding:7px 12px;font-size:10px;">Edit</button>
+        <button class="btn-secondary-admin" onclick="openBlogModal('${p.id}')" style="padding:7px 12px;font-size:10px;">Edit</button>
         <button class="btn-danger-admin" onclick="deleteBlogPost('${p.id}')" style="padding:7px 12px;">Delete</button>
       </div></td>
     </tr>`;
