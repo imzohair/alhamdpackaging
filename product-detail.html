@@ -124,7 +124,7 @@ nav {
   position: relative; overflow: hidden;
 }
 .prod-main-image img {
-  width: 100%; height: 100%; object-fit: cover;
+  width: 100%; height: 100%; object-fit: contain;
   opacity: 0.8;
 }
 .prod-thumbs {
@@ -136,7 +136,9 @@ nav {
   cursor: pointer; transition: border-color 0.2s;
 }
 .prod-thumb:hover, .prod-thumb.active { border-color: var(--kraft-warm); }
-.prod-thumb img { width: 100%; height: 100%; object-fit: cover; opacity: 0.7; }
+.prod-thumb img {
+  width: 100%; height: 100%; object-fit: contain; opacity: 0.5; transition: opacity 0.2s;
+}
 
 /* Info Side */
 .prod-info-col {
