@@ -199,7 +199,7 @@ body {
 @media (max-width: 640px) {
   .pill-nav-wrap { top: 14px; width: calc(100vw - 32px); }
   .pill-nav { max-width: 100%; justify-content: space-between; border-radius: 100px; }
-  .pill-nav.collapsed { max-width: 52px; overflow: hidden; }
+  .pill-nav.collapsed { width: 52px !important; }
   .pill-cta { display: none; }
   .pill-links a { padding: 6px 10px; font-size: 10px; }
 }
@@ -1165,25 +1165,46 @@ lucide.createIcons();</script>
     const COLLAPSE_THRESHOLD = 150;
     const EXPAND_THRESHOLD = 80;
 
-    window.addEventListener('scroll', function() {
-      const currentY = window.scrollY;
-      if (isExpanded && currentY > lastScrollY && currentY > COLLAPSE_THRESHOLD) {
-        isExpanded = false;
-        scrollOnCollapse = currentY;
-        pill.classList.add('collapsed');
-      } else if (!isExpanded && currentY < lastScrollY && (scrollOnCollapse - currentY) > EXPAND_THRESHOLD) {
-        isExpanded = true;
-        pill.classList.remove('collapsed');
+    // CSS cannot animate width: auto. So we use JS to set isExpandedlicit pixel widths!
+    function setExplicitWidth() {
+      if(isExpanded) {
+        pill.style.width = 'auto';
+        var w = pill.offsetWidth;
+        pill.style.width = w + 'px';
       }
-      lastScrollY = currentY;
-    }, { passive: true });
+    }
+    setExplicitWidth();
+    window.addEventListener('resize', setExplicitWidth);
 
-    pill.addEventListener('click', function(e) {
-      if (!isExpanded) {
-        e.preventDefault();
-        isExpanded = true;
-        scrollOnCollapse = 0;
+    window.addEventListener('scroll', function(){
+      var y = window.scrollY;
+      if(isExpanded && y > lastScrollY && y > COLLAPSE_THRESHOLD) {
+        isExpanded = false; scrollOnCollapse = y;
+        pill.style.width = '52px';
+        pill.classList.add('collapsed');
+      }
+      else if(!isExpanded && y < lastScrollY && (scrollOnCollapse - y) > EXPAND_THRESHOLD) {
+        isExpanded = true; 
         pill.classList.remove('collapsed');
+        pill.style.width = 'auto';
+        var w = pill.offsetWidth;
+        pill.style.width = '52px'; // start at 52
+        void pill.offsetWidth; // force reflow
+        pill.style.width = w + 'px'; // animate to full
+      }
+      lastScrollY = y;
+    }, {passive:true});
+
+    pill.addEventListener('click', function(e){
+      if(!isExpanded){
+        e.preventDefault(); 
+        isExpanded = true; scrollOnCollapse = 0; 
+        pill.classList.remove('collapsed');
+        pill.style.width = 'auto';
+        var w = pill.offsetWidth;
+        pill.style.width = '52px';
+        void pill.offsetWidth;
+        pill.style.width = w + 'px';
       }
     });
   })();
