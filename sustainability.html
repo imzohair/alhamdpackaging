@@ -399,6 +399,58 @@ footer.motion-footer {
     .footer-motion-bottom { flex-direction: column; text-align: center; gap: 12px; }
   }
 
+
+/* ======= PILL NAV ======= */
+.pill-nav-wrap {
+  position: fixed; top: 20px; left: 50%; transform: translateX(-50%);
+  z-index: 1000; display: flex; justify-content: center;
+}
+.pill-nav {
+  display: flex; align-items: center; height: 52px;
+  background: rgba(14,24,32,0.92); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(160,120,56,0.3); border-radius: 100px; padding: 0 8px 0 16px;
+  box-shadow: 0 8px 40px rgba(0,0,0,0.45),0 0 0 1px rgba(160,120,56,0.08);
+  overflow: hidden; width: auto; white-space: nowrap; cursor: default; position: relative;
+  transition: width 0.5s cubic-bezier(0.4,0,0.2,1), padding 0.4s cubic-bezier(0.4,0,0.2,1), box-shadow 0.3s, transform 0.15s;
+}
+.pill-nav.collapsed { width: 52px !important; padding: 0; cursor: pointer; box-shadow: 0 4px 24px rgba(0,0,0,0.5),0 0 0 1px rgba(160,120,56,0.15); }
+.pill-nav.collapsed:hover { box-shadow: 0 6px 32px rgba(160,120,56,0.25),0 0 0 1px rgba(160,120,56,0.35); transform: scale(1.06); }
+.pill-nav.collapsed:active { transform: scale(0.96); }
+.pill-logo { display: flex; align-items: center; flex-shrink: 0; margin-right: 4px; transition: opacity 0.3s, transform 0.4s cubic-bezier(0.4,0,0.2,1); }
+.pill-logo img { height: 30px; width: auto; object-fit: contain; }
+.pill-nav.collapsed .pill-logo { opacity: 0; transform: rotate(-180deg) scale(0.6); pointer-events: none; }
+.pill-links { display: flex; align-items: center; gap: 2px; list-style: none; transition: opacity 0.25s, transform 0.35s cubic-bezier(0.4,0,0.2,1); }
+.pill-links a { font-size: 10.5px; font-weight: 600; letter-spacing: 0.09em; text-transform: uppercase; color: rgba(250,250,248,0.6); text-decoration: none; padding: 6px 13px; border-radius: 100px; transition: color 0.2s, background 0.2s; white-space: nowrap; }
+.pill-links a:hover { color: var(--white); background: rgba(160,120,56,0.12); }
+.pill-links a.active { color: var(--navy-deep); background: var(--kraft-warm); }
+.pill-nav.collapsed .pill-links { opacity: 0; transform: translateX(-12px); pointer-events: none; }
+.pill-cta { margin-left: 8px; flex-shrink: 0; font-size: 10px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--navy-deep); background: var(--kraft-warm); border: none; padding: 8px 18px; border-radius: 100px; text-decoration: none; transition: opacity 0.25s, transform 0.35s, background 0.2s; white-space: nowrap; }
+.pill-cta:hover { background: #d4aa60; }
+.pill-nav.collapsed .pill-cta { opacity: 0; pointer-events: none; transform: translateX(10px); }
+.pill-menu-icon { position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); display: flex; flex-direction: column; gap: 4px; opacity: 0; transition: opacity 0.25s 0.1s; pointer-events: none; }
+.pill-menu-icon span { display: block; width: 16px; height: 1.5px; background: var(--kraft-warm); border-radius: 2px; }
+.pill-nav.collapsed .pill-menu-icon { opacity: 1; }
+/* Mobile button */
+.pill-mobile-btn { display: none; position: fixed; top: 16px; right: 20px; z-index: 1100; background: rgba(14,24,32,0.92); border: 1px solid rgba(160,120,56,0.3); border-radius: 100px; padding: 10px 18px; backdrop-filter: blur(20px); cursor: pointer; align-items: center; gap: 8px; font-family: 'Inter',sans-serif; font-size: 11px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--white); box-shadow: 0 4px 24px rgba(0,0,0,0.4); }
+.pill-mobile-btn .btn-lines { display: flex; flex-direction: column; gap: 3.5px; }
+.pill-mobile-btn .btn-lines span { display: block; width: 15px; height: 1.5px; background: var(--kraft-warm); border-radius: 2px; }
+/* Mobile overlay */
+.pill-mobile-overlay { position: fixed; inset: 0; z-index: 2000; background: rgba(10,18,26,0.98); backdrop-filter: blur(24px); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; opacity: 0; pointer-events: none; transition: opacity 0.35s cubic-bezier(0.4,0,0.2,1); }
+.pill-mobile-overlay.open { opacity: 1; pointer-events: all; }
+.pill-mobile-overlay a { font-family: 'Anton',sans-serif; font-size: clamp(30px,8vw,60px); text-transform: uppercase; color: rgba(250,250,248,0.2); text-decoration: none; line-height: 1.2; display: block; transition: color 0.2s, transform 0.25s; }
+.pill-mobile-overlay.open a { transform: translateY(0); }
+.pill-mobile-overlay a:hover { color: var(--kraft-warm); transform: translateX(6px); }
+.pill-mobile-overlay a.active { color: var(--kraft-warm); }
+.pill-mobile-overlay-close { position: absolute; top: 28px; right: 28px; font-family: 'Inter',sans-serif; font-size: 11px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(250,250,248,0.4); background: none; border: none; cursor: pointer; transition: color 0.2s; }
+.pill-mobile-overlay-close:hover { color: var(--kraft-warm); }
+.pill-mobile-logo-bar { position: absolute; top: 24px; left: 28px; }
+.pill-mobile-logo-bar img { height: 28px; width: auto; object-fit: contain; }
+.pill-mobile-contact { margin-top: 24px; font-family: 'Inter',sans-serif; font-size: 11px !important; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--navy-deep) !important; background: var(--kraft-warm); padding: 13px 40px; border-radius: 100px; }
+.pill-mobile-contact:hover { color: var(--navy-deep) !important; background: #d4aa60; transform: none !important; }
+@media (max-width: 760px) { .pill-nav-wrap { display: none !important; } .pill-mobile-btn { display: flex; } }
+@media (min-width: 761px) { .pill-mobile-overlay, .pill-mobile-btn { display: none !important; } }
+/* ======= END PILL NAV ======= */
+
 </style>
 
 <script src="init-data.js?v=2"></script>
@@ -461,27 +513,38 @@ footer.motion-footer {
 </div>
 <button class="fullscreen-close" onclick="closeMenu()">Close ✕</button>
 </div>
-<!-- NAV -->
-<nav id="nav">
-<div class="nav-logo"><a href="/"><img alt="Alhamd Packaging" src="assets/logos/alhamd-logo-new.png"/></a></div>
-<ul class="nav-links-motion">
-<li><a href="/">Home</a></li>
-<li><a href="/products">Products</a></li>
-<li><a href="/custom-packaging">Custom</a></li>
-<li><a href="/industries">Industries</a></li>
-<li><a href="/about">About</a></li>
-    <li><a href="/blog">Blog</a></li>
-</ul>
-<div class="nav-motion-cta">
-<a class="btn-motion-ghost" href="/contact"><span>Contact Us</span></a>
-<button class="nav-menu-btn" onclick="openMenu()">
-<span>Menu</span>
-<div class="menu-lines">
-<span></span><span></span><span style="width:12px;"></span>
+<!-- PILL NAV -->
+<div class="pill-nav-wrap">
+  <nav class="pill-nav" id="pillNav" role="navigation" aria-label="Main navigation">
+    <div class="pill-logo"><a href="/"><img src="/assets/logos/alhamd-logo-new.png" alt="Alhamd Packaging"></a></div>
+    <ul class="pill-links">
+      <li><a href="/">Home</a></li>
+      <li><a href="/products">Products</a></li>
+      <li><a href="/custom-packaging">Custom</a></li>
+      <li><a href="/industries">Industries</a></li>
+      <li><a href="/about">About</a></li>
+      <li><a href="/blog">Blog</a></li>
+    </ul>
+    <a class="pill-cta" href="/contact">Contact Us</a>
+    <div class="pill-menu-icon" aria-hidden="true"><span></span><span></span><span></span></div>
+  </nav>
 </div>
+<button class="pill-mobile-btn" id="pillMobileBtn" aria-label="Open menu">
+  <div class="btn-lines"><span></span><span></span><span></span></div>
+  <span>Menu</span>
 </button>
+<div class="pill-mobile-overlay" id="pillMobileOv" role="dialog" aria-modal="true">
+  <div class="pill-mobile-logo-bar"><a href="/"><img src="/assets/logos/alhamd-logo-new.png" alt="Alhamd Packaging"></a></div>
+  <button class="pill-mobile-overlay-close" id="pillMobileCls">Close ✕</button>
+  <a href="/">Home</a>
+    <a href="/products">Products</a>
+    <a href="/custom-packaging">Custom</a>
+    <a href="/industries">Industries</a>
+    <a href="/about">About</a>
+    <a href="/blog">Blog</a>
+  <a href="/contact" class="pill-mobile-contact">Contact Us</a>
 </div>
-</nav>
+
 <h1 class="visually-hidden">Sustainable Corrugated Packaging</h1>
 <!-- HERO -->
 <section class="sus-hero">
@@ -589,6 +652,29 @@ animateRing();
 // Menu
 function openMenu() { document.getElementById('fullscreenMenu').classList.add('open'); document.body.style.overflow = 'hidden'; }
 function closeMenu() { document.getElementById('fullscreenMenu').classList.remove('open'); document.body.style.overflow = ''; }
+</script>
+<script>
+(function(){
+  var pill=document.getElementById('pillNav');
+  if(pill){
+    var exp=true,lastY=0,colY=0;
+    window.addEventListener('scroll',function(){
+      var y=window.scrollY;
+      if(exp&&y>lastY&&y>150){exp=false;colY=y;pill.classList.add('collapsed');}
+      else if(!exp&&y<lastY&&(colY-y)>80){exp=true;pill.classList.remove('collapsed');}
+      lastY=y;
+    },{passive:true});
+    pill.addEventListener('click',function(e){if(!exp){e.preventDefault();exp=true;colY=0;pill.classList.remove('collapsed');}});
+  }
+  var ov=document.getElementById('pillMobileOv');
+  var btn=document.getElementById('pillMobileBtn');
+  var cls=document.getElementById('pillMobileCls');
+  function openOv(){if(ov){ov.classList.add('open');document.body.style.overflow='hidden';}}
+  function closeOv(){if(ov){ov.classList.remove('open');document.body.style.overflow='';}}
+  if(btn)btn.addEventListener('click',openOv);
+  if(cls)cls.addEventListener('click',closeOv);
+  if(ov){ov.querySelectorAll('a').forEach(function(a){a.addEventListener('click',closeOv);});}
+})();
 </script>
 </body>
 </html>
