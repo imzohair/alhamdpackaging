@@ -183,7 +183,7 @@ footer.motion-footer { background: var(--navy-deep); border-top: 1px solid rgba(
 <body>
 
 <nav role="navigation" aria-label="Main navigation">
-  <div class="nav-logo"><a href="/"><img src="assets/logos/white-logo.png" alt="Alhamd Packaging Logo" height="36"></a></div>
+  <div class="nav-logo"><a href="/"><img src="/assets/logos/white-logo.png" alt="Alhamd Packaging Logo" height="36"></a></div>
   <ul class="nav-links-motion">
     <li><a href="/">Home</a></li>
     <li><a href="/products">Products</a></li>
@@ -215,7 +215,7 @@ footer.motion-footer { background: var(--navy-deep); border-top: 1px solid rgba(
 
 <footer class="motion-footer">
   <div class="footer-motion-inner">
-    <div class="footer-motion-logo"><img src="assets/logos/white-logo.png" alt="Alhamd Packaging"></div>
+    <div class="footer-motion-logo"><img src="/assets/logos/white-logo.png" alt="Alhamd Packaging"></div>
     <ul class="footer-motion-links">
       <li><a href="/">Home</a></li>
       <li><a href="/products">Products</a></li>
@@ -252,7 +252,15 @@ function closeMenu() { document.getElementById('fullscreenMenu').classList.remov
 
 function getPostIdentifier() {
   const params = new URLSearchParams(window.location.search);
-  return { slug: params.get('slug'), id: params.get('id') };
+  let slug = params.get('slug');
+  const id = params.get('id');
+
+  const path = window.location.pathname;
+  if (!slug && path.startsWith('/blog/')) {
+    slug = path.substring('/blog/'.length).replace(/\/$/, '');
+  }
+
+  return { slug, id };
 }
 
 async function renderPost() {

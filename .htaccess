@@ -16,3 +16,6 @@ RewriteRule ^(.*)$ $1.html [L]
     Header set Pragma "no-cache"
     Header set Expires "0"
 </FilesMatch>
+
+# Rewrite /blog/slug to blog-post.html
+RewriteRule ^blog/([^/]+)/?$ blog-post.html [L,QSA]
