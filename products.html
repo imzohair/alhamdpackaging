@@ -1164,33 +1164,31 @@ lucide.createIcons();</script>
     let scrollOnCollapse = 0;
     const COLLAPSE_THRESHOLD = 150;
     const EXPAND_THRESHOLD = 80;
-
-    // CSS cannot animate width: auto. So we use JS to set isExpandedlicit pixel widths!
-    function setExplicitWidth() {
-      if(isExpanded) {
-        pill.style.width = 'auto';
-        var w = pill.offsetWidth;
-        pill.style.width = w + 'px';
-      }
-    }
-    setExplicitWidth();
-    window.addEventListener('resize', setExplicitWidth);
+    let animTimer;
+    
+    function clearAnimWidth() { if(isExpanded) pill.style.width = ''; }
 
     window.addEventListener('scroll', function(){
       var y = window.scrollY;
       if(isExpanded && y > lastScrollY && y > COLLAPSE_THRESHOLD) {
         isExpanded = false; scrollOnCollapse = y;
+        clearTimeout(animTimer);
+        pill.style.width = pill.offsetWidth + 'px';
+        void pill.offsetWidth;
         pill.style.width = '52px';
         pill.classList.add('collapsed');
       }
       else if(!isExpanded && y < lastScrollY && (scrollOnCollapse - y) > EXPAND_THRESHOLD) {
         isExpanded = true; 
         pill.classList.remove('collapsed');
-        pill.style.width = 'auto';
-        var w = pill.offsetWidth;
-        pill.style.width = '52px'; // start at 52
-        void pill.offsetWidth; // force reflow
-        pill.style.width = w + 'px'; // animate to full
+        pill.style.width = '';
+        var w = pill.scrollWidth;
+        pill.style.width = '52px';
+        void pill.offsetWidth; 
+        pill.style.width = w + 'px';
+        
+        clearTimeout(animTimer);
+        animTimer = setTimeout(clearAnimWidth, 850);
       }
       lastScrollY = y;
     }, {passive:true});
@@ -1200,11 +1198,14 @@ lucide.createIcons();</script>
         e.preventDefault(); 
         isExpanded = true; scrollOnCollapse = 0; 
         pill.classList.remove('collapsed');
-        pill.style.width = 'auto';
-        var w = pill.offsetWidth;
+        pill.style.width = '';
+        var w = pill.scrollWidth;
         pill.style.width = '52px';
         void pill.offsetWidth;
         pill.style.width = w + 'px';
+        
+        clearTimeout(animTimer);
+        animTimer = setTimeout(clearAnimWidth, 850);
       }
     });
   })();

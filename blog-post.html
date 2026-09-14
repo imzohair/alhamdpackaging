@@ -432,32 +432,32 @@ renderPost();
   var pill=document.getElementById('pillNav');
   if(pill){
     var exp=true,lastY=0,colY=0;
-    // CSS cannot animate width: auto. So we use JS to set explicit pixel widths!
-    function setExplicitWidth() {
-      if(exp) {
-        pill.style.width = 'auto';
-        var w = pill.offsetWidth;
-        pill.style.width = w + 'px';
-      }
-    }
-    setExplicitWidth();
-    window.addEventListener('resize', setExplicitWidth);
+    // CSS cannot animate width: auto smoothly. So we temporarily use explicit pixel widths just for the animation!
+    var animTimer;
+    function clearAnimWidth() { if(exp) pill.style.width = ''; }
 
     window.addEventListener('scroll', function(){
       var y = window.scrollY;
       if(exp && y > lastY && y > 150) {
         exp = false; colY = y;
+        clearTimeout(animTimer);
+        // Lock current width before collapsing
+        pill.style.width = pill.offsetWidth + 'px';
+        void pill.offsetWidth; // force reflow
         pill.style.width = '52px';
         pill.classList.add('collapsed');
       }
       else if(!exp && y < lastY && (colY - y) > 80) {
         exp = true; 
         pill.classList.remove('collapsed');
-        pill.style.width = 'auto';
-        var w = pill.offsetWidth;
-        pill.style.width = '52px'; // start at 52
+        pill.style.width = ''; // clear to let it expand naturally
+        var w = pill.scrollWidth; // measure natural width
+        pill.style.width = '52px'; // snap to collapsed size
         void pill.offsetWidth; // force reflow
-        pill.style.width = w + 'px'; // animate to full
+        pill.style.width = w + 'px'; // animate to natural width
+        
+        clearTimeout(animTimer);
+        animTimer = setTimeout(clearAnimWidth, 850); // after animation, remove inline width so it adapts to fonts/resize
       }
       lastY = y;
     }, {passive:true});
@@ -467,11 +467,14 @@ renderPost();
         e.preventDefault(); 
         exp = true; colY = 0; 
         pill.classList.remove('collapsed');
-        pill.style.width = 'auto';
-        var w = pill.offsetWidth;
+        pill.style.width = '';
+        var w = pill.scrollWidth;
         pill.style.width = '52px';
         void pill.offsetWidth;
         pill.style.width = w + 'px';
+        
+        clearTimeout(animTimer);
+        animTimer = setTimeout(clearAnimWidth, 850);
       }
     });
   }
