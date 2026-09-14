@@ -272,37 +272,65 @@ body {
 
 /* ---- CATEGORY ANCHOR NAV ---- */
 .cat-nav-bar-wrapper {
-  position: sticky; top: 80px; z-index: 90;
-  display: flex; justify-content: center;
-  padding: 0 24px; pointer-events: none;
+  position: sticky;
+  top: 88px;
+  z-index: 90;
+  display: flex;
+  justify-content: center;
+  padding: 12px 24px;
+  pointer-events: none;
 }
 .cat-nav-bar {
-  background: rgba(14,24,32,0.85);
-  backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(160,120,56,0.3);
-  border-radius: 20px;
-  padding: 12px;
-  max-width: 100%;
-  pointer-events: auto; box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+  background: rgba(14, 24, 32, 0.92);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(160, 120, 56, 0.3);
+  border-radius: 100px;
+  padding: 6px;
+  pointer-events: auto;
+  box-shadow: 0 8px 40px rgba(0,0,0,0.5), 0 0 0 1px rgba(160,120,56,0.06);
+  max-width: calc(100vw - 48px);
+  overflow-x: auto;
+  scrollbar-width: none;
 }
+.cat-nav-bar::-webkit-scrollbar { display: none; }
 .cat-nav-inner {
-  display: flex; gap: 8px;
-  flex-wrap: wrap; justify-content: center;
+  display: flex;
+  gap: 4px;
+  flex-wrap: nowrap;
+  justify-content: center;
+  position: relative;
 }
 .cat-nav-link {
-  display: flex; align-items: center; gap: 8px;
+  display: flex;
+  align-items: center;
+  gap: 7px;
   font-family: 'IBM Plex Mono', monospace;
-  font-size: 11px; letter-spacing: 0.1em;
+  font-size: 10px;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: rgba(250,250,248,0.6);
+  color: rgba(250, 250, 248, 0.55);
   text-decoration: none;
-  padding: 10px 20px;
+  padding: 9px 18px;
   border-radius: 100px;
-  transition: all 0.2s;
-  white-space: nowrap; font-weight: 500;
+  transition: color 0.22s, background 0.22s, transform 0.15s;
+  white-space: nowrap;
+  font-weight: 600;
+  position: relative;
 }
-.cat-nav-link:hover { color: var(--kraft-warm); background: rgba(160,120,56,0.1); }
-.cat-nav-link.active { color: var(--navy-deep); background: var(--kraft-warm); }
+.cat-nav-link:hover {
+  color: var(--white);
+  background: rgba(160, 120, 56, 0.12);
+}
+.cat-nav-link.active {
+  color: var(--navy-deep);
+  background: var(--kraft-warm);
+  box-shadow: 0 2px 12px rgba(196, 152, 80, 0.35);
+}
+.cat-nav-link.active svg,
+.cat-nav-link.active i { opacity: 1; }
+.cat-nav-link svg,
+.cat-nav-link i { opacity: 0.7; transition: opacity 0.2s; }
 
 /* ---- CATEGORY SECTION ---- */
 .product-section {
@@ -669,10 +697,10 @@ footer.motion-footer {
   .headline-light { font-size: clamp(20px, 5vw, 28px); }
   .product-section { padding: 60px 24px; }
   .products-grid { grid-template-columns: 1fr; }
-  .cat-nav-bar-wrapper { padding: 0 12px; }
-  .cat-nav-bar { border-radius: 12px; padding: 12px; }
-  .cat-nav-inner { flex-direction: column; text-align: center; gap: 8px; }
-  .cat-nav-link { width: 100%; justify-content: center; }
+  .cat-nav-bar-wrapper { padding: 8px 12px; top: 72px; }
+  .cat-nav-bar { border-radius: 100px; padding: 6px; }
+  .cat-nav-inner { flex-wrap: nowrap; justify-content: flex-start; }
+  .cat-nav-link { padding: 8px 14px; font-size: 9px; }
   .cta-banner { margin: 0 24px 60px; padding: 40px 24px; }
   .footer-motion-inner { flex-direction: column; text-align: center; }
   .footer-motion-links { flex-wrap: wrap; gap: 16px; justify-content: center; }
@@ -1017,12 +1045,25 @@ function closeMenu() { document.getElementById('fullscreenMenu').classList.remov
 // Category nav active state on scroll
 const sections = document.querySelectorAll('.product-section');
 const catLinks = document.querySelectorAll('.cat-nav-link');
+const catNavBar = document.querySelector('.cat-nav-bar');
 const observer = new IntersectionObserver(entries => {
   entries.forEach(entry => {
     if (entry.isIntersecting) {
       catLinks.forEach(l => l.classList.remove('active'));
       const link = document.querySelector(`.cat-nav-link[href="#${entry.target.id}"]`);
-      if (link) link.classList.add('active');
+      if (link) {
+        link.classList.add('active');
+        // Scroll the pill bar to keep active item visible on mobile
+        if (catNavBar) {
+          const linkLeft = link.offsetLeft;
+          const linkWidth = link.offsetWidth;
+          const barWidth = catNavBar.offsetWidth;
+          catNavBar.scrollTo({
+            left: linkLeft - barWidth / 2 + linkWidth / 2,
+            behavior: 'smooth'
+          });
+        }
+      }
     }
   });
 }, { rootMargin: '-30% 0px -60% 0px' });
