@@ -169,7 +169,10 @@ footer.motion-footer { background: var(--navy-deep); border-top: 1px solid rgba(
   .footer-motion-links { flex-wrap: wrap; gap: 16px; justify-content: center; }
 }
 </style>
-<script src="init-data.js?v=2"></script>
+<!-- Firebase SDK (Compat) -->
+<script src="https://www.gstatic.com/firebasejs/10.13.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.13.1/firebase-firestore-compat.js"></script>
+<script src="firebase-config.js"></script>
 </head>
 <body>
 
@@ -241,68 +244,74 @@ footer.motion-footer { background: var(--navy-deep); border-top: 1px solid rgba(
 function openMenu() { document.getElementById('fullscreenMenu').classList.add('open'); }
 function closeMenu() { document.getElementById('fullscreenMenu').classList.remove('open'); }
 
-function getBlogs() {
-  const d = localStorage.getItem('alhamd_blogs_v2');
-  return d ? JSON.parse(d) : [];
-}
-
 function getPostId() {
   const params = new URLSearchParams(window.location.search);
   return params.get('id');
 }
 
-function renderPost() {
+async function renderPost() {
   const id = getPostId();
   const container = document.getElementById('postContainer');
-  const posts = getBlogs();
-  const post = posts.find(p => String(p.id) === String(id));
 
-  if (!post || post.status !== 'published') {
-    container.innerHTML = `<div class="not-found"><div class="not-found-title">Post Not Found</div><div class="not-found-sub">This article may have been removed or is not yet published.</div><a href="/blog" class="btn-motion-ghost" style="display:inline-block;">Back to Blog</a></div>`;
+  if (!id) {
+    container.innerHTML = `<div class="not-found"><div class="not-found-title">Post Not Found</div><div class="not-found-sub">No post ID provided.</div><a href="/blog" class="btn-motion-ghost" style="display:inline-block;">Back to Blog</a></div>`;
     return;
   }
 
-  // Update page title/meta
-  document.getElementById('pageTitle').textContent = post.title + ' | Alhamd Packaging';
-  document.getElementById('pageDesc').setAttribute('content', post.excerpt || post.title);
+  try {
+    const doc = await db.collection('blogs').doc(id).get();
+    if (!doc.exists) throw new Error('not found');
+    const post = { ...doc.data(), id: doc.id };
 
-  const date = new Date(post.publishedAt || post.createdAt);
-  const dateStr = date.toLocaleDateString('en-IN', { day: 'numeric', month: 'long', year: 'numeric' });
-  const readTime = Math.max(1, Math.round((post.content || '').split(' ').length / 200));
-  const tagsHtml = (post.tags || []).map(t => `<span class="post-tag-pill">${t}</span>`).join('');
-  const coverHtml = post.coverImage ? `<div class="post-cover"><img src="${post.coverImage}" alt="${post.title}"></div>` : '';
+    if (post.status !== 'published') {
+      container.innerHTML = `<div class="not-found"><div class="not-found-title">Post Not Found</div><div class="not-found-sub">This article may have been removed or is not yet published.</div><a href="/blog" class="btn-motion-ghost" style="display:inline-block;">Back to Blog</a></div>`;
+      return;
+    }
 
-  container.innerHTML = `
-    <div class="post-hero">
-      <a class="post-back" href="/blog">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
-        Back to Blog
-      </a>
-      <div class="post-tag-line">
-        ${(post.tags || []).join(' &middot; ') || 'Packaging'}
-        <span style="color:rgba(136,153,170,0.3)">·</span>
-        ${readTime} min read
+    document.getElementById('pageTitle').textContent = post.title + ' | Alhamd Packaging';
+    document.getElementById('pageDesc').setAttribute('content', post.excerpt || post.title);
+
+    const date = new Date(post.publishedAt || post.createdAt);
+    const dateStr = date.toLocaleDateString('en-IN', { day: 'numeric', month: 'long', year: 'numeric' });
+    const readTime = Math.max(1, Math.round((post.content || '').split(' ').length / 200));
+    const tagsHtml = (post.tags || []).map(t => `<span class="post-tag-pill">${t}</span>`).join('');
+    const coverHtml = post.coverImage ? `<div class="post-cover"><img src="${post.coverImage}" alt="${post.title}"></div>` : '';
+
+    container.innerHTML = `
+      <div class="post-hero">
+        <a class="post-back" href="/blog">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+          Back to Blog
+        </a>
+        <div class="post-tag-line">
+          ${(post.tags || []).join(' &middot; ') || 'Packaging'}
+          <span style="color:rgba(136,153,170,0.3)">·</span>
+          ${readTime} min read
+        </div>
+        <div class="post-title">${post.title}</div>
+        <div class="post-meta">
+          <span>${dateStr}</span>
+          <span>By Alhamd Packaging Team</span>
+        </div>
       </div>
-      <div class="post-title">${post.title}</div>
-      <div class="post-meta">
-        <span>${dateStr}</span>
-        <span>By Alhamd Packaging Team</span>
+      ${coverHtml}
+      <div class="post-content-wrap">
+        ${post.excerpt ? `<div class="post-excerpt">${post.excerpt}</div>` : ''}
+        <div class="post-body">${post.content || ''}</div>
+        ${tagsHtml ? `<div class="post-tags">${tagsHtml}</div>` : ''}
       </div>
-    </div>
-    ${coverHtml}
-    <div class="post-content-wrap">
-      ${post.excerpt ? `<div class="post-excerpt">${post.excerpt}</div>` : ''}
-      <div class="post-body">${post.content || ''}</div>
-      ${tagsHtml ? `<div class="post-tags">${tagsHtml}</div>` : ''}
-    </div>
-    <div class="post-cta">
-      <div class="post-cta-title">Need Custom Packaging?</div>
-      <div class="post-cta-sub">From pizza boxes to industrial corrugated cartons — we design, print, and deliver across India.</div>
-      <a href="/contact" class="post-cta-btn">
-        Get a Free Quote
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-      </a>
-    </div>`;
+      <div class="post-cta">
+        <div class="post-cta-title">Need Custom Packaging?</div>
+        <div class="post-cta-sub">From pizza boxes to industrial corrugated cartons — we design, print, and deliver across India.</div>
+        <a href="/contact" class="post-cta-btn">
+          Get a Free Quote
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </a>
+      </div>`;
+
+  } catch(e) {
+    container.innerHTML = `<div class="not-found"><div class="not-found-title">Post Not Found</div><div class="not-found-sub">This article may have been removed or is not yet published.</div><a href="/blog" class="btn-motion-ghost" style="display:inline-block;">Back to Blog</a></div>`;
+  }
 }
 
 renderPost();

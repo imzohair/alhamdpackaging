@@ -604,6 +604,11 @@ body {
   <link rel="icon" href="/favicon.ico">
   <link rel="icon" type="image/png" sizes="48x48" href="/favicon.png">
   <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+
+  <!-- Firebase SDK (Compat) -->
+  <script src="https://www.gstatic.com/firebasejs/10.13.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.13.1/firebase-firestore-compat.js"></script>
+  <script src="firebase-config.js"></script>
 </head>
 <body>
 
@@ -1224,20 +1229,37 @@ window.addEventListener('DOMContentLoaded', () => {
 });
 
 /* ======================================================
-   DATA STORE (localStorage)
+   DATA STORE (Firestore-backed in-memory cache)
 ====================================================== */
+const _cache = { products: [], categories: [], blogs: [] };
+
 function getData(key, fallback = []) {
+  // Firestore-backed keys
+  if (key.includes('products')) return _cache.products;
+  if (key.includes('categories')) return _cache.categories;
+  if (key.includes('blogs')) return _cache.blogs;
+  // LocalStorage for settings/credentials
   const d = localStorage.getItem('alhamd_' + key);
   return d ? JSON.parse(d) : fallback;
 }
-function setData(key, val) {
-  localStorage.setItem('alhamd_' + key, JSON.stringify(val));
+
+async function loadFirestoreCache() {
+  const [prodSnap, catSnap, blogSnap] = await Promise.all([
+    db.collection('products').get(),
+    db.collection('categories').get(),
+    db.collection('blogs').get()
+  ]);
+  _cache.products = prodSnap.docs.map(d => ({ ...d.data(), id: d.id }));
+  _cache.categories = catSnap.docs.map(d => ({ ...d.data(), id: d.id }));
+  _cache.blogs = blogSnap.docs.map(d => ({ ...d.data(), id: d.id }));
 }
 
 /* ======================================================
    INIT
 ====================================================== */
-function initAdmin() {
+async function initAdmin() {
+  showToast('Loading data…');
+  await loadFirestoreCache();
   refreshStats();
   renderProductsTable();
   renderCategoriesTable();
@@ -1246,9 +1268,9 @@ function initAdmin() {
 }
 
 function refreshStats() {
-  document.getElementById('statProducts').textContent = getData('products').length;
-  document.getElementById('statCategories').textContent = getData('categories').length;
-  const published = (getData('blogs_v2') || []).filter(p => p.status === 'published').length;
+  document.getElementById('statProducts').textContent = _cache.products.length;
+  document.getElementById('statCategories').textContent = _cache.categories.length;
+  const published = _cache.blogs.filter(p => p.status === 'published').length;
   document.getElementById('statBlogs').textContent = published;
 }
 
@@ -1361,17 +1383,17 @@ function previewImage(input, imgId) {
   }
 }
 
-function saveProduct() {
+async function saveProduct() {
   const name = document.getElementById('prodName').value.trim();
   if (!name) { showToast('Product name is required.', true); return; }
 
-  const products = getData('products');
   const imgPreview = document.getElementById('prodImgPreview');
   const imgPreview2 = document.getElementById('prodImgPreview2');
   const imgPreview3 = document.getElementById('prodImgPreview3');
+  const docId = editingProductId ? String(editingProductId) : String(Date.now());
 
   const prod = {
-    id: editingProductId || Date.now(),
+    id: docId,
     name,
     category: document.getElementById('prodCategory').value,
     ply: document.getElementById('prodPly').value,
@@ -1386,29 +1408,36 @@ function saveProduct() {
     image3: imgPreview3.classList.contains('show') ? imgPreview3.src : null,
     updatedAt: new Date().toISOString()
   };
+  if (!editingProductId) prod.createdAt = prod.updatedAt;
 
-  if (editingProductId) {
-    const idx = products.findIndex(p => p.id === editingProductId);
-    if (idx > -1) products[idx] = prod;
-  } else {
-    prod.createdAt = prod.updatedAt;
-    products.push(prod);
+  try {
+    await db.collection('products').doc(docId).set(prod);
+    if (editingProductId) {
+      const idx = _cache.products.findIndex(p => String(p.id) === docId);
+      if (idx > -1) _cache.products[idx] = prod; else _cache.products.push(prod);
+    } else {
+      _cache.products.push(prod);
+    }
+    closeProductModal();
+    renderProductsTable();
+    refreshStats();
+    showToast(editingProductId ? 'Product updated.' : 'Product added.');
+  } catch(e) {
+    showToast('Save failed: ' + e.message, true);
   }
-
-  setData('products', products);
-  closeProductModal();
-  renderProductsTable();
-  refreshStats();
-  showToast(editingProductId ? 'Product updated.' : 'Product added.');
 }
 
-function deleteProduct(id) {
+async function deleteProduct(id) {
   if (!confirm('Delete this product? This cannot be undone.')) return;
-  const products = getData('products').filter(p => p.id !== id);
-  setData('products', products);
-  renderProductsTable();
-  refreshStats();
-  showToast('Product deleted.');
+  try {
+    await db.collection('products').doc(String(id)).delete();
+    _cache.products = _cache.products.filter(p => String(p.id) !== String(id));
+    renderProductsTable();
+    refreshStats();
+    showToast('Product deleted.');
+  } catch(e) {
+    showToast('Delete failed: ' + e.message, true);
+  }
 }
 
 function renderProductsTable() {
@@ -1454,35 +1483,43 @@ function closeCategoryModal() {
   editingCategoryId = null;
 }
 
-function saveCategory() {
+async function saveCategory() {
   const name = document.getElementById('catName').value.trim();
   if (!name) { showToast('Category name is required.', true); return; }
-  const categories = getData('categories');
+  const docId = editingCategoryId ? String(editingCategoryId) : String(Date.now());
   const cat = {
-    id: editingCategoryId || Date.now(),
+    id: docId,
     name,
     description: document.getElementById('catDesc').value.trim()
   };
-  if (editingCategoryId) {
-    const idx = categories.findIndex(c => c.id === editingCategoryId);
-    if (idx > -1) categories[idx] = cat;
-  } else {
-    categories.push(cat);
+  try {
+    await db.collection('categories').doc(docId).set(cat);
+    if (editingCategoryId) {
+      const idx = _cache.categories.findIndex(c => String(c.id) === docId);
+      if (idx > -1) _cache.categories[idx] = cat; else _cache.categories.push(cat);
+    } else {
+      _cache.categories.push(cat);
+    }
+    closeCategoryModal();
+    renderCategoriesTable();
+    refreshStats();
+    showToast(editingCategoryId ? 'Category updated.' : 'Category added.');
+  } catch(e) {
+    showToast('Save failed: ' + e.message, true);
   }
-  setData('categories', categories);
-  closeCategoryModal();
-  renderCategoriesTable();
-  refreshStats();
-  showToast(editingCategoryId ? 'Category updated.' : 'Category added.');
 }
 
-function deleteCategory(id) {
+async function deleteCategory(id) {
   if (!confirm('Delete this category?')) return;
-  const categories = getData('categories').filter(c => c.id !== id);
-  setData('categories', categories);
-  renderCategoriesTable();
-  refreshStats();
-  showToast('Category deleted.');
+  try {
+    await db.collection('categories').doc(String(id)).delete();
+    _cache.categories = _cache.categories.filter(c => String(c.id) !== String(id));
+    renderCategoriesTable();
+    refreshStats();
+    showToast('Category deleted.');
+  } catch(e) {
+    showToast('Delete failed: ' + e.message, true);
+  }
 }
 
 function renderCategoriesTable() {
@@ -1582,8 +1619,7 @@ function clearAllData() {
 let editingBlogId = null;
 let blogTags = [];
 
-function getBlogs() { return JSON.parse(localStorage.getItem('alhamd_blogs_v2') || '[]'); }
-function setBlogs(val) { localStorage.setItem('alhamd_blogs_v2', JSON.stringify(val)); }
+function getBlogs() { return _cache.blogs; }
 
 function openBlogModal(post = null) {
   blogTags = [];
@@ -1633,18 +1669,18 @@ function renderBlogTags() {
 
 function removeBlogTag(i) { blogTags.splice(i, 1); renderBlogTags(); }
 
-function saveBlogPost() {
+async function saveBlogPost() {
   const title = document.getElementById('blogTitle').value.trim();
   if (!title) { showToast('Post title is required.', true); return; }
   const content = document.getElementById('blogContent').value.trim();
   if (!content) { showToast('Post content is required.', true); return; }
 
-  const blogs = getBlogs();
   const imgPreview = document.getElementById('blogImgPreview');
   const status = document.getElementById('blogStatus').value;
+  const docId = editingBlogId ? String(editingBlogId) : String(Date.now());
 
   const post = {
-    id: editingBlogId || Date.now(),
+    id: docId,
     title,
     excerpt: document.getElementById('blogExcerpt').value.trim(),
     content,
@@ -1655,33 +1691,48 @@ function saveBlogPost() {
   };
 
   if (editingBlogId) {
-    const idx = blogs.findIndex(p => p.id === editingBlogId);
-    if (idx > -1) blogs[idx] = post;
-    else blogs.push(post);
+    // keep original timestamps
+    const existing = _cache.blogs.find(p => String(p.id) === docId) || {};
+    post.createdAt = existing.createdAt || post.updatedAt;
+    post.publishedAt = existing.publishedAt || (status === 'published' ? post.updatedAt : null);
+    if (status === 'published' && !existing.publishedAt) post.publishedAt = post.updatedAt;
   } else {
     post.createdAt = post.updatedAt;
     post.publishedAt = status === 'published' ? post.createdAt : null;
-    blogs.push(post);
   }
 
-  setBlogs(blogs);
-  closeBlogModal();
-  renderBlogsTable();
-  refreshStats();
-  showToast(editingBlogId ? 'Post updated.' : (status === 'published' ? 'Post published!' : 'Draft saved.'));
+  try {
+    await db.collection('blogs').doc(docId).set(post);
+    if (editingBlogId) {
+      const idx = _cache.blogs.findIndex(p => String(p.id) === docId);
+      if (idx > -1) _cache.blogs[idx] = post; else _cache.blogs.push(post);
+    } else {
+      _cache.blogs.push(post);
+    }
+    closeBlogModal();
+    renderBlogsTable();
+    refreshStats();
+    showToast(editingBlogId ? 'Post updated.' : (status === 'published' ? '🟢 Post is now live!' : 'Draft saved.'));
+  } catch(e) {
+    showToast('Save failed: ' + e.message, true);
+  }
 }
 
-function deleteBlogPost(id) {
+async function deleteBlogPost(id) {
   if (!confirm('Delete this post? This cannot be undone.')) return;
-  const blogs = getBlogs().filter(p => p.id !== id);
-  setBlogs(blogs);
-  renderBlogsTable();
-  refreshStats();
-  showToast('Post deleted.');
+  try {
+    await db.collection('blogs').doc(String(id)).delete();
+    _cache.blogs = _cache.blogs.filter(p => String(p.id) !== String(id));
+    renderBlogsTable();
+    refreshStats();
+    showToast('Post deleted.');
+  } catch(e) {
+    showToast('Delete failed: ' + e.message, true);
+  }
 }
 
 function renderBlogsTable() {
-  const blogs = getBlogs();
+  const blogs = _cache.blogs;
   const tbody = document.getElementById('blogsTableBody');
   if (!blogs.length) {
     tbody.innerHTML = '<tr><td colspan="6" style="text-align:center;padding:40px;color:var(--gray);font-family:\'IBM Plex Mono\',monospace;font-size:11px;">No posts yet. Click "New Post" to get started.</td></tr>';
@@ -1689,6 +1740,7 @@ function renderBlogsTable() {
   }
   tbody.innerHTML = blogs.slice().sort((a,b)=>new Date(b.createdAt)-new Date(a.createdAt)).map((p, i) => {
     const date = p.publishedAt ? new Date(p.publishedAt).toLocaleDateString('en-IN',{day:'numeric',month:'short',year:'numeric'}) : '—';
+    const safePost = JSON.stringify(p).replace(/\\/g,'\\\\').replace(/'/g,"\\'");
     return `<tr>
       <td style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--gray);">${String(i+1).padStart(2,'0')}</td>
       <td style="font-weight:600;max-width:280px;">${p.title}</td>
@@ -1696,8 +1748,8 @@ function renderBlogsTable() {
       <td><span class="badge badge-${p.status === 'published' ? 'active' : 'draft'}">${p.status}</span></td>
       <td style="font-family:'IBM Plex Mono',monospace;font-size:10px;">${date}</td>
       <td><div class="action-btns">
-        <button class="btn-secondary-admin" onclick='openBlogModal(${JSON.stringify(p).replace(/'/g,"\\'")})' style="padding:7px 12px;font-size:10px;">Edit</button>
-        <button class="btn-danger-admin" onclick="deleteBlogPost(${p.id})" style="padding:7px 12px;">Delete</button>
+        <button class="btn-secondary-admin" onclick='openBlogModal(${safePost})' style="padding:7px 12px;font-size:10px;">Edit</button>
+        <button class="btn-danger-admin" onclick="deleteBlogPost('${p.id}')" style="padding:7px 12px;">Delete</button>
       </div></td>
     </tr>`;
   }).join('');

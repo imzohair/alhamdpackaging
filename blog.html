@@ -201,7 +201,10 @@ footer.motion-footer { background: var(--navy-deep); border-top: 1px solid rgba(
   .footer-motion-links { flex-wrap: wrap; gap: 16px; justify-content: center; }
 }
 </style>
-<script src="init-data.js?v=2"></script>
+<!-- Firebase SDK (Compat) -->
+<script src="https://www.gstatic.com/firebasejs/10.13.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.13.1/firebase-firestore-compat.js"></script>
+<script src="firebase-config.js"></script>
 </head>
 <body>
 
@@ -286,22 +289,22 @@ footer.motion-footer { background: var(--navy-deep); border-top: 1px solid rgba(
 function openMenu() { document.getElementById('fullscreenMenu').classList.add('open'); }
 function closeMenu() { document.getElementById('fullscreenMenu').classList.remove('open'); }
 
-function getBlogs() {
-  const d = localStorage.getItem('alhamd_blogs_v2');
-  return d ? JSON.parse(d) : [];
+async function getPublishedBlogs() {
+  const snap = await db.collection('blogs').where('status', '==', 'published').get();
+  return snap.docs.map(d => ({ ...d.data(), id: d.id }));
 }
 
 let activeTag = null;
+let _allPosts = [];
 
 function filterPosts(tag, btn) {
   activeTag = tag;
   document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
   btn.classList.add('active');
-  renderBlogGrid();
+  renderBlogGrid(_allPosts);
 }
 
-function renderBlogGrid() {
-  const posts = getBlogs().filter(p => p.status === 'published');
+function renderBlogGrid(posts) {
   const grid = document.getElementById('blogGrid');
   let filtered = activeTag ? posts.filter(p => p.tags && p.tags.includes(activeTag)) : posts;
   filtered = filtered.sort((a, b) => new Date(b.publishedAt || b.createdAt) - new Date(a.publishedAt || a.createdAt));
@@ -335,8 +338,7 @@ function renderBlogGrid() {
   }).join('');
 }
 
-function buildFilters() {
-  const posts = getBlogs().filter(p => p.status === 'published');
+function buildFilters(posts) {
   const allTags = new Set();
   posts.forEach(p => (p.tags || []).forEach(t => allTags.add(t)));
   const bar = document.getElementById('filterBar');
@@ -350,8 +352,12 @@ function buildFilters() {
   });
 }
 
-buildFilters();
-renderBlogGrid();
+// Init
+(async () => {
+  _allPosts = await getPublishedBlogs();
+  buildFilters(_allPosts);
+  renderBlogGrid(_allPosts);
+})();
 </script>
 </body>
 </html>
