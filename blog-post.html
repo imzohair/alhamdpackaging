@@ -250,23 +250,36 @@ footer.motion-footer { background: var(--navy-deep); border-top: 1px solid rgba(
 function openMenu() { document.getElementById('fullscreenMenu').classList.add('open'); }
 function closeMenu() { document.getElementById('fullscreenMenu').classList.remove('open'); }
 
-function getPostId() {
+function getPostIdentifier() {
   const params = new URLSearchParams(window.location.search);
-  return params.get('id');
+  return { slug: params.get('slug'), id: params.get('id') };
 }
 
 async function renderPost() {
-  const id = getPostId();
+  const { slug, id } = getPostIdentifier();
   const container = document.getElementById('postContainer');
 
-  if (!id) {
-    container.innerHTML = `<div class="not-found"><div class="not-found-title">Post Not Found</div><div class="not-found-sub">No post ID provided.</div><a href="/blog" class="btn-motion-ghost" style="display:inline-block;">Back to Blog</a></div>`;
+  if (!slug && !id) {
+    container.innerHTML = `<div class="not-found"><div class="not-found-title">Post Not Found</div><div class="not-found-sub">No post URL provided.</div><a href="/blog" class="btn-motion-ghost" style="display:inline-block;">Back to Blog</a></div>`;
     return;
   }
 
   try {
-    const doc = await db.collection('blogs').doc(id).get();
-    if (!doc.exists) throw new Error('not found');
+    let doc = null;
+    if (slug) {
+      const snap = await db.collection('blogs').where('slug', '==', slug).limit(1).get();
+      if (!snap.empty) {
+        doc = snap.docs[0];
+      }
+    }
+    
+    // Fallback to fetching by document ID
+    if (!doc && id) {
+      const idDoc = await db.collection('blogs').doc(id).get();
+      if (idDoc.exists) doc = idDoc;
+    }
+
+    if (!doc || !doc.exists) throw new Error('not found');
     const post = { ...doc.data(), id: doc.id };
 
     if (post.status !== 'published') {
@@ -300,7 +313,6 @@ async function renderPost() {
           <span>By Alhamd Packaging Team</span>
         </div>
       </div>
-      ${coverHtml}
       <div class="post-content-wrap">
         ${post.excerpt ? `<div class="post-excerpt">${post.excerpt}</div>` : ''}
         <div class="post-body">${post.content || ''}</div>

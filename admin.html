@@ -1831,9 +1831,13 @@ async function saveBlogPost() {
   const imgPreview = document.getElementById('blogImgPreview');
   const status = document.getElementById('blogStatus').value;
   const docId = editingBlogId ? String(editingBlogId) : String(Date.now());
+  
+  // Generate slug from title
+  const slug = title.toLowerCase().trim().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)+/g, '');
 
   const post = {
     id: docId,
+    slug: slug,
     title,
     excerpt: document.getElementById('blogExcerpt').value.trim(),
     content,
