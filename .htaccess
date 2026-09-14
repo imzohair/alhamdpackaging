@@ -19,7 +19,7 @@ RewriteRule ^(.*)$ $1.html [L]
     Header set Expires "0"
 </FilesMatch>
 
-# Rewrite /blog/slug to blog-post.html
+# Rewrite /blog-slug to blog-post.html
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
-RewriteRule ^blog/([^/]+)/?$ blog-post.html [L,QSA]
+RewriteRule ^blog-([^/]+)/?$ blog-post.html [L,QSA]

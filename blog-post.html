@@ -256,8 +256,8 @@ function getPostIdentifier() {
   const id = params.get('id');
 
   const path = window.location.pathname;
-  if (!slug && path.startsWith('/blog/')) {
-    slug = path.substring('/blog/'.length).replace(/\/$/, '');
+  if (!slug && path.startsWith('/blog-')) {
+    slug = path.substring('/blog-'.length).replace(/\/$/, '');
   }
 
   return { slug, id };
