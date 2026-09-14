@@ -35,7 +35,7 @@
       background: var(--navy-deep);
       color: var(--white);
       overflow-x: hidden;
-      cursor: default;
+      
     }
 
     
@@ -80,31 +80,6 @@
     }
     body.splash-active {
       overflow: hidden;
-    }
-
-    /* ---- CURSOR DOT ---- */
-    .cursor-dot {
-      width: 8px;
-      height: 8px;
-      background: var(--kraft);
-      border-radius: 50%;
-      position: fixed;
-      pointer-events: none;
-      z-index: 9999;
-      transform: translate(-50%, -50%);
-      transition: transform 0.1s;
-    }
-
-    .cursor-ring {
-      width: 32px;
-      height: 32px;
-      border: 1px solid rgba(160, 120, 56, 0.5);
-      border-radius: 50%;
-      position: fixed;
-      pointer-events: none;
-      z-index: 9998;
-      transform: translate(-50%, -50%);
-      transition: transform 0.15s, width 0.3s, height 0.3s;
     }
 
     /* ---- NAV ---- */
@@ -1717,9 +1692,7 @@
 <div class="splash-screen" id="splashScreen">
 <div class="splash-logo">ALHAMD <span>PACKAGING</span></div>
 </div>
-<!-- Cursor -->
-<div class="cursor-dot" id="cursorDot"></div>
-<div class="cursor-ring" id="cursorRing"></div>
+
 <!-- Fullscreen menu -->
 <div class="fullscreen-menu" id="fullscreenMenu">
 <div class="fullscreen-menu-inner">
