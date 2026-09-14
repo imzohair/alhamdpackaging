@@ -941,6 +941,8 @@ body {
           </div>
         </div>
       </div>
+    </div>
+
     <!-- ===== BLOG POSTS ===== -->
     <div id="panel-blogs" class="panel">
       <div class="admin-topbar">
@@ -1254,6 +1256,43 @@ async function loadFirestoreCache() {
   _cache.products = prodSnap.docs.map(d => ({ ...d.data(), id: d.id }));
   _cache.categories = catSnap.docs.map(d => ({ ...d.data(), id: d.id }));
   _cache.blogs = blogSnap.docs.map(d => ({ ...d.data(), id: d.id }));
+
+  // Auto-migrate from localStorage if Firestore is empty
+  let migrated = false;
+  if (_cache.products.length === 0 && localStorage.getItem('alhamd_products_v2')) {
+    const localProds = JSON.parse(localStorage.getItem('alhamd_products_v2') || '[]');
+    for (const p of localProds) {
+      await db.collection('products').doc(String(p.id)).set(p);
+    }
+    migrated = true;
+  }
+  if (_cache.categories.length === 0 && localStorage.getItem('alhamd_categories_v2')) {
+    const localCats = JSON.parse(localStorage.getItem('alhamd_categories_v2') || '[]');
+    for (const c of localCats) {
+      await db.collection('categories').doc(String(c.id)).set(c);
+    }
+    migrated = true;
+  }
+  if (_cache.blogs.length === 0 && localStorage.getItem('alhamd_blogs_v2')) {
+    const localBlogs = JSON.parse(localStorage.getItem('alhamd_blogs_v2') || '[]');
+    for (const b of localBlogs) {
+      await db.collection('blogs').doc(String(b.id)).set(b);
+    }
+    migrated = true;
+  }
+
+  // Reload cache if we migrated anything
+  if (migrated) {
+    showToast('Migrated local data to cloud database...');
+    const [pS, cS, bS] = await Promise.all([
+      db.collection('products').get(),
+      db.collection('categories').get(),
+      db.collection('blogs').get()
+    ]);
+    _cache.products = pS.docs.map(d => ({ ...d.data(), id: d.id }));
+    _cache.categories = cS.docs.map(d => ({ ...d.data(), id: d.id }));
+    _cache.blogs = bS.docs.map(d => ({ ...d.data(), id: d.id }));
+  }
 }
 
 /* ======================================================
