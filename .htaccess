@@ -1,5 +1,6 @@
 Options -MultiViews
 RewriteEngine On
+RewriteBase /
 
 # Unless directory, remove trailing slash
 RewriteCond %{REQUEST_FILENAME} !-d
@@ -19,4 +20,6 @@ RewriteRule ^(.*)$ $1.html [L]
 </FilesMatch>
 
 # Rewrite /blog/slug to blog-post.html
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule ^blog/([^/]+)/?$ blog-post.html [L,QSA]
