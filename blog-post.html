@@ -96,7 +96,6 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; a
 }
 .post-body {
   font-size: 16px; line-height: 1.85; color: rgba(250,250,248,0.8);
-  white-space: pre-wrap;
 }
 .post-body h2 {
   font-family: 'Anton', sans-serif; font-size: 28px; text-transform: uppercase;
@@ -108,6 +107,13 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; a
 }
 .post-body p { margin-bottom: 20px; }
 .post-body strong { color: var(--white); font-weight: 600; }
+.post-body a { color: var(--kraft-warm); text-decoration: underline; }
+.post-body ul, .post-body ol { margin: 0 0 20px 24px; padding: 0; }
+.post-body li { margin-bottom: 8px; }
+.post-body img { max-width: 100%; height: auto; border-radius: 6px; margin: 24px 0; display: block; }
+.ql-align-center { text-align: center; }
+.ql-align-right { text-align: right; }
+.ql-align-justify { text-align: justify; }
 
 /* TAGS */
 .post-tags { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 48px; padding-top: 32px; border-top: 1px solid rgba(255,255,255,0.06); }
