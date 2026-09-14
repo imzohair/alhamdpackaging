@@ -597,6 +597,26 @@ footer.motion-footer {
       clip: rect(0, 0, 0, 0) !important;
       border: 0 !important;
     }
+
+  @media (max-width: 480px) {
+    nav { padding: 16px 20px; }
+    .nav-logo img { height: 38px; }
+    .products-header { padding: 90px 20px 40px; }
+    .header-headline { font-size: clamp(32px, 10vw, 52px); }
+    .headline-light { font-size: clamp(18px, 5vw, 24px); }
+    .product-section { padding: 48px 20px; }
+    .products-grid { grid-template-columns: 1fr; gap: 16px; }
+    .cat-nav-link { font-size: 10px; padding: 8px 12px; }
+    .cta-banner { margin: 0 20px 48px; padding: 36px 20px; }
+    .cta-banner-title { font-size: clamp(24px, 7vw, 36px); }
+    footer.motion-footer { padding: 48px 20px 24px; }
+    .footer-motion-bottom { flex-direction: column; text-align: center; gap: 12px; }
+  }
+  @media (max-width: 768px) {
+    nav { padding: 18px 24px; }
+    .footer-motion-bottom { flex-direction: column; text-align: center; gap: 12px; }
+  }
+
 </style>
 
   <!-- Firebase SDK (Compat) -->

@@ -200,6 +200,26 @@ footer.motion-footer { background: var(--navy-deep); border-top: 1px solid rgba(
   .footer-motion-inner { flex-direction: column; text-align: center; }
   .footer-motion-links { flex-wrap: wrap; gap: 16px; justify-content: center; }
 }
+
+  @media (max-width: 480px) {
+    nav { padding: 16px 20px; }
+    .nav-logo img { height: 38px; }
+    .blog-hero { padding: 100px 20px 48px; }
+    .blog-hero-title { font-size: clamp(38px, 11vw, 60px); }
+    .blog-section { padding: 48px 20px 60px; }
+    .blog-card-body { padding: 20px; }
+    .blog-card.featured .blog-card-body { padding: 24px; }
+    .blog-card.featured .blog-card-title { font-size: 26px; }
+    footer.motion-footer { padding: 48px 20px 24px; }
+    .footer-motion-links { gap: 12px; flex-wrap: wrap; justify-content: center; }
+    .footer-motion-bottom { flex-direction: column; text-align: center; gap: 12px; }
+  }
+  @media (max-width: 768px) {
+    .footer-motion-bottom { flex-direction: column; text-align: center; gap: 12px; }
+    footer.motion-footer { padding: 50px 24px 28px; }
+    nav { padding: 18px 24px; }
+  }
+
 </style>
 <!-- Firebase SDK (Compat) -->
 <script src="https://www.gstatic.com/firebasejs/10.13.1/firebase-app-compat.js"></script>

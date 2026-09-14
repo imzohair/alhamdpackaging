@@ -221,6 +221,22 @@ footer.motion-footer { background: var(--navy-deep); border-top: 1px solid rgba(
       clip: rect(0, 0, 0, 0) !important;
       border: 0 !important;
     }
+
+  @media (max-width: 480px) {
+    nav { padding: 16px 20px; }
+    .nav-logo img { height: 38px; }
+    .contact-hero { padding: 100px 20px 40px; }
+    .contact-content { padding: 48px 20px; }
+    .contact-form-wrap, .contact-info-wrap { padding: 28px 20px; }
+    .contact-grid { grid-template-columns: 1fr; gap: 32px; }
+    footer.motion-footer { padding: 48px 20px 24px; }
+    .footer-motion-bottom { flex-direction: column; text-align: center; gap: 12px; }
+  }
+  @media (max-width: 768px) {
+    nav { padding: 18px 24px; }
+    .footer-motion-bottom { flex-direction: column; text-align: center; gap: 12px; }
+  }
+
 </style>
 
 <script src="init-data.js?v=2"></script>

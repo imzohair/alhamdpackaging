@@ -441,6 +441,22 @@ nav {
       clip: rect(0, 0, 0, 0) !important;
       border: 0 !important;
     }
+
+  @media (max-width: 480px) {
+    nav { padding: 16px 20px; }
+    .nav-logo img { height: 38px; }
+    .custom-hero { padding: 90px 20px 40px; }
+    .custom-section { padding: 48px 20px; }
+    .process-grid { grid-template-columns: 1fr; }
+    .benefits-grid { grid-template-columns: 1fr; }
+    footer.motion-footer { padding: 48px 20px 24px; }
+    .footer-motion-bottom { flex-direction: column; text-align: center; gap: 12px; }
+  }
+  @media (max-width: 768px) {
+    nav { padding: 18px 24px; }
+    .footer-motion-bottom { flex-direction: column; text-align: center; gap: 12px; }
+  }
+
 </style>
 
 <script src="init-data.js?v=2"></script>

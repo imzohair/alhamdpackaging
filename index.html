@@ -1651,6 +1651,42 @@
       clip: rect(0, 0, 0, 0) !important;
       border: 0 !important;
     }
+
+    @media (max-width: 480px) {
+      nav { padding: 16px 20px; }
+      .nav-logo img { height: 38px; }
+      .hero-motion { padding: 90px 20px 40px; }
+      .hero-motion-title { font-size: clamp(36px, 11vw, 52px); }
+      .hero-motion-subtitle { font-size: 14px; }
+      .hero-motion-actions { flex-direction: column; align-items: center; }
+      .btn-motion-primary, .btn-motion-outline { width: 100%; text-align: center; padding: 16px 24px; }
+      .journey-section { padding: 60px 20px; }
+      .journey-inner { gap: 40px; }
+      .journey-visual { height: 240px; }
+      .journey-step-title { font-size: clamp(36px, 10vw, 60px); }
+      .products-motion-header { padding: 0 20px; margin-bottom: 40px; }
+      .products-motion-header h2 { font-size: clamp(32px, 10vw, 48px); }
+      .products-track-wrapper { padding: 0 20px 30px; }
+      .motion-card { width: 280px; }
+      .features-motion { gap: 16px; }
+      .section-motion { padding: 60px 20px; }
+      .marquee span { font-size: 36px; }
+      footer.motion-footer { padding: 48px 20px 24px; }
+      .footer-motion-links { gap: 12px; font-size: 11px; }
+      .motion-cta-inner, .cta-motion-inner { padding: 48px 20px; }
+      .motion-cta-title { font-size: clamp(28px, 8vw, 44px); }
+    }
+    @media (max-width: 768px) {
+      nav { padding: 18px 24px; }
+      .nav-logo img { height: 42px; }
+      .journey-section { padding: 70px 24px; }
+      .products-motion-header { padding: 0 24px; }
+      .products-track-wrapper { padding: 0 24px 36px; }
+      .motion-card { width: 290px; }
+      footer.motion-footer { padding: 50px 24px 28px; }
+      .footer-motion-bottom { flex-direction: column; text-align: center; gap: 12px; }
+    }
+
 </style>
 
 <script src="init-data.js?v=2"></script>

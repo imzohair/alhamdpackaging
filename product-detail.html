@@ -287,6 +287,25 @@ footer.motion-footer {
 .custom-toast i { color: #ff4444; }
 .error-field { border-color: #ff4444 !important; background: rgba(255, 68, 68, 0.05) !important; animation: shake 0.4s ease-in-out; }
 @keyframes shake { 0%, 100% { transform: translateX(0); } 25% { transform: translateX(-4px); } 75% { transform: translateX(4px); } }
+
+  @media (max-width: 480px) {
+    nav { padding: 16px 20px; }
+    .nav-logo img { height: 38px; }
+    .product-detail-grid { grid-template-columns: 1fr !important; gap: 32px; }
+    .product-images { min-height: 280px; }
+    .product-thumb-row { gap: 8px; }
+    .product-thumb { width: 60px; height: 60px; }
+    .product-info { padding: 0 20px; }
+    .product-title { font-size: clamp(24px, 8vw, 36px); }
+    .spec-grid { grid-template-columns: 1fr 1fr; }
+    footer.motion-footer { padding: 48px 20px 24px; }
+    .footer-motion-bottom { flex-direction: column; text-align: center; gap: 12px; }
+  }
+  @media (max-width: 768px) {
+    nav { padding: 18px 24px; }
+    .footer-motion-bottom { flex-direction: column; text-align: center; gap: 12px; }
+  }
+
 </style>
 
   <!-- Firebase SDK (Compat) -->
