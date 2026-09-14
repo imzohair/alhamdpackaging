@@ -39,51 +39,153 @@ body {
 }
 
 
-/* ---- NAV ---- */
-nav {
-  position: fixed; top: 0; left: 0; right: 0;
+/* ---- ANIMATED PILL NAV ---- */
+.pill-nav-wrap {
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
   z-index: 1000;
-  display: flex; align-items: center; justify-content: space-between;
-  padding: 0 48px; height: 72px;
-  background: rgba(14,24,32,0.97);
+  display: flex;
+  justify-content: center;
+}
+
+.pill-nav {
+  display: flex;
+  align-items: center;
+  height: 52px;
+  background: rgba(14, 24, 32, 0.92);
   backdrop-filter: blur(20px);
-  border-bottom: 1px solid rgba(160,120,56,0.15);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(160, 120, 56, 0.3);
+  border-radius: 100px;
+  padding: 0 8px 0 16px;
+  box-shadow: 0 8px 40px rgba(0,0,0,0.4), 0 0 0 1px rgba(160,120,56,0.08);
+  overflow: hidden;
+  transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1),
+              padding 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+              box-shadow 0.3s;
+  width: auto;
+  white-space: nowrap;
+  cursor: default;
 }
-.nav-logo img { height: 48px; width: auto; object-fit: contain; }
-.nav-links-motion {
-  display: flex; align-items: center; gap: 40px; list-style: none;
+
+.pill-nav.collapsed {
+  width: 52px !important;
+  padding: 0;
+  cursor: pointer;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.5), 0 0 0 1px rgba(160,120,56,0.15);
 }
-.nav-links-motion a {
-  font-size: 12px; font-weight: 500;
-  letter-spacing: 0.08em; text-transform: uppercase;
-  color: rgba(250,250,248,0.7); text-decoration: none;
-  transition: color 0.2s;
+.pill-nav.collapsed:hover {
+  box-shadow: 0 6px 32px rgba(160,120,56,0.25), 0 0 0 1px rgba(160,120,56,0.35);
+  transform: scale(1.06);
 }
-.nav-links-motion a:hover, .nav-links-motion a.active { color: var(--white); }
-.nav-motion-cta { display: flex; align-items: center; gap: 12px; }
-.btn-motion-ghost {
-  font-size: 11px; font-weight: 600;
-  letter-spacing: 0.1em; text-transform: uppercase;
-  color: var(--kraft-warm); border: 1px solid var(--kraft-warm);
-  padding: 9px 20px; text-decoration: none;
-  transition: all 0.3s; position: relative; overflow: hidden;
+.pill-nav.collapsed:active { transform: scale(0.96); }
+
+/* Logo icon inside pill */
+.pill-logo {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  margin-right: 4px;
+  transition: opacity 0.3s, transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
-.btn-motion-ghost::before {
-  content: ''; position: absolute; inset: 0;
-  background: var(--kraft-warm); transform: scaleX(0);
-  transform-origin: left; transition: transform 0.3s;
+.pill-logo img {
+  height: 30px;
+  width: auto;
+  object-fit: contain;
 }
-.btn-motion-ghost:hover::before { transform: scaleX(1); }
-.btn-motion-ghost:hover { color: var(--navy-deep); }
-.btn-motion-ghost span { position: relative; z-index: 1; }
-.nav-menu-btn {
-  font-size: 11px; font-weight: 600;
-  letter-spacing: 0.12em; text-transform: uppercase;
-  color: var(--white); background: none; border: none;
-  cursor: pointer; display: flex; align-items: center; gap: 10px; padding: 0;
+.pill-nav.collapsed .pill-logo {
+  opacity: 0;
+  transform: rotate(-180deg) scale(0.6);
+  pointer-events: none;
 }
-.menu-lines { display: flex; flex-direction: column; gap: 4px; }
-.menu-lines span { display: block; width: 18px; height: 1.5px; background: var(--white); transition: all 0.3s; }
+
+/* Nav links inside pill */
+.pill-links {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  transition: opacity 0.25s, transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+  list-style: none;
+}
+.pill-links a {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: rgba(250,250,248,0.6);
+  text-decoration: none;
+  padding: 6px 14px;
+  border-radius: 100px;
+  transition: color 0.2s, background 0.2s;
+  white-space: nowrap;
+}
+.pill-links a:hover { color: var(--white); background: rgba(160,120,56,0.12); }
+.pill-links a.active { color: var(--kraft-warm); }
+
+.pill-nav.collapsed .pill-links {
+  opacity: 0;
+  transform: translateX(-12px);
+  pointer-events: none;
+}
+
+/* CTA button inside pill */
+.pill-cta {
+  margin-left: 8px;
+  flex-shrink: 0;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--navy-deep);
+  background: var(--kraft-warm);
+  border: none;
+  padding: 8px 18px;
+  border-radius: 100px;
+  text-decoration: none;
+  transition: opacity 0.25s, transform 0.35s, background 0.2s;
+  white-space: nowrap;
+}
+.pill-cta:hover { background: #d4aa60; }
+.pill-nav.collapsed .pill-cta {
+  opacity: 0;
+  pointer-events: none;
+  transform: translateX(10px);
+}
+
+/* Menu icon shown when collapsed */
+.pill-menu-icon {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  opacity: 0;
+  transition: opacity 0.25s 0.1s;
+  pointer-events: none;
+}
+.pill-menu-icon span {
+  display: block;
+  width: 16px;
+  height: 1.5px;
+  background: var(--kraft-warm);
+  border-radius: 2px;
+}
+.pill-nav.collapsed .pill-menu-icon {
+  opacity: 1;
+}
+
+/* Mobile nav pill adjustments */
+@media (max-width: 640px) {
+  .pill-nav-wrap { top: 14px; width: calc(100vw - 32px); }
+  .pill-nav { width: 100% !important; justify-content: space-between; border-radius: 100px; }
+  .pill-nav.collapsed { width: 52px !important; }
+  .pill-cta { display: none; }
+  .pill-links a { padding: 6px 10px; font-size: 10px; }
+}
 
 /* ---- FULLSCREEN MENU ---- */
 .fullscreen-menu {
@@ -681,27 +783,26 @@ footer.motion-footer {
 </div>
 <button class="fullscreen-close" onclick="closeMenu()">Close ✕</button>
 </div>
-<!-- NAV -->
-<nav id="nav">
-<div class="nav-logo"><a href="/"><img alt="Alhamd Packaging" src="assets/logos/alhamd-logo-new.png"/></a></div>
-<ul class="nav-links-motion">
-<li><a href="/">Home</a></li>
-<li><a class="active" href="/products">Products</a></li>
-<li><a href="/custom-packaging">Custom</a></li>
-<li><a href="/industries">Industries</a></li>
-<li><a href="/about">About</a></li>
-    <li><a href="/blog">Blog</a></li>
-</ul>
-<div class="nav-motion-cta">
-<a class="btn-motion-ghost" href="/contact"><span>Contact Us</span></a>
-<button class="nav-menu-btn" onclick="openMenu()">
-<span>Menu</span>
-<div class="menu-lines">
-<span></span><span></span><span style="width:12px;"></span>
+<!-- ANIMATED PILL NAV -->
+<div class="pill-nav-wrap">
+  <nav class="pill-nav" id="pillNav" role="navigation" aria-label="Main navigation">
+    <div class="pill-logo">
+      <a href="/"><img src="assets/logos/alhamd-logo-new.png" alt="Alhamd Packaging"></a>
+    </div>
+    <ul class="pill-links">
+      <li><a href="/">Home</a></li>
+      <li><a href="/products" class="active">Products</a></li>
+      <li><a href="/custom-packaging">Custom</a></li>
+      <li><a href="/industries">Industries</a></li>
+      <li><a href="/about">About</a></li>
+      <li><a href="/blog">Blog</a></li>
+    </ul>
+    <a class="pill-cta" href="/contact">Contact Us</a>
+    <div class="pill-menu-icon" aria-hidden="true">
+      <span></span><span></span><span></span>
+    </div>
+  </nav>
 </div>
-</button>
-</div>
-</nav>
 <h1 class="visually-hidden">Corrugated Packaging Products</h1>
 <!-- PAGE HEADER -->
 <header class="products-header">
@@ -995,6 +1096,40 @@ function showToast(message) {
   }, 4000);
 }
 lucide.createIcons();</script>
+<script>
+  // ---- PILL NAV SCROLL ANIMATION ----
+  (function() {
+    const pill = document.getElementById('pillNav');
+    if (!pill) return;
+    let isExpanded = true;
+    let lastScrollY = 0;
+    let scrollOnCollapse = 0;
+    const COLLAPSE_THRESHOLD = 150;
+    const EXPAND_THRESHOLD = 80;
+
+    window.addEventListener('scroll', function() {
+      const currentY = window.scrollY;
+      if (isExpanded && currentY > lastScrollY && currentY > COLLAPSE_THRESHOLD) {
+        isExpanded = false;
+        scrollOnCollapse = currentY;
+        pill.classList.add('collapsed');
+      } else if (!isExpanded && currentY < lastScrollY && (scrollOnCollapse - currentY) > EXPAND_THRESHOLD) {
+        isExpanded = true;
+        pill.classList.remove('collapsed');
+      }
+      lastScrollY = currentY;
+    }, { passive: true });
+
+    pill.addEventListener('click', function(e) {
+      if (!isExpanded) {
+        e.preventDefault();
+        isExpanded = true;
+        scrollOnCollapse = 0;
+        pill.classList.remove('collapsed');
+      }
+    });
+  })();
+</script>
 <div id="toast-container"></div>
 </body>
 </html>
