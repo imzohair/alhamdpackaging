@@ -287,7 +287,16 @@ footer.motion-footer {
 @keyframes shake { 0%, 100% { transform: translateX(0); } 25% { transform: translateX(-4px); } 75% { transform: translateX(4px); } }
 </style>
 
-<script src="init-data.js?v=2"></script>
+  <!-- Firebase SDK (Compat) -->
+initProductDetails();
+
+  <script src="https://www.gstatic.com/firebasejs/10.13.1/firebase-app-compat.js"></script>
+initProductDetails();
+
+  <script src="https://www.gstatic.com/firebasejs/10.13.1/firebase-firestore-compat.js"></script>
+initProductDetails();
+
+  <script src="firebase-config.js"></script>
 <!-- SEO Metadata -->
 <title>Product Details | Corrugated Packaging | Alhamd Packaging</title>
 <meta content="Explore specifications, applications and packaging options for our products from Alhamd Packaging." name="description"/>
@@ -326,6 +335,8 @@ footer.motion-footer {
         "https://www.facebook.com/AlhamdPackaging/"
     ]
 }
+initProductDetails();
+
   </script>
 
   <link rel="icon" href="/favicon.ico">
@@ -484,44 +495,49 @@ function showToast(message) {
 function openMenu() { document.getElementById('fullscreenMenu').classList.add('open'); document.body.style.overflow='hidden'; }
 function closeMenu() { document.getElementById('fullscreenMenu').classList.remove('open'); document.body.style.overflow=''; }
 
-// Init data from URL and LocalStorage
+// Init data from URL and Firestore
 const urlParams = new URLSearchParams(window.location.search);
 const prodId = urlParams.get('id');
-const products = JSON.parse(localStorage.getItem('alhamd_products_v2') || '[]');
-let product = products.find(p => p.id == prodId);
-
-if (!product && products.length > 0) {
-  product = products[0]; // fallback
-}
-
 let productName = "Custom Corrugated Box";
-if (product) {
-  productName = product.name;
-  document.getElementById('productTitle').textContent = product.name;
-  document.getElementById('bcProdName').textContent = product.name;
+
+async function initProductDetails() {
+  const prodSnap = await db.collection('products').get();
+  const products = prodSnap.docs.map(d => ({ ...d.data(), id: d.id }));
   
-  if (product.sizes && product.sizes.length) {
-    document.getElementById('specSize').textContent = product.sizes.join(', ');
+  let product = products.find(p => String(p.id) === String(prodId));
+
+  if (!product && products.length > 0) {
+    product = products[0]; // fallback
   }
-  if (product.ply) {
-    document.getElementById('specMaterial').textContent = product.ply;
-  }
-  if (product.description) {
-    document.getElementById('tabDescText').textContent = product.description;
-  }
-  
-  // Images
-  const img1 = product.image || 'https://placehold.co/800x600/1C2B3B/C49850?text=No+Image';
-  const img2 = product.image2 || 'https://placehold.co/800x600/1C2B3B/C49850?text=No+Image+2';
-  const img3 = product.image3 || 'https://placehold.co/800x600/1C2B3B/C49850?text=No+Image+3';
-  
-  document.getElementById('mainImg').src = img1;
-  
-  const thumbs = document.querySelectorAll('.prod-thumb img');
-  if (thumbs.length >= 3) {
-    thumbs[0].src = img1;
-    thumbs[1].src = img2;
-    thumbs[2].src = img3;
+
+  if (product) {
+    productName = product.name;
+    document.getElementById('productTitle').textContent = product.name;
+    document.getElementById('bcProdName').textContent = product.name;
+    
+    if (product.sizes && product.sizes.length) {
+      document.getElementById('specSize').textContent = product.sizes.join(', ');
+    }
+    if (product.ply) {
+      document.getElementById('specMaterial').textContent = product.ply;
+    }
+    if (product.description) {
+      document.getElementById('tabDescText').textContent = product.description;
+    }
+    
+    // Images
+    const img1 = product.image || 'https://placehold.co/800x600/1C2B3B/C49850?text=No+Image';
+    const img2 = product.image2 || 'https://placehold.co/800x600/1C2B3B/C49850?text=No+Image+2';
+    const img3 = product.image3 || 'https://placehold.co/800x600/1C2B3B/C49850?text=No+Image+3';
+    
+    document.getElementById('mainImg').src = img1;
+    
+    const thumbs = document.querySelectorAll('.prod-thumb img');
+    if (thumbs.length >= 3) {
+      thumbs[0].src = img1;
+      thumbs[1].src = img2;
+      thumbs[2].src = img3;
+    }
   }
 }
 
@@ -549,6 +565,12 @@ function sendWhatsApp() {
   window.open(`https://wa.me/919088819228?text=${msg}`, '_blank');
 }
 
+function sendEmail() {
+  const qty = document.getElementById('qtyInput').value;
+  const body = `Hi Alhamd Packaging Team,%0D%0A%0D%0AI would like to request a quote for:%0D%0AProduct: ${productName}%0D%0AQuantity: ${qty}%0D%0A%0D%0APlease get back to me with pricing details.%0D%0A%0D%0AThank you.`;
+  window.location.href = `mailto:business@alhamdpackaging.com?subject=Quote Request: ${productName}&body=${body}`;
+}
+
 function sendQuote() {
   const qty = document.getElementById('qtyInput').value;
   showToast(`Quote request for ${qty} units of ${productName} initiated.`);
@@ -566,6 +588,8 @@ function openTab(evt, tabId) {
 if (window.lucide) {
   lucide.createIcons();
 }
+initProductDetails();
+
 </script>
 <div id="toast-container"></div>
 </body>
