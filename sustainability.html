@@ -410,8 +410,8 @@ footer.motion-footer {
   background: rgba(14,24,32,0.92); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
   border: 1px solid rgba(160,120,56,0.3); border-radius: 100px; padding: 0 8px 0 16px;
   box-shadow: 0 8px 40px rgba(0,0,0,0.45),0 0 0 1px rgba(160,120,56,0.08);
-  overflow: hidden; width: auto; white-space: nowrap; cursor: default; position: relative;
-  transition: width 0.75s cubic-bezier(0.34,1.4,0.64,1), padding 0.65s cubic-bezier(0.34,1.2,0.64,1), box-shadow 0.4s, transform 0.15s;
+  overflow: visible; max-width: 900px; white-space: nowrap; cursor: default; position: relative;
+  transition: max-width 0.9s cubic-bezier(0.34,1.5,0.64,1), padding 0.75s cubic-bezier(0.34,1.2,0.64,1), box-shadow 0.4s, transform 0.15s;
 }
 .pill-nav.collapsed { width: 52px !important; padding: 0; cursor: pointer; box-shadow: 0 4px 24px rgba(0,0,0,0.5),0 0 0 1px rgba(160,120,56,0.15); }
 .pill-nav.collapsed:hover { box-shadow: 0 6px 32px rgba(160,120,56,0.25),0 0 0 1px rgba(160,120,56,0.35); transform: scale(1.06); }
