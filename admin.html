@@ -1133,7 +1133,15 @@ body {
     <div class="modal-title" id="blogModalTitle">New Blog Post</div>
     <div class="form-field">
       <label class="form-label">Post Title *</label>
-      <input type="text" class="form-input" id="blogTitle" placeholder="e.g. 5 Reasons Your Food Business Needs Custom Boxes">
+      <input type="text" class="form-input" id="blogTitle" placeholder="e.g. 5 Reasons Your Food Business Needs Custom Boxes" oninput="autoGenerateSlug(this.value)">
+    </div>
+    <div class="form-field">
+      <label class="form-label">URL Slug *</label>
+      <input type="text" class="form-input" id="blogSlug" placeholder="e.g. 5-reasons-your-food-business-needs">
+    </div>
+    <div class="form-field">
+      <label class="form-label">Author</label>
+      <input type="text" class="form-input" id="blogAuthor" placeholder="e.g. Mirza Zohair">
     </div>
     <div class="form-field">
       <label class="form-label">Short Excerpt (shown on blog listing)</label>
@@ -1168,7 +1176,7 @@ body {
       </div>
     </div>
     <div class="form-actions">
-      <button class="btn-primary-admin" onclick="saveBlogPost()">Publish Post</button>
+      <button class="btn-primary-admin" id="blogSaveBtn" onclick="saveBlogPost()">Publish Post</button>
       <button class="btn-secondary-admin" onclick="closeBlogModal()">Cancel</button>
     </div>
   </div>
@@ -1776,10 +1784,13 @@ function openBlogModal(postId = null) {
   document.getElementById('blogTagList').innerHTML = '';
   document.getElementById('blogImgPreview').classList.remove('show');
   document.getElementById('blogModalTitle').textContent = post ? 'Edit Post' : 'New Blog Post';
+  document.getElementById('blogSaveBtn').textContent = post ? 'Save Changes' : 'Publish Post';
   editingBlogId = post ? post.id : null;
   
   if (post) {
     document.getElementById('blogTitle').value = post.title || '';
+    document.getElementById('blogSlug').value = post.slug || '';
+    document.getElementById('blogAuthor').value = post.author || '';
     document.getElementById('blogExcerpt').value = post.excerpt || '';
     quill.root.innerHTML = post.content || '';
     document.getElementById('blogStatus').value = post.status || 'published';
@@ -1792,11 +1803,23 @@ function openBlogModal(postId = null) {
     }
   } else {
     document.getElementById('blogTitle').value = '';
+    document.getElementById('blogSlug').value = '';
+    document.getElementById('blogAuthor').value = '';
     document.getElementById('blogExcerpt').value = '';
     quill.root.innerHTML = '';
     document.getElementById('blogStatus').value = 'published';
+    const img = document.getElementById('blogImgPreview');
+    img.src = '';
+    img.classList.remove('show');
   }
   document.getElementById('blogModal').classList.add('open');
+}
+
+function autoGenerateSlug(title) {
+  if (!editingBlogId) {
+    const slug = title.toLowerCase().trim().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)+/g, '');
+    document.getElementById('blogSlug').value = slug;
+  }
 }
 
 function closeBlogModal() {
@@ -1825,20 +1848,25 @@ function removeBlogTag(i) { blogTags.splice(i, 1); renderBlogTags(); }
 async function saveBlogPost() {
   const title = document.getElementById('blogTitle').value.trim();
   if (!title) { showToast('Post title is required.', true); return; }
+  
+  let slug = document.getElementById('blogSlug').value.trim();
+  if (!slug) {
+    slug = title.toLowerCase().trim().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)+/g, '');
+  }
+
   const content = quill.root.innerHTML.trim();
   if (!content || content === '<p><br></p>') { showToast('Post content is required.', true); return; }
 
   const imgPreview = document.getElementById('blogImgPreview');
   const status = document.getElementById('blogStatus').value;
   const docId = editingBlogId ? String(editingBlogId) : String(Date.now());
-  
-  // Generate slug from title
-  const slug = title.toLowerCase().trim().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)+/g, '');
+  const author = document.getElementById('blogAuthor').value.trim();
 
   const post = {
     id: docId,
     slug: slug,
     title,
+    author: author,
     excerpt: document.getElementById('blogExcerpt').value.trim(),
     content,
     tags: [...blogTags],

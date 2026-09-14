@@ -318,7 +318,7 @@ async function renderPost() {
         <div class="post-title">${post.title}</div>
         <div class="post-meta">
           <span>${dateStr}</span>
-          <span>By Alhamd Packaging Team</span>
+          <span>By ${post.author || 'Alhamd Packaging Team'}</span>
         </div>
       </div>
       <div class="post-content-wrap">
